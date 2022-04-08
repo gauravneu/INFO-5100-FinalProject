@@ -4,15 +4,12 @@
  */
 package info.pkg5100.finalproject.models;
 
-import java.util.ArrayList;
-
 /**
  *
- * @author ankit
+ * @author ankita
  */
-public class MainSystem {
-    ArrayList<Patient> masterPatientList;
-    ArrayList<IncidentCase> masterIncidentCaseList;
-    ArrayList<Reporter> masterReporterList;
-    
+public class LabTest {
+	String testName;
+    String testStatus;
+    String reportDesc;
 }

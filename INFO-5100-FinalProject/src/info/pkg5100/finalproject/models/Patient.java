@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 /**
  *
- * @author ankit
+ * @author ankita
  */
-public class MainSystem {
-    ArrayList<Patient> masterPatientList;
-    ArrayList<IncidentCase> masterIncidentCaseList;
-    ArrayList<Reporter> masterReporterList;
-    
+public class Patient {
+	String name;
+	String age;
+	String patientIssue;
+	String patientStatus;
+	ArrayList<LabTest> labTestArrayList;
 }

@@ -6,10 +6,8 @@ package info.pkg5100.finalproject.utils;
 
 import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.User;
-import java.sql.SQLException;
+
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -26,15 +24,18 @@ public class SendEmailUtility {
     
     UserDaoImplementation userDaoImplementation;
 
-    public void sendMail(String messageContent, String subject) {
+    public void sendMail(User user) {
         // Setting the sender's and reciever's email address
             userDaoImplementation = new UserDaoImplementation();
-        try {
-            User emailSender = userDaoImplementation.getUserById(1000);
-            String recieverEmailAddress = emailSender.getName();
-            String senderEmailAddress = emailSender.getUsername();
-            String senderEmailPass = emailSender.getPassword();
-
+        //User emailSender = userDaoImplementation.getUserById(1000);
+           
+            String senderEmailAddress = "1809Hazel@gmail.com";
+            String senderEmailPass = "123@Hazel";
+            
+            String recieverEmailAddress = user.getEmail();
+            String recieverUsername=user.getUsername();
+            String recieverName=user.getName();
+            String recieverPassword=user.getPassword();
             Properties prop = System.getProperties();
             String host = "smtp.gmail.com";
             prop.put("mail.smtp.starttls.enable", "true");
@@ -48,21 +49,22 @@ public class SendEmailUtility {
                 MimeMessage message = new MimeMessage(session);// Set From: header field of the header.
                 message.setFrom(new InternetAddress(senderEmailAddress));// Set To: header field of the header.
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(recieverEmailAddress));// Set Subject: header field
-                message.setSubject(subject);
-                message.setText(messageContent);
-                // Send message
+                message.setSubject("Account Creation Successful");
+                message.setHeader("X-Priority", "1");
+                
+                message.setText("Dear "+recieverName+", "
+                    + "\n\n Please find your credentials "
+                    + "\n\n Username: "+recieverUsername+""
+                         + "\n\n Password: "+recieverPassword+""
+                         + "\n\n\n\n\n Regards, "
+                                 + "\n Admin");
                 Transport transport = session.getTransport("smtp");
                 transport.connect(host, senderEmailAddress, senderEmailPass);
                 transport.sendMessage(message, message.getAllRecipients());
                 transport.close();
 
             } catch (MessagingException ex) {
-                ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Invalid Email Address!");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(SendEmailUtility.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
-
 }

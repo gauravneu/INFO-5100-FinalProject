@@ -14,5 +14,9 @@ public class MainSystem {
     ArrayList<Patient> masterPatientList;
     ArrayList<IncidentCase> masterIncidentCaseList;
     ArrayList<Reporter> masterReporterList;
+    ArrayList<Laboratory> laboratoryArrayList;
+    ArrayList<Pharmacy> pharmacyArrayList;
+
+
     
 }

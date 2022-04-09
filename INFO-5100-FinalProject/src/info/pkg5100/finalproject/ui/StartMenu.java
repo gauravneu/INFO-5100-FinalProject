@@ -5,6 +5,12 @@
 package info.pkg5100.finalproject.ui;
 
 
+import info.pkg5100.finalproject.models.IncidentHandlingPolice;
+import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.PoliceStation;
+
+import java.util.ArrayList;
+
 /**
  *
  * @author hazel
@@ -15,9 +21,19 @@ public class StartMenu extends javax.swing.JFrame {
      * Creates new form StartMenu
      */
 
+    MainSystem mainSystem;
+
     public StartMenu() {
         initComponents();
-        
+
+        mainSystem = new MainSystem();
+
+        // Adding test data
+        // Adding police station in network Boston
+        PoliceStation bostonPoliceStation = new PoliceStation("Boston bopo", "Boston");
+        bostonPoliceStation.getPoliceArrayList().add(new IncidentHandlingPolice("Ankita", "Incident Hadnling", bostonPoliceStation, new ArrayList<>()));
+        mainSystem.getMasterPoliceStationList().add(bostonPoliceStation);
+
     }
 
     /**

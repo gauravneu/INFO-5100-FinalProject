@@ -40,7 +40,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="355" max="-2" attributes="0"/>
-                          <Component id="lblNetworkManagementArea" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEnterpriseManagementArea" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -51,7 +51,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnManageNetwork1" min="-2" pref="226" max="-2" attributes="0"/>
+                                  <Component id="btnManageEnterprise" min="-2" pref="226" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -87,19 +87,19 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="btnManageNetwork" min="-2" pref="226" max="-2" attributes="0"/>
+                                      <Component id="btnAddAdmin" min="-2" pref="226" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="btnLogout2" min="-2" pref="229" max="-2" attributes="0"/>
+                              <Component id="btnManageEnterpriseAdmin" min="-2" pref="229" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtAdminList" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="71" max="32767" attributes="0"/>
+                  <EmptySpace pref="91" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -109,11 +109,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Component id="lblNetworkManagementArea" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEnterpriseManagementArea" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnLogout2" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="btnManageNetwork1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="btnManageEnterpriseAdmin" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="btnManageEnterprise" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -147,16 +147,16 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAdminList" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="btnManageNetwork" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="btnAddAdmin" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace pref="49" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblNetworkManagementArea">
+        <Component class="javax.swing.JLabel" name="lblEnterpriseManagementArea">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
@@ -164,7 +164,7 @@
             <Property name="text" type="java.lang.String" value="Enterprise Management Area"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnManageNetwork">
+        <Component class="javax.swing.JButton" name="btnAddAdmin">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -172,10 +172,10 @@
             <Property name="text" type="java.lang.String" value="Add Admin"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageNetworkActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddAdminActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnLogout2">
+        <Component class="javax.swing.JButton" name="btnManageEnterpriseAdmin">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -183,7 +183,7 @@
             <Property name="text" type="java.lang.String" value="Manage Enterprise Admin"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogout2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageEnterpriseAdminActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -271,7 +271,7 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPassword">
         </Component>
-        <Component class="javax.swing.JButton" name="btnManageNetwork1">
+        <Component class="javax.swing.JButton" name="btnManageEnterprise">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -279,7 +279,7 @@
             <Property name="text" type="java.lang.String" value="Manage Enterprise"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageNetwork1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageEnterpriseActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -330,12 +330,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtAdminList">
           <Properties>
             <Property name="text" type="java.lang.String" value="Admin List"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAdminListActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

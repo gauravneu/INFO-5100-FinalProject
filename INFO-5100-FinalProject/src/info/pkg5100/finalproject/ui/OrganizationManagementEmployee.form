@@ -18,7 +18,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <EmptySpace min="0" pref="887" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+              <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -26,13 +26,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <EmptySpace min="0" pref="463" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+              <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="jPanel6">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="0" type="rgb"/>
@@ -44,15 +44,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                  <Component id="btnManageOrganization" min="-2" pref="226" max="-2" attributes="0"/>
+                  <Component id="btnManageOrganization5" min="-2" pref="226" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="btnManageOrganizationEmployeeAdmin" min="-2" pref="229" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnManageOrganizationUser" min="-2" pref="226" max="-2" attributes="0"/>
+                          <Component id="btnManageOrganizationUser5" min="-2" pref="226" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblOrganizationManagementArea" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblOrganizationManagementArea3" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="59" max="32767" attributes="0"/>
               </Group>
@@ -62,12 +62,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Component id="lblOrganizationManagementArea" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblOrganizationManagementArea3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnManageOrganization" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="btnManageOrganization5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="btnManageOrganizationEmployeeAdmin" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="btnManageOrganizationUser" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="btnManageOrganizationUser5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="341" max="32767" attributes="0"/>
               </Group>
@@ -75,7 +75,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblOrganizationManagementArea">
+        <Component class="javax.swing.JLabel" name="lblOrganizationManagementArea3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
@@ -83,7 +83,7 @@
             <Property name="text" type="java.lang.String" value="Organization Management Area"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnManageOrganization">
+        <Component class="javax.swing.JButton" name="btnManageOrganization5">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -91,7 +91,7 @@
             <Property name="text" type="java.lang.String" value="Manage Organization"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageOrganizationActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageOrganization5ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnManageOrganizationEmployeeAdmin">
@@ -105,7 +105,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageOrganizationEmployeeAdminActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnManageOrganizationUser">
+        <Component class="javax.swing.JButton" name="btnManageOrganizationUser5">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -113,7 +113,7 @@
             <Property name="text" type="java.lang.String" value="Manage User"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageOrganizationUserActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageOrganizationUser5ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

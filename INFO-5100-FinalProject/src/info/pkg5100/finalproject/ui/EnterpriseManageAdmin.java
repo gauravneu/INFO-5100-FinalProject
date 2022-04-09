@@ -27,9 +27,9 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblNetworkManagementArea = new javax.swing.JLabel();
-        btnManageNetwork = new javax.swing.JButton();
-        btnLogout2 = new javax.swing.JButton();
+        lblEnterpriseManagementArea = new javax.swing.JLabel();
+        btnAddAdmin = new javax.swing.JButton();
+        btnManageEnterpriseAdmin = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jcbEnterpriseName = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -40,29 +40,29 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
         txtUsername = new javax.swing.JTextField();
         txtAdmin = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        btnManageNetwork1 = new javax.swing.JButton();
+        btnManageEnterprise = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReportedIncidents = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        txtAdminList = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
-        lblNetworkManagementArea.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblNetworkManagementArea.setText("Enterprise Management Area");
+        lblEnterpriseManagementArea.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblEnterpriseManagementArea.setText("Enterprise Management Area");
 
-        btnManageNetwork.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnManageNetwork.setText("Add Admin");
-        btnManageNetwork.addActionListener(new java.awt.event.ActionListener() {
+        btnAddAdmin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAddAdmin.setText("Add Admin");
+        btnAddAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageNetworkActionPerformed(evt);
+                btnAddAdminActionPerformed(evt);
             }
         });
 
-        btnLogout2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnLogout2.setText("Manage Enterprise Admin");
-        btnLogout2.addActionListener(new java.awt.event.ActionListener() {
+        btnManageEnterpriseAdmin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnManageEnterpriseAdmin.setText("Manage Enterprise Admin");
+        btnManageEnterpriseAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogout2ActionPerformed(evt);
+                btnManageEnterpriseAdminActionPerformed(evt);
             }
         });
 
@@ -101,11 +101,11 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
             }
         });
 
-        btnManageNetwork1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnManageNetwork1.setText("Manage Enterprise");
-        btnManageNetwork1.addActionListener(new java.awt.event.ActionListener() {
+        btnManageEnterprise.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnManageEnterprise.setText("Manage Enterprise");
+        btnManageEnterprise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageNetwork1ActionPerformed(evt);
+                btnManageEnterpriseActionPerformed(evt);
             }
         });
 
@@ -126,10 +126,10 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblReportedIncidents);
 
-        jTextField1.setText("Admin List");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtAdminList.setText("Admin List");
+        txtAdminList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtAdminListActionPerformed(evt);
             }
         });
 
@@ -141,7 +141,7 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(355, 355, 355)
-                        .addComponent(lblNetworkManagementArea))
+                        .addComponent(lblEnterpriseManagementArea))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -150,7 +150,7 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
                                 .addGap(70, 70, 70))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(btnManageNetwork1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnManageEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(107, 107, 107)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,13 +176,13 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
                                                         .addComponent(txtAdmin)
                                                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnManageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAddAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(29, 29, 29)))
-                            .addComponent(btnLogout2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnManageEnterpriseAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(174, 174, 174)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                        .addComponent(txtAdminList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,11 +190,11 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(lblNetworkManagementArea)
+                        .addComponent(lblEnterpriseManagementArea)
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLogout2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnManageNetwork1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnManageEnterpriseAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnManageEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -219,9 +219,9 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
                         .addGap(186, 186, 186)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtAdminList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(btnManageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
@@ -237,14 +237,14 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnManageNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetworkActionPerformed
+    private void btnAddAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAdminActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_btnManageNetworkActionPerformed
+    }//GEN-LAST:event_btnAddAdminActionPerformed
 
-    private void btnLogout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogout2ActionPerformed
+    private void btnManageEnterpriseAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnterpriseAdminActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogout2ActionPerformed
+    }//GEN-LAST:event_btnManageEnterpriseAdminActionPerformed
 
     private void jcbEnterpriseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEnterpriseNameActionPerformed
         // TODO add your handling code here:
@@ -258,19 +258,19 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
 
-    private void btnManageNetwork1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetwork1ActionPerformed
+    private void btnManageEnterpriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnterpriseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnManageNetwork1ActionPerformed
+    }//GEN-LAST:event_btnManageEnterpriseActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtAdminListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminListActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtAdminListActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogout2;
-    private javax.swing.JButton btnManageNetwork;
-    private javax.swing.JButton btnManageNetwork1;
+    private javax.swing.JButton btnAddAdmin;
+    private javax.swing.JButton btnManageEnterprise;
+    private javax.swing.JButton btnManageEnterpriseAdmin;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -278,12 +278,12 @@ public class EnterpriseManageAdmin extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> jcbEnterpriseName;
     private javax.swing.JComboBox<String> jcbNetwork;
-    private javax.swing.JLabel lblNetworkManagementArea;
+    private javax.swing.JLabel lblEnterpriseManagementArea;
     private javax.swing.JTable tblReportedIncidents;
     private javax.swing.JTextField txtAdmin;
+    private javax.swing.JTextField txtAdminList;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

@@ -9,6 +9,7 @@ public class User {
     String phone;
     String role;
     int orgid;
+    String email;
 
     public User() {
         this.id = -1;
@@ -100,4 +101,14 @@ public class User {
     public String toString() {
         return Integer.toString(this.id);
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
 }

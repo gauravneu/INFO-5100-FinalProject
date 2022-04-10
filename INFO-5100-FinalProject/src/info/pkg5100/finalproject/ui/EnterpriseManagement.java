@@ -27,24 +27,24 @@ public class EnterpriseManagement extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblNetworkManagementArea = new javax.swing.JLabel();
+        lblEnterpriseManagementArea = new javax.swing.JLabel();
         btnManageEnterprise = new javax.swing.JButton();
         btnManageEnterpriseAdmin = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblReportedIncidents = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        txtDescription = new javax.swing.JTextField();
-        btnManageNetwork1 = new javax.swing.JButton();
+        tblNetworkEnterpriseList = new javax.swing.JTable();
+        lblEnterpriseName = new javax.swing.JLabel();
+        lblNetwork = new javax.swing.JLabel();
+        lblEnterpriseType = new javax.swing.JLabel();
+        txtEnterpriseType = new javax.swing.JTextField();
+        btnAddEnterprise = new javax.swing.JButton();
         jcbNetwork = new javax.swing.JComboBox<>();
         jcbEnterpriseName = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        lblNetworkEnterpriseList = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
-        lblNetworkManagementArea.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblNetworkManagementArea.setText("Enterprise Management Area");
+        lblEnterpriseManagementArea.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblEnterpriseManagementArea.setText("Enterprise Management Area");
 
         btnManageEnterprise.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnManageEnterprise.setText("Manage Enterprise");
@@ -62,7 +62,7 @@ public class EnterpriseManagement extends javax.swing.JPanel {
             }
         });
 
-        tblReportedIncidents.setModel(new javax.swing.table.DefaultTableModel(
+        tblNetworkEnterpriseList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -77,23 +77,23 @@ public class EnterpriseManagement extends javax.swing.JPanel {
                 "         Enterprise Name ", "         Network ", "         Type"
             }
         ));
-        jScrollPane1.setViewportView(tblReportedIncidents);
+        jScrollPane1.setViewportView(tblNetworkEnterpriseList);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Enterprise Name");
+        lblEnterpriseName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblEnterpriseName.setText("Enterprise Name");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Network");
+        lblNetwork.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblNetwork.setText("Network");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Enterprise Type");
+        lblEnterpriseType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblEnterpriseType.setText("Enterprise Type");
 
-        btnManageNetwork1.setBackground(new java.awt.Color(0, 153, 153));
-        btnManageNetwork1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnManageNetwork1.setText("Add Enterprise");
-        btnManageNetwork1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddEnterprise.setBackground(new java.awt.Color(0, 153, 153));
+        btnAddEnterprise.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAddEnterprise.setText("Add Enterprise");
+        btnAddEnterprise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageNetwork1ActionPerformed(evt);
+                btnAddEnterpriseActionPerformed(evt);
             }
         });
 
@@ -111,7 +111,7 @@ public class EnterpriseManagement extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.setText("Network-Enterprise List");
+        lblNetworkEnterpriseList.setText("Network-Enterprise List");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,7 +121,7 @@ public class EnterpriseManagement extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(355, 355, 355)
-                        .addComponent(lblNetworkManagementArea))
+                        .addComponent(lblEnterpriseManagementArea))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(170, 170, 170)
                         .addComponent(btnManageEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -132,25 +132,25 @@ public class EnterpriseManagement extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(150, 150, 150)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblNetworkEnterpriseList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnManageNetwork1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
+                            .addComponent(lblEnterpriseName)
+                            .addComponent(lblNetwork)
+                            .addComponent(lblEnterpriseType))
                         .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jcbNetwork, 0, 156, Short.MAX_VALUE)
                                 .addComponent(jcbEnterpriseName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
@@ -161,9 +161,9 @@ public class EnterpriseManagement extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNetworkEnterpriseList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblNetworkManagementArea)
+                        .addComponent(lblEnterpriseManagementArea)
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnManageEnterpriseAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,19 +172,19 @@ public class EnterpriseManagement extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5)
+                                    .addComponent(lblEnterpriseName)
                                     .addComponent(jcbEnterpriseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
+                                    .addComponent(lblNetwork)
                                     .addComponent(jcbNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(lblEnterpriseType)
+                                    .addComponent(txtEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
-                        .addComponent(btnManageNetwork1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAddEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(153, 153, 153))
         );
 
@@ -192,7 +192,7 @@ public class EnterpriseManagement extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 886, Short.MAX_VALUE)
+            .addGap(0, 887, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -212,9 +212,9 @@ public class EnterpriseManagement extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnManageEnterpriseAdminActionPerformed
 
-    private void btnManageNetwork1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetwork1ActionPerformed
+    private void btnAddEnterpriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEnterpriseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnManageNetwork1ActionPerformed
+    }//GEN-LAST:event_btnAddEnterpriseActionPerformed
 
     private void jcbNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNetworkActionPerformed
         // TODO add your handling code here:
@@ -226,19 +226,19 @@ public class EnterpriseManagement extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddEnterprise;
     private javax.swing.JButton btnManageEnterprise;
     private javax.swing.JButton btnManageEnterpriseAdmin;
-    private javax.swing.JButton btnManageNetwork1;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> jcbEnterpriseName;
     private javax.swing.JComboBox<String> jcbNetwork;
-    private javax.swing.JLabel lblNetworkManagementArea;
-    private javax.swing.JTable tblReportedIncidents;
-    private javax.swing.JTextField txtDescription;
+    private javax.swing.JLabel lblEnterpriseManagementArea;
+    private javax.swing.JLabel lblEnterpriseName;
+    private javax.swing.JLabel lblEnterpriseType;
+    private javax.swing.JLabel lblNetwork;
+    private javax.swing.JTextField lblNetworkEnterpriseList;
+    private javax.swing.JTable tblNetworkEnterpriseList;
+    private javax.swing.JTextField txtEnterpriseType;
     // End of variables declaration//GEN-END:variables
 }

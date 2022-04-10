@@ -46,13 +46,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="355" max="-2" attributes="0"/>
-                          <Component id="lblNetworkManagementArea" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEnterpriseManagementArea" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
-                          <Component id="btnManageNetwork" min="-2" pref="226" max="-2" attributes="0"/>
+                          <Component id="btnManageEnterprise" min="-2" pref="226" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-                          <Component id="btnLogout2" min="-2" pref="229" max="-2" attributes="0"/>
+                          <Component id="btnManageEnterpriseAdmin" min="-2" pref="229" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="153" max="32767" attributes="0"/>
@@ -63,11 +63,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Component id="lblNetworkManagementArea" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblEnterpriseManagementArea" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnLogout2" max="32767" attributes="0"/>
-                      <Component id="btnManageNetwork" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="btnManageEnterpriseAdmin" max="32767" attributes="0"/>
+                      <Component id="btnManageEnterprise" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="369" max="32767" attributes="0"/>
               </Group>
@@ -75,7 +75,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblNetworkManagementArea">
+        <Component class="javax.swing.JLabel" name="lblEnterpriseManagementArea">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
@@ -83,7 +83,7 @@
             <Property name="text" type="java.lang.String" value="Enterprise Management Area"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnManageNetwork">
+        <Component class="javax.swing.JButton" name="btnManageEnterprise">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -91,10 +91,10 @@
             <Property name="text" type="java.lang.String" value="Manage Enterprise"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageNetworkActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageEnterpriseActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnLogout2">
+        <Component class="javax.swing.JButton" name="btnManageEnterpriseAdmin">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -102,7 +102,7 @@
             <Property name="text" type="java.lang.String" value="Manage Enterprise Admin"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogout2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageEnterpriseAdminActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -29,7 +29,7 @@ public class OrganizationManagementArea extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         lblOrganizationManagementArea = new javax.swing.JLabel();
         btnManageOrganization = new javax.swing.JButton();
-        btnManageOrganizationEmployeeAdmin = new javax.swing.JButton();
+        btnManageOrganizationEmployee = new javax.swing.JButton();
         btnManageOrganizationUser = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
@@ -45,11 +45,11 @@ public class OrganizationManagementArea extends javax.swing.JPanel {
             }
         });
 
-        btnManageOrganizationEmployeeAdmin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnManageOrganizationEmployeeAdmin.setText("Manage Organization Employee");
-        btnManageOrganizationEmployeeAdmin.addActionListener(new java.awt.event.ActionListener() {
+        btnManageOrganizationEmployee.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnManageOrganizationEmployee.setText("Manage Organization Employee");
+        btnManageOrganizationEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageOrganizationEmployeeAdminActionPerformed(evt);
+                btnManageOrganizationEmployeeActionPerformed(evt);
             }
         });
 
@@ -71,7 +71,7 @@ public class OrganizationManagementArea extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnManageOrganizationEmployeeAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnManageOrganizationEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnManageOrganizationUser, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblOrganizationManagementArea))
@@ -85,7 +85,7 @@ public class OrganizationManagementArea extends javax.swing.JPanel {
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnManageOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnManageOrganizationEmployeeAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnManageOrganizationEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnManageOrganizationUser, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(341, Short.MAX_VALUE))
         );
@@ -111,9 +111,9 @@ public class OrganizationManagementArea extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnManageOrganizationActionPerformed
 
-    private void btnManageOrganizationEmployeeAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrganizationEmployeeAdminActionPerformed
+    private void btnManageOrganizationEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrganizationEmployeeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnManageOrganizationEmployeeAdminActionPerformed
+    }//GEN-LAST:event_btnManageOrganizationEmployeeActionPerformed
 
     private void btnManageOrganizationUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrganizationUserActionPerformed
         // TODO add your handling code here:
@@ -122,7 +122,7 @@ public class OrganizationManagementArea extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageOrganization;
-    private javax.swing.JButton btnManageOrganizationEmployeeAdmin;
+    private javax.swing.JButton btnManageOrganizationEmployee;
     private javax.swing.JButton btnManageOrganizationUser;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblOrganizationManagementArea;

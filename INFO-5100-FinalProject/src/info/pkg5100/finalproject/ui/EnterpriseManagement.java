@@ -32,9 +32,9 @@ public class EnterpriseManagement extends javax.swing.JPanel {
         btnManageEnterpriseAdmin = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNetworkEnterpriseList = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblEnterpriseName = new javax.swing.JLabel();
+        lblNetwork = new javax.swing.JLabel();
+        lblEnterpriseType = new javax.swing.JLabel();
         txtEnterpriseType = new javax.swing.JTextField();
         btnAddEnterprise = new javax.swing.JButton();
         jcbNetwork = new javax.swing.JComboBox<>();
@@ -79,14 +79,14 @@ public class EnterpriseManagement extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblNetworkEnterpriseList);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Enterprise Name");
+        lblEnterpriseName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblEnterpriseName.setText("Enterprise Name");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Network");
+        lblNetwork.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblNetwork.setText("Network");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Enterprise Type");
+        lblEnterpriseType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblEnterpriseType.setText("Enterprise Type");
 
         btnAddEnterprise.setBackground(new java.awt.Color(0, 153, 153));
         btnAddEnterprise.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -143,9 +143,9 @@ public class EnterpriseManagement extends javax.swing.JPanel {
                         .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
+                            .addComponent(lblEnterpriseName)
+                            .addComponent(lblNetwork)
+                            .addComponent(lblEnterpriseType))
                         .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -172,15 +172,15 @@ public class EnterpriseManagement extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5)
+                                    .addComponent(lblEnterpriseName)
                                     .addComponent(jcbEnterpriseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
+                                    .addComponent(lblNetwork)
                                     .addComponent(jcbNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
+                                    .addComponent(lblEnterpriseType)
                                     .addComponent(txtEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
@@ -229,14 +229,14 @@ public class EnterpriseManagement extends javax.swing.JPanel {
     private javax.swing.JButton btnAddEnterprise;
     private javax.swing.JButton btnManageEnterprise;
     private javax.swing.JButton btnManageEnterpriseAdmin;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbEnterpriseName;
     private javax.swing.JComboBox<String> jcbNetwork;
     private javax.swing.JLabel lblEnterpriseManagementArea;
+    private javax.swing.JLabel lblEnterpriseName;
+    private javax.swing.JLabel lblEnterpriseType;
+    private javax.swing.JLabel lblNetwork;
     private javax.swing.JTextField lblNetworkEnterpriseList;
     private javax.swing.JTable tblNetworkEnterpriseList;
     private javax.swing.JTextField txtEnterpriseType;

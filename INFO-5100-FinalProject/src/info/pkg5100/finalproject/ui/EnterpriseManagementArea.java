@@ -28,28 +28,28 @@ public class EnterpriseManagementArea extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblNetworkManagementArea = new javax.swing.JLabel();
-        btnManageNetwork = new javax.swing.JButton();
-        btnLogout2 = new javax.swing.JButton();
+        lblEnterpriseManagementArea = new javax.swing.JLabel();
+        btnManageEnterprise = new javax.swing.JButton();
+        btnManageEnterpriseAdmin = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
-        lblNetworkManagementArea.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblNetworkManagementArea.setText("Enterprise Management Area");
+        lblEnterpriseManagementArea.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblEnterpriseManagementArea.setText("Enterprise Management Area");
 
-        btnManageNetwork.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnManageNetwork.setText("Manage Enterprise");
-        btnManageNetwork.addActionListener(new java.awt.event.ActionListener() {
+        btnManageEnterprise.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnManageEnterprise.setText("Manage Enterprise");
+        btnManageEnterprise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageNetworkActionPerformed(evt);
+                btnManageEnterpriseActionPerformed(evt);
             }
         });
 
-        btnLogout2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnLogout2.setText("Manage Enterprise Admin");
-        btnLogout2.addActionListener(new java.awt.event.ActionListener() {
+        btnManageEnterpriseAdmin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnManageEnterpriseAdmin.setText("Manage Enterprise Admin");
+        btnManageEnterpriseAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogout2ActionPerformed(evt);
+                btnManageEnterpriseAdminActionPerformed(evt);
             }
         });
 
@@ -61,23 +61,23 @@ public class EnterpriseManagementArea extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(355, 355, 355)
-                        .addComponent(lblNetworkManagementArea))
+                        .addComponent(lblEnterpriseManagementArea))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(170, 170, 170)
-                        .addComponent(btnManageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnManageEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(108, 108, 108)
-                        .addComponent(btnLogout2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnManageEnterpriseAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(lblNetworkManagementArea)
+                .addComponent(lblEnterpriseManagementArea)
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnLogout2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnManageNetwork, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnManageEnterpriseAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnManageEnterprise, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(369, Short.MAX_VALUE))
         );
 
@@ -97,20 +97,20 @@ public class EnterpriseManagementArea extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnManageNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetworkActionPerformed
+    private void btnManageEnterpriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnterpriseActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_btnManageNetworkActionPerformed
+    }//GEN-LAST:event_btnManageEnterpriseActionPerformed
 
-    private void btnLogout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogout2ActionPerformed
+    private void btnManageEnterpriseAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnterpriseAdminActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogout2ActionPerformed
+    }//GEN-LAST:event_btnManageEnterpriseAdminActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogout2;
-    private javax.swing.JButton btnManageNetwork;
+    private javax.swing.JButton btnManageEnterprise;
+    private javax.swing.JButton btnManageEnterpriseAdmin;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblNetworkManagementArea;
+    private javax.swing.JLabel lblEnterpriseManagementArea;
     // End of variables declaration//GEN-END:variables
 }

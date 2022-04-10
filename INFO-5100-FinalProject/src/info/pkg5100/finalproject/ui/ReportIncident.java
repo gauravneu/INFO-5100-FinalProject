@@ -4,7 +4,12 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.models.IncidentCase;
+import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.Reporter;
+
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
@@ -17,8 +22,17 @@ public class ReportIncident extends javax.swing.JPanel {
     /**
      * Creates new form ReportIncident
      */
+
+    MainSystem mainSystem;
+
     public ReportIncident() {
         initComponents();
+    }
+
+    public ReportIncident(MainSystem mainSystem) {
+        initComponents();
+
+        this.mainSystem = mainSystem;
     }
 
     /**
@@ -38,13 +52,13 @@ public class ReportIncident extends javax.swing.JPanel {
         txtPhoto = new javax.swing.JTextField();
         btnupload = new javax.swing.JButton();
         lblImage = new javax.swing.JLabel();
-        btnCreate = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        txtMobile = new javax.swing.JTextField();
+        btnReportIncident = new javax.swing.JButton();
+        txtReporterName = new javax.swing.JTextField();
+        txtReporterMobile = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbBoxNetworkName = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        txtDescription = new javax.swing.JTextField();
+        txtIncidentDescription = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -86,27 +100,27 @@ public class ReportIncident extends javax.swing.JPanel {
 
         lblImage.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnCreate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnCreate.setText("Report");
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+        btnReportIncident.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnReportIncident.setText("Report");
+        btnReportIncident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
+                btnReportIncidentActionPerformed(evt);
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtReporterName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtReporterNameActionPerformed(evt);
             }
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Location");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cmbBoxNetworkName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBoxNetworkName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cmbBoxNetworkNameActionPerformed(evt);
             }
         });
 
@@ -123,7 +137,7 @@ public class ReportIncident extends javax.swing.JPanel {
                     .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(129, 129, 129)
-                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnReportIncident, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,16 +148,16 @@ public class ReportIncident extends javax.swing.JPanel {
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIncidentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtReporterName, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtPhoto, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMobile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtReporterMobile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(btnupload))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cmbBoxNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(263, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -154,15 +168,15 @@ public class ReportIncident extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtReporterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtMobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtReporterMobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIncidentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -173,11 +187,11 @@ public class ReportIncident extends javax.swing.JPanel {
                             .addComponent(btnupload)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbBoxNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReportIncident, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -194,35 +208,58 @@ public class ReportIncident extends javax.swing.JPanel {
         txtPhoto.setText(f.getAbsolutePath());
     }//GEN-LAST:event_btnuploadActionPerformed
 
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+    private void btnReportIncidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportIncidentActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_btnCreateActionPerformed
+        String reportName = txtReporterName.getText();
+        String reporterMobileNumber = txtReporterMobile.getText();
+        String incidentDescription = txtIncidentDescription.getText();
+        String location = cmbBoxNetworkName.getSelectedItem().toString();
+        String photoURL = txtPhoto.getText();
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        Reporter currentReport = new Reporter(reportName, reporterMobileNumber);
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        IncidentCase incidentCase = new IncidentCase(new ArrayList<>(), "New Incident",
+                "",
+                "",
+                currentReport,
+                "Fire explosion at home",
+                "Boston-network",
+                null,
+                "");
+
+        /*
+        Steps to add incident report:
+        1. Search of the
+         */
+        //mainSystem.getMasterPoliceStationList()
+
+    }//GEN-LAST:event_btnReportIncidentActionPerformed
+
+    private void txtReporterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReporterNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_txtReporterNameActionPerformed
+
+    private void cmbBoxNetworkNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxNetworkNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBoxNetworkNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnReportIncident;
     private javax.swing.JButton btnupload;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbBoxNetworkName;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblPhoto;
-    private javax.swing.JTextField txtDescription;
-    private javax.swing.JTextField txtMobile;
+    private javax.swing.JTextField txtIncidentDescription;
     private javax.swing.JTextField txtPhoto;
+    private javax.swing.JTextField txtReporterMobile;
+    private javax.swing.JTextField txtReporterName;
     // End of variables declaration//GEN-END:variables
 }

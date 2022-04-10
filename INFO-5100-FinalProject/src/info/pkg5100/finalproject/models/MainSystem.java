@@ -24,6 +24,7 @@ public class MainSystem {
         masterReporterList = new ArrayList<>();
         masterLaboratoryList = new ArrayList<>();
         masterPharmacyList = new ArrayList<>();
+        masterPoliceStationList = new ArrayList<>();
     }
 
     public ArrayList<Patient> getMasterPatientList() {

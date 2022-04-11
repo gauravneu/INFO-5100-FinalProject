@@ -230,7 +230,7 @@ public class ReportIncident extends javax.swing.JPanel {
 
         /*
         Steps to add incident report:
-        1. Search of the
+        1. Search for the incident
          */
         //mainSystem.getMasterPoliceStationList()
 

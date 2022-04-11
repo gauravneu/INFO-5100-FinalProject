@@ -118,15 +118,17 @@ public class Login extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         // Test login implementation
-        // Clicking login searches for the user
+        // Clicking login searches for the Bosotn
         // Here for testing purpose, there is only one investigation police officer in Boston police network. Sending
         // that police into incident management.
-        IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceStationList().get(0).getPoliceArrayList().get(0);
+        IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
 
         IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
         mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
         CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
         layout.next(mainWorkJPanel);
+
+        System.out.println("hi");
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

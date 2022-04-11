@@ -4,6 +4,12 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.models.IncidentHandlingPolice;
+import info.pkg5100.finalproject.models.MainSystem;
+
+import javax.swing.*;
+import java.awt.*;
+
 /**
  *
  * @author hazel
@@ -13,8 +19,18 @@ public class Login extends javax.swing.JPanel {
     /**
      * Creates new form Login
      */
+    MainSystem mainSystem;
+    JPanel mainWorkJPanel;
+
     public Login() {
         initComponents();
+    }
+
+    public Login(MainSystem mainSystem, JPanel mainWorkJPanel) {
+        initComponents();
+
+        this.mainSystem = mainSystem;
+        this.mainWorkJPanel = mainWorkJPanel;
     }
 
     /**
@@ -100,6 +116,19 @@ public class Login extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+
+        // Test login implementation
+        // Clicking login searches for the Bosotn
+        // Here for testing purpose, there is only one investigation police officer in Boston police network. Sending
+        // that police into incident management.
+        IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
+
+        IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
+        mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.next(mainWorkJPanel);
+
+        System.out.println("hi");
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

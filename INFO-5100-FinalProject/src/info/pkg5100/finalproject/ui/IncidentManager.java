@@ -4,6 +4,12 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.models.IncidentHandlingPolice;
+import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.Police;
+
+import javax.swing.*;
+
 /**
  *
  * @author hazel
@@ -13,9 +19,22 @@ public class IncidentManager extends javax.swing.JPanel {
     /**
      * Creates new form IncidentManager
      */
+
+    MainSystem mainSystem;
+    JPanel mainWorkJPanel;
+    IncidentHandlingPolice incidentHandlingPolice;
     public IncidentManager() {
         initComponents();
     }
+
+    public IncidentManager(MainSystem mainSystem, JPanel mainWorkJPanel, IncidentHandlingPolice incidentHandlingPolice) {
+        initComponents();
+
+        this.mainSystem = mainSystem;
+        this.mainWorkJPanel = mainWorkJPanel;
+        this.incidentHandlingPolice = incidentHandlingPolice;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

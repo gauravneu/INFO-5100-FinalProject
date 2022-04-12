@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class PoliceOrganization {
 
     ArrayList<PoliceStation> policeStationArrayList;
+    ArrayList<IncidentCase> incidentCaseArrayList;
     String networkName;
 
-    public PoliceOrganization(ArrayList<PoliceStation> policeStationArrayList, String networkName) {
-        this.policeStationArrayList = policeStationArrayList;
+    public PoliceOrganization(String networkName) {
+        this.policeStationArrayList = new ArrayList<>();
+        this.incidentCaseArrayList = new ArrayList<>();
         this.networkName = networkName;
     }
 
@@ -26,5 +28,13 @@ public class PoliceOrganization {
 
     public void setNetworkName(String networkName) {
         this.networkName = networkName;
+    }
+
+    public ArrayList<IncidentCase> getIncidentCaseArrayList() {
+        return incidentCaseArrayList;
+    }
+
+    public void setIncidentCaseArrayList(ArrayList<IncidentCase> incidentCaseArrayList) {
+        this.incidentCaseArrayList = incidentCaseArrayList;
     }
 }

@@ -127,8 +127,6 @@ public class Login extends javax.swing.JPanel {
         mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
         CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
         layout.next(mainWorkJPanel);
-
-        System.out.println("hi");
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

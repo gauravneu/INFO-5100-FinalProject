@@ -106,4 +106,9 @@ public class IncidentCase {
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
     }
+
+    @Override
+    public String toString() {
+        return this.incidentDescription;
+    }
 }

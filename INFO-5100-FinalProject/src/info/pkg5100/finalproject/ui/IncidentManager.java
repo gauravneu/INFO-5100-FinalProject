@@ -4,11 +4,10 @@
  */
 package info.pkg5100.finalproject.ui;
 
-import info.pkg5100.finalproject.models.IncidentHandlingPolice;
-import info.pkg5100.finalproject.models.MainSystem;
-import info.pkg5100.finalproject.models.Police;
+import info.pkg5100.finalproject.models.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,6 +32,8 @@ public class IncidentManager extends javax.swing.JPanel {
         this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
         this.incidentHandlingPolice = incidentHandlingPolice;
+
+        populateIncidentsTable("Boston-network");
     }
 
 
@@ -48,8 +49,11 @@ public class IncidentManager extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReportedIncidents = new javax.swing.JTable();
         lblReportIncident = new javax.swing.JLabel();
-        btnUpdateIncident = new javax.swing.JButton();
+        btnAssignInvestigationOfficer = new javax.swing.JButton();
         btnDetailedView = new javax.swing.JButton();
+        cmbBoxAmbulanceService = new javax.swing.JComboBox<>();
+        cmbBoxInvestigationOfficerList = new javax.swing.JComboBox<>();
+        btnAssignAmbulanceService = new javax.swing.JButton();
 
         setForeground(new java.awt.Color(0, 153, 153));
 
@@ -77,11 +81,11 @@ public class IncidentManager extends javax.swing.JPanel {
         lblReportIncident.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblReportIncident.setText("REPORTED INCIDENTS");
 
-        btnUpdateIncident.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnUpdateIncident.setText("Assign");
-        btnUpdateIncident.addActionListener(new java.awt.event.ActionListener() {
+        btnAssignInvestigationOfficer.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAssignInvestigationOfficer.setText("Assign Investigation officer");
+        btnAssignInvestigationOfficer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateIncidentActionPerformed(evt);
+                btnAssignInvestigationOfficerActionPerformed(evt);
             }
         });
 
@@ -93,16 +97,22 @@ public class IncidentManager extends javax.swing.JPanel {
             }
         });
 
+        cmbBoxAmbulanceService.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbBoxInvestigationOfficerList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnAssignAmbulanceService.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAssignAmbulanceService.setText("Assign Ambulance Service");
+        btnAssignAmbulanceService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignAmbulanceServiceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(btnUpdateIncident, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(193, 193, 193))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -112,6 +122,17 @@ public class IncidentManager extends javax.swing.JPanel {
                         .addGap(81, 81, 81)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(121, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDetailedView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbBoxAmbulanceService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.Alignment.TRAILING, 0, 138, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,16 +142,22 @@ public class IncidentManager extends javax.swing.JPanel {
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdateIncident, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(227, Short.MAX_VALUE))
+                    .addComponent(cmbBoxAmbulanceService, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                .addGap(117, 117, 117))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUpdateIncidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateIncidentActionPerformed
+    private void btnAssignInvestigationOfficerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignInvestigationOfficerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateIncidentActionPerformed
+    }//GEN-LAST:event_btnAssignInvestigationOfficerActionPerformed
 
     private void btnDetailedViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailedViewActionPerformed
         // TODO add your handling code here:
@@ -139,10 +166,40 @@ public class IncidentManager extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnDetailedViewActionPerformed
 
+    private void btnAssignAmbulanceServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAmbulanceServiceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAssignAmbulanceServiceActionPerformed
 
+    void populateIncidentsTable(String policeOrganizationNetworkName) {
+        DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
+        model.setRowCount(0);
+
+        for(PoliceOrganization po : this.mainSystem.getMasterPoliceOrganizationList()) {
+            if(po.getNetworkName().equals(policeOrganizationNetworkName)) {
+                for (IncidentCase incidentCase : po.getIncidentCaseArrayList()) {
+                    Object[] row = new Object[6];
+                    row[0] = incidentCase;
+                    row[1] = incidentCase.getReporter().getReporterName();
+                    row[2] = incidentCase.getReporter().getPhone();
+                    row[3] = incidentCase.getPoliceStationNetworkName();
+                    row[4] = incidentCase.getIncidentDescription();
+                    if(incidentCase.getInvestigationPolice() == null) {
+                        row[5] = "";
+                    } else {
+                        row[5] = incidentCase.getInvestigationPolice().getName();
+                    }
+                    model.addRow(row);
+                }
+            }
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAssignAmbulanceService;
+    private javax.swing.JButton btnAssignInvestigationOfficer;
     private javax.swing.JButton btnDetailedView;
-    private javax.swing.JButton btnUpdateIncident;
+    private javax.swing.JComboBox<String> cmbBoxAmbulanceService;
+    private javax.swing.JComboBox<String> cmbBoxInvestigationOfficerList;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblReportIncident;
     private javax.swing.JTable tblReportedIncidents;

@@ -28,15 +28,15 @@ public class StartMenu extends javax.swing.JFrame {
     public StartMenu() {
         initComponents();
 
-        mainSystem = new MainSystem();
+        this.mainSystem = new MainSystem();
 
         // Adding test data
         // Adding police station in network Boston
-        PoliceOrganization bostonPoliceOrganization = new PoliceOrganization(new ArrayList<>(), "Boston-network");
-        PoliceStation bostonPoliceStation = new PoliceStation("Boston bopo", "Boston");
+        PoliceOrganization bostonPoliceOrganization = new PoliceOrganization( "Boston-network");
+        PoliceStation bostonPoliceStation = new PoliceStation("Boston bopo", "Boston-network");
         bostonPoliceStation.getPoliceArrayList().add(new IncidentHandlingPolice("Ankita", "Incident Hadnling", bostonPoliceStation, new ArrayList<>()));
         bostonPoliceOrganization.getPoliceStationArrayList().add(bostonPoliceStation);
-        mainSystem.getMasterPoliceOrganizationList().add(bostonPoliceOrganization);
+        this.mainSystem.getMasterPoliceOrganizationList().add(bostonPoliceOrganization);
 
         SplitPane.setRightComponent(RightPanel);
         
@@ -144,7 +144,7 @@ public class StartMenu extends javax.swing.JFrame {
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         // TODO add your handling code here:
-        ReportIncident report= new ReportIncident();
+        ReportIncident report= new ReportIncident(this.mainSystem);
         RightPanel.add("ReportIncident",report);
         CardLayout layout = (CardLayout)RightPanel.getLayout();
         layout.next(RightPanel);

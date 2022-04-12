@@ -6,6 +6,7 @@ package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.PoliceOrganization;
 import info.pkg5100.finalproject.models.Reporter;
 
 import java.io.File;
@@ -217,12 +218,12 @@ public class ReportIncident extends javax.swing.JPanel {
         String location = cmbBoxNetworkName.getSelectedItem().toString();
         String photoURL = txtPhoto.getText();
 
-        Reporter currentReport = new Reporter(reportName, reporterMobileNumber);
+        Reporter currentReporter = new Reporter(reportName, reporterMobileNumber);
 
         IncidentCase incidentCase = new IncidentCase(new ArrayList<>(), "New Incident",
                 "",
                 "",
-                currentReport,
+                currentReporter,
                 "Fire explosion at home",
                 "Boston-network",
                 null,
@@ -232,7 +233,15 @@ public class ReportIncident extends javax.swing.JPanel {
         Steps to add incident report:
         1. Search for the incident
          */
-        //mainSystem.getMasterPoliceStationList()
+
+        for(PoliceOrganization po : this.mainSystem.getMasterPoliceOrganizationList()) {
+            if(po.getNetworkName().equals(incidentCase.getPoliceStationNetworkName())) {
+                po.getIncidentCaseArrayList().add(incidentCase);
+                break;
+            }
+        }
+
+
 
     }//GEN-LAST:event_btnReportIncidentActionPerformed
 

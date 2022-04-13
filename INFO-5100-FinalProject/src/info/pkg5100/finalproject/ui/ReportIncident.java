@@ -227,7 +227,9 @@ public class ReportIncident extends javax.swing.JPanel {
                 "Fire explosion at home",
                 "Boston-network",
                 null,
-                "");
+                "",
+                location
+                );
 
         /*
         Steps to add incident report:

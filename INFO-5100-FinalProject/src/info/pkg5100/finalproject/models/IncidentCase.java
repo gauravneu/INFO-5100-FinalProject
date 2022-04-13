@@ -20,9 +20,10 @@ public class IncidentCase {
     String policeStationNetworkName;
     InvestigationPolice investigationPolice;
     String photoURL;
+    String location;
 
 
-    public IncidentCase(ArrayList<Patient> patientArrayList, String status, String investigationDetails, String hospitalName, Reporter reporter, String incidentDescription, String policeStationNetworkName, InvestigationPolice investigationPolice, String photoURL) {
+    public IncidentCase(ArrayList<Patient> patientArrayList, String status, String investigationDetails, String hospitalName, Reporter reporter, String incidentDescription, String policeStationNetworkName, InvestigationPolice investigationPolice, String photoURL, String location) {
         this.patientArrayList = patientArrayList;
         this.status = status;
         this.investigationDetails = investigationDetails;
@@ -32,6 +33,7 @@ public class IncidentCase {
         this.policeStationNetworkName = policeStationNetworkName;
         this.investigationPolice = investigationPolice;
         this.photoURL = photoURL;
+        this.location = location;
     }
 
 
@@ -105,6 +107,14 @@ public class IncidentCase {
 
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override

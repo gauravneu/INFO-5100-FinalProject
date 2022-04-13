@@ -8,6 +8,7 @@ import info.pkg5100.finalproject.models.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 /**
  *
@@ -34,14 +35,8 @@ public class IncidentManager extends javax.swing.JPanel {
         this.incidentHandlingPolice = incidentHandlingPolice;
 
         populateIncidentsTable("Boston-network");
+        populateAmbulanceComboBox("Boston-network");
 
-        for(TransportationOrganization transportationOrganization : this.mainSystem.getTransportationOrganizationList()) {
-            if(transportationOrganization.getNetworkName().equals("Boston-network")) {
-                for(AmbulanceService ambulanceService : transportationOrganization.getAmbulanceServiceArrayList()) {
-                    cmbBoxAmbulanceService.addItem(ambulanceService.getAmbulanceServiceName());
-                }
-            }
-        }
     }
 
 
@@ -169,9 +164,19 @@ public class IncidentManager extends javax.swing.JPanel {
 
     private void btnDetailedViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailedViewActionPerformed
         // TODO add your handling code here:
-        ImpactedPeopleMngt impacted=new ImpactedPeopleMngt();
-        
-        
+        int selectedRowIndex = tblReportedIncidents.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select an incident.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
+        IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
+
+        IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(mainSystem, mainWorkJPanel, incidentCase);
+        mainWorkJPanel.add("IncidentDetailsMngt", incidentDetailsMngt);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnDetailedViewActionPerformed
 
     private void btnAssignAmbulanceServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAmbulanceServiceActionPerformed
@@ -200,7 +205,16 @@ public class IncidentManager extends javax.swing.JPanel {
                 }
             }
         }
+    }
 
+    void populateAmbulanceComboBox(String networkName) {
+        for(TransportationOrganization transportationOrganization : this.mainSystem.getTransportationOrganizationList()) {
+            if(transportationOrganization.getNetworkName().equals(networkName)) {
+                for(AmbulanceService ambulanceService : transportationOrganization.getAmbulanceServiceArrayList()) {
+                    cmbBoxAmbulanceService.addItem(ambulanceService.getAmbulanceServiceName());
+                }
+            }
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignAmbulanceService;

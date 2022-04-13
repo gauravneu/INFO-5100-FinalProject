@@ -34,6 +34,14 @@ public class IncidentManager extends javax.swing.JPanel {
         this.incidentHandlingPolice = incidentHandlingPolice;
 
         populateIncidentsTable("Boston-network");
+
+        for(TransportationOrganization transportationOrganization : this.mainSystem.getTransportationOrganizationList()) {
+            if(transportationOrganization.getNetworkName().equals("Boston-network")) {
+                for(AmbulanceService ambulanceService : transportationOrganization.getAmbulanceServiceArrayList()) {
+                    cmbBoxAmbulanceService.addItem(ambulanceService.getAmbulanceServiceName());
+                }
+            }
+        }
     }
 
 

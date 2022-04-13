@@ -5,10 +5,8 @@
 package info.pkg5100.finalproject.ui;
 
 
-import info.pkg5100.finalproject.models.IncidentHandlingPolice;
-import info.pkg5100.finalproject.models.MainSystem;
-import info.pkg5100.finalproject.models.PoliceOrganization;
-import info.pkg5100.finalproject.models.PoliceStation;
+import info.pkg5100.finalproject.models.*;
+
 import java.awt.CardLayout;
 
 import java.util.ArrayList;
@@ -37,6 +35,13 @@ public class StartMenu extends javax.swing.JFrame {
         bostonPoliceStation.getPoliceArrayList().add(new IncidentHandlingPolice("Ankita", "Incident Hadnling", bostonPoliceStation, new ArrayList<>()));
         bostonPoliceOrganization.getPoliceStationArrayList().add(bostonPoliceStation);
         this.mainSystem.getMasterPoliceOrganizationList().add(bostonPoliceOrganization);
+
+        // Creating test ambulance service
+        AmbulanceService ambulanceService = new AmbulanceService("Test ambulance service", "Boston-network");
+        TransportationOrganization testTransportationOrganization = new TransportationOrganization("Boston-network");
+        testTransportationOrganization.getAmbulanceServiceArrayList().add(ambulanceService);
+
+        this.mainSystem.getTransportationOrganizationList().add(testTransportationOrganization);
 
         SplitPane.setRightComponent(RightPanel);
         

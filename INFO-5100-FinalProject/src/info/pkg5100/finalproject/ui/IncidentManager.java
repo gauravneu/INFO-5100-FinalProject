@@ -181,6 +181,24 @@ public class IncidentManager extends javax.swing.JPanel {
 
     private void btnAssignAmbulanceServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAmbulanceServiceActionPerformed
         // TODO add your handling code here:
+        int selectedRowIndex = tblReportedIncidents.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select an incident.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
+        IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
+
+        String selectedAmbulanceService = cmbBoxAmbulanceService.getSelectedItem().toString();
+        for(TransportationOrganization transportationOrganization : this.mainSystem.getTransportationOrganizationList()) {
+            for(AmbulanceService ambulanceService : transportationOrganization.getAmbulanceServiceArrayList()) {
+                if(ambulanceService.getAmbulanceServiceName().equals(selectedAmbulanceService)) {
+                    ambulanceService.getIncidentCaseArrayList().add(incidentCase);
+                    return;
+                }
+            }
+        }
     }//GEN-LAST:event_btnAssignAmbulanceServiceActionPerformed
 
     void populateIncidentsTable(String policeOrganizationNetworkName) {

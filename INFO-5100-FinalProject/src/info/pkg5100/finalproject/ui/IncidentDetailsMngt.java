@@ -4,17 +4,41 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.models.IncidentCase;
+import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.Patient;
+import info.pkg5100.finalproject.models.PoliceOrganization;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hazel
  */
-public class ImpactedPeopleMngt extends javax.swing.JPanel {
+public class IncidentDetailsMngt extends javax.swing.JPanel {
 
     /**
      * Creates new form ImpactedPeopleMngt
      */
-    public ImpactedPeopleMngt() {
+
+    MainSystem mainSystem;
+    JPanel mainWorkJPanel;
+    IncidentCase currentIncidentCase;
+
+    public IncidentDetailsMngt() {
         initComponents();
+    }
+
+    public IncidentDetailsMngt(MainSystem mainSystem, JPanel mainWorkJPanel, IncidentCase incidentCase) {
+        initComponents();
+
+        this.mainSystem = mainSystem;
+        this.mainWorkJPanel = mainWorkJPanel;
+        this.currentIncidentCase = incidentCase;
+
+        populateImpactedPatientTable();
+        populateIncidentCaseDetails();
     }
 
     /**
@@ -32,8 +56,8 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         lblReportIncident2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblReportedIncidents = new javax.swing.JTable();
-        txtSSN = new javax.swing.JTextField();
+        tblImpactedPatients = new javax.swing.JTable();
+        txtPhoneNumber = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         txtAge = new javax.swing.JTextField();
@@ -55,7 +79,7 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         lblAssigned = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        btnLogout1 = new javax.swing.JButton();
+        btnAddPatient = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -68,7 +92,7 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
         lblReportIncident2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblReportIncident2.setText("IMPACTED PATIENT LIST");
 
-        tblReportedIncidents.setModel(new javax.swing.table.DefaultTableModel(
+        tblImpactedPatients.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -76,7 +100,7 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Patient Id", " Name", " Age", "SSN"
+                "Patient Id", " Name", " Age", "Phone Number"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -87,10 +111,10 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblReportedIncidents);
+        jScrollPane1.setViewportView(tblImpactedPatients);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel19.setText("SSN");
+        jLabel19.setText("Phone number");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setText("Age");
@@ -151,11 +175,11 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Assigned");
 
-        btnLogout1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnLogout1.setText("ADD");
-        btnLogout1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddPatient.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAddPatient.setText("ADD");
+        btnAddPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogout1ActionPerformed(evt);
+                btnAddPatientActionPerformed(evt);
             }
         });
 
@@ -190,7 +214,7 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
                                             .addComponent(jLabel10)
                                             .addComponent(lblImage)))))
                             .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
                             .addComponent(jLabel19)
@@ -201,7 +225,7 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblReportIncident1)
-                    .addComponent(txtSSN, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtAge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -215,7 +239,7 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(622, Short.MAX_VALUE)
-                    .addComponent(btnLogout1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(125, 125, 125)))
         );
         layout.setVerticalGroup(
@@ -269,7 +293,7 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
-                            .addComponent(txtSSN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(lblReportIncident2)
                 .addGap(18, 18, 18)
@@ -278,7 +302,7 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(225, Short.MAX_VALUE)
-                    .addComponent(btnLogout1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(200, 200, 200)))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -287,13 +311,47 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void btnLogout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogout1ActionPerformed
+    private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPatientActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogout1ActionPerformed
+        Patient patient = new Patient("need to create random id",
+                txtName.getText(),
+                txtAge.getText(),
+                txtPhoneNumber.getText());
 
+        this.currentIncidentCase.getPatientArrayList().add(patient);
+        populateImpactedPatientTable();
+    }//GEN-LAST:event_btnAddPatientActionPerformed
+
+    void populateIncidentCaseDetails() {
+        lblIncidentId.setText("Incident field not added");
+        lblReporterName.setText(this.currentIncidentCase.getReporter().getReporterName());
+        lblReporterName.setText(this.currentIncidentCase.getReporter().getPhone());
+        lblDescription.setText(this.currentIncidentCase.getIncidentDescription());
+        lblLocation.setText(this.currentIncidentCase.getLocation());
+        if(this.currentIncidentCase.getInvestigationPolice() == null) {
+            lblAssigned.setText("Not assigned");
+        } else {
+            lblAssigned.setText(this.currentIncidentCase.getInvestigationPolice().getName());
+        }
+    }
+
+    void populateImpactedPatientTable() {
+        DefaultTableModel model = (DefaultTableModel) tblImpactedPatients.getModel();
+        model.setRowCount(0);
+
+        for(Patient patient : this.currentIncidentCase.getPatientArrayList()) {
+                Object[] row = new Object[4];
+                row[0] = patient;
+                row[1] = patient.getName();
+                row[2] = patient.getAge();
+                row[3] = patient.getPhoneNumber();
+
+                model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogout1;
+    private javax.swing.JButton btnAddPatient;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel18;
@@ -319,9 +377,9 @@ public class ImpactedPeopleMngt extends javax.swing.JPanel {
     private javax.swing.JLabel lblReportIncident2;
     private javax.swing.JLabel lblReporterMobile;
     private javax.swing.JLabel lblReporterName;
-    private javax.swing.JTable tblReportedIncidents;
+    private javax.swing.JTable tblImpactedPatients;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtSSN;
+    private javax.swing.JTextField txtPhoneNumber;
     // End of variables declaration//GEN-END:variables
 }

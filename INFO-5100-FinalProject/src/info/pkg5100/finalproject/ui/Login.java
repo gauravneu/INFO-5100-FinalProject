@@ -46,8 +46,8 @@ public class Login extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnCreate = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(0, 153, 153));
 
@@ -68,9 +68,9 @@ public class Login extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtUsernameActionPerformed(evt);
             }
         });
 
@@ -88,8 +88,8 @@ public class Login extends javax.swing.JPanel {
                         .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1)))
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txtPassword)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -103,11 +103,11 @@ public class Login extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(240, Short.MAX_VALUE))
@@ -118,20 +118,26 @@ public class Login extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         // Test login implementation
-        // Clicking login searches for the user
+        // Clicking login searches for the Bosotn
         // Here for testing purpose, there is only one investigation police officer in Boston police network. Sending
         // that police into incident management.
-        IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceStationList().get(0).getPoliceArrayList().get(0);
+        if(txtUsername.equals("qwe")) {
+            IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
 
-        IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
-        mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
-        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-        layout.next(mainWorkJPanel);
+            IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
+            mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
+            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+            layout.next(mainWorkJPanel);
+        } else {
+            // for testing purpose login to ambulance service
+            
+        }
+
     }//GEN-LAST:event_btnCreateActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtUsernameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -139,7 +145,7 @@ public class Login extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

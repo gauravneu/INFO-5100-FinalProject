@@ -5,9 +5,9 @@
 package info.pkg5100.finalproject.ui;
 
 
-import info.pkg5100.finalproject.models.IncidentHandlingPolice;
-import info.pkg5100.finalproject.models.MainSystem;
-import info.pkg5100.finalproject.models.PoliceStation;
+import info.pkg5100.finalproject.models.*;
+
+import java.awt.CardLayout;
 
 import java.util.ArrayList;
 
@@ -26,13 +26,25 @@ public class StartMenu extends javax.swing.JFrame {
     public StartMenu() {
         initComponents();
 
-        mainSystem = new MainSystem();
+        this.mainSystem = new MainSystem();
 
         // Adding test data
         // Adding police station in network Boston
-        PoliceStation bostonPoliceStation = new PoliceStation("Boston bopo", "Boston");
+        PoliceOrganization bostonPoliceOrganization = new PoliceOrganization( "Boston-network");
+        PoliceStation bostonPoliceStation = new PoliceStation("Boston bopo", "Boston-network");
         bostonPoliceStation.getPoliceArrayList().add(new IncidentHandlingPolice("Ankita", "Incident Hadnling", bostonPoliceStation, new ArrayList<>()));
-        mainSystem.getMasterPoliceStationList().add(bostonPoliceStation);
+        bostonPoliceOrganization.getPoliceStationArrayList().add(bostonPoliceStation);
+        this.mainSystem.getMasterPoliceOrganizationList().add(bostonPoliceOrganization);
+
+        // Creating test ambulance service
+        AmbulanceService ambulanceService = new AmbulanceService("Test ambulance service", "Boston-network");
+        TransportationOrganization testTransportationOrganization = new TransportationOrganization("Boston-network");
+        testTransportationOrganization.getAmbulanceServiceArrayList().add(ambulanceService);
+
+        this.mainSystem.getTransportationOrganizationList().add(testTransportationOrganization);
+
+        SplitPane.setRightComponent(RightPanel);
+        
 
     }
 
@@ -55,18 +67,7 @@ public class StartMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         RightPanel.setBackground(new java.awt.Color(0, 153, 153));
-
-        javax.swing.GroupLayout RightPanelLayout = new javax.swing.GroupLayout(RightPanel);
-        RightPanel.setLayout(RightPanelLayout);
-        RightPanelLayout.setHorizontalGroup(
-            RightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 714, Short.MAX_VALUE)
-        );
-        RightPanelLayout.setVerticalGroup(
-            RightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
-        );
-
+        RightPanel.setLayout(new java.awt.CardLayout());
         SplitPane.setRightComponent(RightPanel);
 
         LeftPanel.setBackground(new java.awt.Color(0, 153, 153));
@@ -128,7 +129,7 @@ public class StartMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SplitPane)
+            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,13 +142,17 @@ public class StartMenu extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         Login login=new Login(this.mainSystem, this.RightPanel);
-        SplitPane.setRightComponent(login);
+        RightPanel.add("Login",login);
+        CardLayout layout = (CardLayout)RightPanel.getLayout();
+        layout.next(RightPanel);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         // TODO add your handling code here:
-        ReportIncident report= new ReportIncident();
-        SplitPane.setRightComponent(report);
+        ReportIncident report= new ReportIncident(this.mainSystem);
+        RightPanel.add("ReportIncident",report);
+        CardLayout layout = (CardLayout)RightPanel.getLayout();
+        layout.next(RightPanel);
     }//GEN-LAST:event_btnReportActionPerformed
 
     /**

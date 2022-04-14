@@ -16,7 +16,8 @@ public class MainSystem {
     ArrayList<Reporter> masterReporterList;
     ArrayList<Laboratory> masterLaboratoryList;
     ArrayList<Pharmacy> masterPharmacyList;
-    ArrayList<PoliceStation> masterPoliceStationList;
+    ArrayList<PoliceOrganization> masterPoliceOrganizationList;
+    ArrayList<TransportationOrganization> transportationOrganizationList;
 
     public MainSystem() {
         masterPatientList = new ArrayList<>();
@@ -24,7 +25,8 @@ public class MainSystem {
         masterReporterList = new ArrayList<>();
         masterLaboratoryList = new ArrayList<>();
         masterPharmacyList = new ArrayList<>();
-        masterPoliceStationList = new ArrayList<>();
+        masterPoliceOrganizationList = new ArrayList<>();
+        transportationOrganizationList = new ArrayList<>();
     }
 
     public ArrayList<Patient> getMasterPatientList() {
@@ -47,7 +49,15 @@ public class MainSystem {
         return masterPharmacyList;
     }
 
-    public ArrayList<PoliceStation> getMasterPoliceStationList() {
-        return masterPoliceStationList;
+    public ArrayList<PoliceOrganization> getMasterPoliceOrganizationList() {
+        return masterPoliceOrganizationList;
+    }
+
+    public ArrayList<TransportationOrganization> getTransportationOrganizationList() {
+        return transportationOrganizationList;
+    }
+
+    public void setTransportationOrganizationList(ArrayList<TransportationOrganization> transportationOrganizationList) {
+        this.transportationOrganizationList = transportationOrganizationList;
     }
 }

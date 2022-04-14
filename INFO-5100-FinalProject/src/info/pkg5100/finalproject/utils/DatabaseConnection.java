@@ -9,11 +9,11 @@ public class DatabaseConnection {
 
     static
     {
-        String url = "jdbc:mysql://localhost:3306/org";
+        String url = "jdbc:mysql://localhost:3306/final_project";
         String user = "root";
         String pass = "root";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
         }
         catch (ClassNotFoundException | SQLException e) {

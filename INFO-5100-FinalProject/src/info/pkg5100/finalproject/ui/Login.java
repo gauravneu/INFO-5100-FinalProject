@@ -128,9 +128,12 @@ public class Login extends javax.swing.JPanel {
             mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
             CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
             layout.next(mainWorkJPanel);
-        } else {
+        } else if(txtUsername.getText().equals("sysadmin")){
             // for testing purpose login to ambulance service
-            
+            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
+            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
+            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+            layout.next(mainWorkJPanel);
         }
 
     }//GEN-LAST:event_btnCreateActionPerformed

@@ -2,24 +2,23 @@ package info.pkg5100.finalproject.models;
 
 import java.util.ArrayList;
 
-public class PoliceOrganization {
-
-    ArrayList<PoliceStation> policeStationArrayList;
-    ArrayList<IncidentCase> incidentCaseArrayList;
+public class AmbulanceService {
+    String ambulanceServiceName;
     String networkName;
+    ArrayList<IncidentCase> incidentCaseArrayList;
 
-    public PoliceOrganization(String networkName) {
-        this.policeStationArrayList = new ArrayList<>();
-        this.incidentCaseArrayList = new ArrayList<>();
+    public AmbulanceService(String ambulanceServiceName, String networkName) {
+        this.ambulanceServiceName = ambulanceServiceName;
         this.networkName = networkName;
+        this.incidentCaseArrayList = new ArrayList<>();
     }
 
-    public ArrayList<PoliceStation> getPoliceStationArrayList() {
-        return policeStationArrayList;
+    public String getAmbulanceServiceName() {
+        return ambulanceServiceName;
     }
 
-    public void setPoliceStationArrayList(ArrayList<PoliceStation> policeStationArrayList) {
-        this.policeStationArrayList = policeStationArrayList;
+    public void setAmbulanceServiceName(String ambulanceServiceName) {
+        this.ambulanceServiceName = ambulanceServiceName;
     }
 
     public String getNetworkName() {

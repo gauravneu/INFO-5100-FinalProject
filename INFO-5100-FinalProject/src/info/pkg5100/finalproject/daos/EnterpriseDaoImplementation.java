@@ -28,21 +28,68 @@ public class EnterpriseDaoImplementation implements EnterpriseInterface {
 
     @Override
     public void delete(int id) throws SQLException {
-
+        String query
+                = "delete from enterprises where id =?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+        ps.setInt(1, id);
+        ps.executeUpdate();
     }
 
     @Override
     public Enterprise getEnterpriseById(int id) throws SQLException {
-        return null;
+        String query
+                = "select * from enterprises where id= ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setInt(1, id);
+        Enterprise enterprise = new Enterprise();
+        ResultSet rs = ps.executeQuery();
+        boolean check = false;
+
+        while (rs.next()) {
+            check = true;
+            enterprise.setId(rs.getInt("id"));
+            enterprise.setEnterpriseName(rs.getString("name"));
+            enterprise.setLocation(rs.getString("location"));
+        }
+
+        if (check == true) {
+            return enterprise;
+        }
+        else
+            return null;
     }
 
     @Override
     public List<Enterprise> getEnterprises() throws SQLException {
-        return null;
+        String query = "select * from enterprises";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        List<Enterprise> ls = new ArrayList();
+
+        while (rs.next()) {
+            Enterprise enterprise = new Enterprise();
+            enterprise.setId(rs.getInt("id"));
+            enterprise.setEnterpriseName(rs.getString("name"));
+            enterprise.setLocation(rs.getString("location"));
+            ls.add(enterprise);
+        }
+        return ls;
     }
 
     @Override
     public void update(Enterprise enterprise) throws SQLException {
-
+        String query
+                = "update enterprises set name=?, "
+                + " location= ? where id = ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+        ps.setString(1, enterprise.getEnterpriseName());
+        ps.setString(2, enterprise.getLocation());
+        ps.setInt(3, enterprise.getId());
+        ps.executeUpdate();
     }
 }

@@ -11,6 +11,12 @@ public class Enterprise {
         this.location = location;
     }
 
+    public Enterprise() {
+        this.id=-1;
+        this.enterpriseName = null;
+        this.location = null;
+    }
+
     public int getId() {
         return id;
     }

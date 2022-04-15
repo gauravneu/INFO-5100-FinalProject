@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnterpriseDaoImplementation implements EnterpriseInterface {
+public class EnterpriseDaoImplementation implements EnterpriseDao {
     static Connection con = DatabaseConnection.getConnection();
     @Override
     public int add(Enterprise enterprise) throws SQLException {

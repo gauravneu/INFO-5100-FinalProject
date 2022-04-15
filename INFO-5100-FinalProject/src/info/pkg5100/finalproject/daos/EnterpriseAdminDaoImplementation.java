@@ -1,6 +1,5 @@
 package info.pkg5100.finalproject.daos;
 
-import info.pkg5100.finalproject.models.Enterprise;
 import info.pkg5100.finalproject.models.EnterpriseAdmin;
 import info.pkg5100.finalproject.utils.DatabaseConnection;
 
@@ -11,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnterpriseAdminDaoImplementation implements EnterpriseAdminInterface {
+public class EnterpriseAdminDaoImplementation implements EnterpriseAdminDao {
 
     static Connection con = DatabaseConnection.getConnection();
 

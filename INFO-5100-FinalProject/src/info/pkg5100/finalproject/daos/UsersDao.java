@@ -1,22 +1,19 @@
 package info.pkg5100.finalproject.daos;
 
-
-import info.pkg5100.finalproject.models.Enterprise;
+import info.pkg5100.finalproject.models.User;
 
 import java.sql.SQLException;
 import java.util.List;
 
-
-public interface EnterpriseInterface {
-
-    public int add(Enterprise enterprise)
+public interface UsersDao {
+    public int add(User user)
             throws SQLException;
     public void delete(int id)
             throws SQLException;
-    public Enterprise getEnterpriseById(int id)
+    public User getUserById(int id)
             throws SQLException;
-    public List<Enterprise> getEnterprises()
+    public List<User> getUsers()
             throws SQLException;
-    public void update(Enterprise enterprise)
+    public void update(User user)
             throws SQLException;
 }

@@ -40,4 +40,9 @@ public class Enterprise {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.id);
+    }
 }

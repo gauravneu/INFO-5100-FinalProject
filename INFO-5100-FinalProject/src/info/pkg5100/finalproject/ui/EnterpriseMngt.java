@@ -9,7 +9,9 @@ import info.pkg5100.finalproject.models.Enterprise;
 import info.pkg5100.finalproject.models.MainSystem;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -28,11 +30,13 @@ public class EnterpriseMngt extends javax.swing.JPanel {
 		initComponents();
 	}
 
-    public EnterpriseMngt(MainSystem mainSystem, JPanel mainWorkJPanel) {
+    public EnterpriseMngt(MainSystem mainSystem, JPanel mainWorkJPanel) throws SQLException {
         initComponents();
         this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
         this.enterpriseDaoImplementation = new EnterpriseDaoImplementation();
+
+        populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterprises());
     }
 
 	/**
@@ -52,7 +56,7 @@ public class EnterpriseMngt extends javax.swing.JPanel {
         btnCreateEnterprise = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEnterpriseList = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        btnEnterpriseView = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtEnterpriseId = new javax.swing.JTextField();
 
@@ -98,7 +102,12 @@ public class EnterpriseMngt extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblEnterpriseList);
 
-        jButton2.setText("view");
+        btnEnterpriseView.setText("view");
+        btnEnterpriseView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnterpriseViewActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Enterprise id");
 
@@ -139,7 +148,7 @@ public class EnterpriseMngt extends javax.swing.JPanel {
                 .addGap(57, 57, 57))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnEnterpriseView)
                 .addGap(248, 248, 248))
         );
         layout.setVerticalGroup(
@@ -167,7 +176,7 @@ public class EnterpriseMngt extends javax.swing.JPanel {
                         .addGap(25, 25, 25)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45)
-                .addComponent(jButton2)
+                .addComponent(btnEnterpriseView)
                 .addContainerGap(71, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -184,16 +193,42 @@ public class EnterpriseMngt extends javax.swing.JPanel {
         // TODO add your handling code here:
         Enterprise enterprise = new Enterprise(Integer.parseInt(txtEnterpriseId.getText()), txtEnterpriseName.getText(), txtEnterpriseLocation.getText());
         this.enterpriseDaoImplementation.add(enterprise);
+
+        populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterprises());
+
     }//GEN-LAST:event_btnCreateEnterpriseActionPerformed
 
     private void txtEnterpriseIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnterpriseIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEnterpriseIdActionPerformed
 
+    private void btnEnterpriseViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterpriseViewActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblEnterpriseList.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select a Enterprise record to View");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblEnterpriseList.getModel();
+        Enterprise selectedEnterprise = (Enterprise) model.getValueAt(selectedRowIndex, 0);
+    }//GEN-LAST:event_btnEnterpriseViewActionPerformed
+
+    public void populateEnterpriseTable(List<Enterprise> enterpriseList) {
+        DefaultTableModel model = (DefaultTableModel) tblEnterpriseList.getModel();
+        model.setRowCount(0);
+        for (Enterprise enterprise : enterpriseList) {
+            Object[] row = new Object[3];
+            row[0] = enterprise;
+            row[1] = enterprise.getEnterpriseName();
+            row[2] = enterprise.getLocation();
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreateEnterprise;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnEnterpriseView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

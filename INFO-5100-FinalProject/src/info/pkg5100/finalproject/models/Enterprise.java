@@ -12,9 +12,9 @@ public class Enterprise {
     }
 
     public Enterprise() {
-        this.id=-1;
-        this.enterpriseName = null;
-        this.location = null;
+        this.id = -1;
+        this.enterpriseName = "";
+        this.location = "";
     }
 
     public int getId() {

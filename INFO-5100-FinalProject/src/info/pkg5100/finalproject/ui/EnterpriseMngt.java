@@ -37,6 +37,7 @@ public class EnterpriseMngt extends javax.swing.JPanel {
         this.mainWorkJPanel = mainWorkJPanel;
         this.enterpriseDaoImplementation = new EnterpriseDaoImplementation();
 
+
         populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterprises());
     }
 

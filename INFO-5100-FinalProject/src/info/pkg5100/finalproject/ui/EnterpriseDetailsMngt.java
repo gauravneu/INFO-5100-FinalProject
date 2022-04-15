@@ -38,6 +38,10 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         this.currentEnterprise = currentEnterprise;
         this.organizationDaoImplementation = new OrganizationDaoImplementation();
 
+        lblEnterpriseName.setText(currentEnterprise.getEnterpriseName());
+        lblEnterpriseId.setText(Integer.toString(currentEnterprise.getId()));
+        lblEnterpriseLocation.setText(currentEnterprise.getLocation());
+
         populateOrganizationTable(this.organizationDaoImplementation.getOrganizations());
     }
 

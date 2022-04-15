@@ -4,6 +4,16 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
+import info.pkg5100.finalproject.models.Enterprise;
+import info.pkg5100.finalproject.models.Organization;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  *
  * @author ankit
@@ -13,9 +23,36 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
 	/**
 	 * Creates new form EnterpriseDetailsMngt
 	 */
+
+    JPanel mainWorkJPanel;
+    Enterprise currentEnterprise;
+    OrganizationDaoImplementation organizationDaoImplementation;
+
 	public EnterpriseDetailsMngt() {
 		initComponents();
 	}
+
+    public EnterpriseDetailsMngt(JPanel mainWorkJPanel, Enterprise currentEnterprise) throws SQLException {
+        initComponents();
+        this.mainWorkJPanel = mainWorkJPanel;
+        this.currentEnterprise = currentEnterprise;
+        this.organizationDaoImplementation = new OrganizationDaoImplementation();
+
+        populateOrganizationTable(this.organizationDaoImplementation.getOrganizations());
+    }
+
+    public void populateOrganizationTable(List<Organization> organizationList) {
+        DefaultTableModel model = (DefaultTableModel) tblOrganizationList.getModel();
+        model.setRowCount(0);
+        for (Organization organization : organizationList) {
+            Object[] row = new Object[4];
+            row[0] = organization;
+            row[1] = organization.getName();
+            row[2] = organization.getLocation();
+            row[3] = organization.getType();
+            model.addRow(row);
+        }
+    }
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -29,9 +66,21 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         lblEnterpriseId = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        lblENterpriseName = new javax.swing.JLabel();
+        lblEnterpriseName = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblEnterpriseLocation = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblOrganizationList = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btnAddOrg = new javax.swing.JButton();
+        btnViewOrgDetails = new javax.swing.JButton();
+        txtOrgId = new javax.swing.JTextField();
+        txtOrgName = new javax.swing.JTextField();
+        txtOrgLocation = new javax.swing.JTextField();
+        txtOrgType = new javax.swing.JTextField();
 
         jLabel1.setText("Enterprise id:");
 
@@ -39,32 +88,101 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
 
         jLabel3.setText("Enterprise name:");
 
-        lblENterpriseName.setText("jLabel4");
+        lblEnterpriseName.setText("jLabel4");
 
         jLabel5.setText("Enterprise location:");
 
         lblEnterpriseLocation.setText("jLabel2");
+
+        tblOrganizationList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Location", "Type"
+            }
+        ));
+        jScrollPane1.setViewportView(tblOrganizationList);
+
+        jLabel2.setText("Org id:");
+
+        jLabel4.setText("org name");
+
+        jLabel6.setText("org location");
+
+        jLabel7.setText("org type");
+
+        btnAddOrg.setText("Add org");
+        btnAddOrg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnAddOrgActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        btnViewOrgDetails.setText("View org details");
+        btnViewOrgDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewOrgDetailsActionPerformed(evt);
+            }
+        });
+
+        txtOrgType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOrgTypeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblEnterpriseLocation))
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEnterpriseName)
+                                    .addComponent(lblEnterpriseId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtOrgId, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnAddOrg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(lblEnterpriseLocation))))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblENterpriseName)
-                            .addComponent(lblEnterpriseId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(663, Short.MAX_VALUE))
+                            .addComponent(txtOrgName)
+                            .addComponent(txtOrgLocation)
+                            .addComponent(txtOrgType))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnViewOrgDetails)
+                .addGap(285, 285, 285))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,25 +191,98 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblEnterpriseId))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblENterpriseName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblEnterpriseLocation))
-                .addContainerGap(510, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(btnViewOrgDetails)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lblEnterpriseName))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(lblEnterpriseLocation))
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtOrgId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtOrgLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addComponent(btnAddOrg)
+                        .addGap(205, 205, 205))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtOrgTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrgTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOrgTypeActionPerformed
+
+    private void btnAddOrgActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAddOrgActionPerformed
+        // TODO add your handling code here:
+        Organization organization = new Organization(Integer.parseInt(txtOrgId.getText()),
+                txtOrgName.getText(),
+                txtOrgLocation.getText(),
+                txtOrgType.getText(),
+                this.currentEnterprise.getId()
+        );
+
+        this.organizationDaoImplementation.add(organization);
+
+        populateOrganizationTable(this.organizationDaoImplementation.getOrganizations());
+    }//GEN-LAST:event_btnAddOrgActionPerformed
+
+    private void btnViewOrgDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrgDetailsActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblOrganizationList.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select an organization record to View.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblOrganizationList.getModel();
+        Organization selectedOrganization = (Organization) model.getValueAt(selectedRowIndex, 0);
+
+        OrganizationDetailsMngt organizationDetailsMngt = new OrganizationDetailsMngt();
+        mainWorkJPanel.add("OrganizationDetailsMngt",organizationDetailsMngt);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.next(mainWorkJPanel);
+    }//GEN-LAST:event_btnViewOrgDetailsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddOrg;
+    private javax.swing.JButton btnViewOrgDetails;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel lblENterpriseName;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEnterpriseId;
     private javax.swing.JLabel lblEnterpriseLocation;
+    private javax.swing.JLabel lblEnterpriseName;
+    private javax.swing.JTable tblOrganizationList;
+    private javax.swing.JTextField txtOrgId;
+    private javax.swing.JTextField txtOrgLocation;
+    private javax.swing.JTextField txtOrgName;
+    private javax.swing.JTextField txtOrgType;
     // End of variables declaration//GEN-END:variables
 }

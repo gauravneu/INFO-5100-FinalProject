@@ -62,4 +62,9 @@ public class Organization {
     public void setEnterpriseId(int enterpriseId) {
         this.enterpriseId = enterpriseId;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.id);
+    }
 }

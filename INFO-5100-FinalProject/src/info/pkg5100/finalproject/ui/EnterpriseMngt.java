@@ -10,6 +10,7 @@ import info.pkg5100.finalproject.models.MainSystem;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -105,7 +106,11 @@ public class EnterpriseMngt extends javax.swing.JPanel {
         btnEnterpriseView.setText("view");
         btnEnterpriseView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnterpriseViewActionPerformed(evt);
+                try {
+                    btnEnterpriseViewActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -202,7 +207,7 @@ public class EnterpriseMngt extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEnterpriseIdActionPerformed
 
-    private void btnEnterpriseViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterpriseViewActionPerformed
+    private void btnEnterpriseViewActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnEnterpriseViewActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblEnterpriseList.getSelectedRow();
         if(selectedRowIndex < 0 ) {
@@ -212,6 +217,11 @@ public class EnterpriseMngt extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tblEnterpriseList.getModel();
         Enterprise selectedEnterprise = (Enterprise) model.getValueAt(selectedRowIndex, 0);
+
+        EnterpriseDetailsMngt enterpriseDetailsMngt = new EnterpriseDetailsMngt(mainWorkJPanel, selectedEnterprise);
+        mainWorkJPanel.add("EnterpriseDetailsMngt",enterpriseDetailsMngt);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnEnterpriseViewActionPerformed
 
     public void populateEnterpriseTable(List<Enterprise> enterpriseList) {

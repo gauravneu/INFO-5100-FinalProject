@@ -95,4 +95,9 @@ public class User {
     public void setOrgid(int orgid) {
         this.orgid = orgid;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.id);
+    }
 }

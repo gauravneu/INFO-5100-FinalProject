@@ -4,11 +4,13 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.Enterprise;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
 
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -22,14 +24,18 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 	 */
 
     Organization currentOrganization;
+    UserDaoImplementation userDaoImplementation;
 
 	public OrganizationDetailsMngt() {
 		initComponents();
 	}
 
-    public OrganizationDetailsMngt(Organization currentOrganization) {
+    public OrganizationDetailsMngt(Organization currentOrganization) throws SQLException {
         initComponents();
         this.currentOrganization = currentOrganization;
+        this.userDaoImplementation = new UserDaoImplementation();
+
+        populateUserTable(this.userDaoImplementation.getUsers());
     }
 
 	/**
@@ -100,7 +106,11 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
         btnAddUser.setText("Add org admin");
         btnAddUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddUserActionPerformed(evt);
+                try {
+                    btnAddUserActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -223,7 +233,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
+    private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAddUserActionPerformed
         // TODO add your handling code here:
         User user = new User(Integer.parseInt(txtOrgAdminId.getText()),
                 txtOrgAdminUsername.getText(),
@@ -233,9 +243,12 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                 txtOrgAdminPhone.getText(),
                 "orgadmin",
                 this.currentOrganization.getId());
+
+        this.userDaoImplementation.add(user);
+        populateUserTable(this.userDaoImplementation.getUsers());
     }//GEN-LAST:event_btnAddUserActionPerformed
 
-    public void populateEnterpriseTable(List<User> userList) {
+    public void populateUserTable(List<User> userList) {
         DefaultTableModel model = (DefaultTableModel) tblOrgAdminList.getModel();
         model.setRowCount(0);
         for (User user : userList) {

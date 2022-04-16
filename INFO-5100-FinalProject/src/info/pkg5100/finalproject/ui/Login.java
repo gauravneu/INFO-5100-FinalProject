@@ -4,6 +4,7 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentHandlingPolice;
 import info.pkg5100.finalproject.models.MainSystem;
 
@@ -23,6 +24,8 @@ public class Login extends javax.swing.JPanel {
     MainSystem mainSystem;
     JPanel mainWorkJPanel;
 
+    UserDaoImplementation userDaoImplementation;
+
     public Login() {
         initComponents();
     }
@@ -32,6 +35,8 @@ public class Login extends javax.swing.JPanel {
 
         this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
+
+        this.userDaoImplementation = new UserDaoImplementation();
     }
 
     /**

@@ -75,6 +75,38 @@ public class UserDaoImplementation implements UsersDao {
     }
 
     @Override
+    public User getUserByUsernameAndPassword(String username, String password) throws SQLException {
+        String query
+                = "select * from users where username= ? AND password= ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setString(1, username);
+        ps.setString(2, password);
+        User user = new User();
+        ResultSet rs = ps.executeQuery();
+        boolean check = false;
+
+        while (rs.next()) {
+            check = true;
+            user.setId(rs.getInt("id"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setName(rs.getString("name"));
+            user.setAge(rs.getString("age"));
+            user.setPhone(rs.getString("phone"));
+            user.setRole(rs.getString("role"));
+            user.setOrgid(rs.getInt("orgid"));
+        }
+
+        if (check == true) {
+            return user;
+        }
+        else
+            return null;
+    }
+
+    @Override
     public List<User> getUsers() throws SQLException {
         String query = "select * from users";
         PreparedStatement ps

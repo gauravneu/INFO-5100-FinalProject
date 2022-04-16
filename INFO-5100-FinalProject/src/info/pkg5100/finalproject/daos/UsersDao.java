@@ -12,6 +12,8 @@ public interface UsersDao {
             throws SQLException;
     public User getUserById(int id)
             throws SQLException;
+    public User getUserByUsernameAndPassword(String username, String password)
+            throws SQLException;
     public List<User> getUsers()
             throws SQLException;
     public void update(User user)

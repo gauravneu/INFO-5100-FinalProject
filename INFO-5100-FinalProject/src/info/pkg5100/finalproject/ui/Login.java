@@ -4,11 +4,13 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentHandlingPolice;
 import info.pkg5100.finalproject.models.MainSystem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -22,6 +24,8 @@ public class Login extends javax.swing.JPanel {
     MainSystem mainSystem;
     JPanel mainWorkJPanel;
 
+    UserDaoImplementation userDaoImplementation;
+
     public Login() {
         initComponents();
     }
@@ -31,6 +35,8 @@ public class Login extends javax.swing.JPanel {
 
         this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
+
+        this.userDaoImplementation = new UserDaoImplementation();
     }
 
     /**
@@ -64,7 +70,11 @@ public class Login extends javax.swing.JPanel {
         btnCreate.setText("Submit");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
+                try {
+                    btnCreateActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -114,7 +124,7 @@ public class Login extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
 
         // Test login implementation
@@ -128,9 +138,12 @@ public class Login extends javax.swing.JPanel {
             mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
             CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
             layout.next(mainWorkJPanel);
-        } else {
+        } else if(txtUsername.getText().equals("sysadmin")){
             // for testing purpose login to ambulance service
-            
+            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
+            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
+            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+            layout.next(mainWorkJPanel);
         }
 
     }//GEN-LAST:event_btnCreateActionPerformed

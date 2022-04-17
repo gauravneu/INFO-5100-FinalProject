@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public final class SimpleTools {
@@ -42,6 +44,31 @@ public final class SimpleTools {
         }
 
         return currentTestId;
+    }
+
+    public static List<String> getPossibleRoles(String enterpriseType) {
+        List<String> roles = new ArrayList<>();
+        if(enterpriseType.equals("Police")) {
+
+            roles.add("incident-police");
+            roles.add("investigation-police");
+
+        } else if(enterpriseType.equals("Transport")) {
+
+            roles.add("ambulance-emp");
+
+        } else if(enterpriseType.equals("Hospital")) {
+
+            roles.add("doctor");
+            roles.add("lab-technician");
+            roles.add("pharmacist");
+
+        } else {
+            roles.add("housing-manager");
+            roles.add("detention-manager");
+        }
+
+        return roles;
     }
 
 }

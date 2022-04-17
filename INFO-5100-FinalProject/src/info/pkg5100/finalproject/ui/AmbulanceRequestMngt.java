@@ -201,6 +201,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         incidentCase.setOrgId(this.currentOrganization.getId());
         incidentCase.setOrgType(this.currentOrganization.getType());
         incidentCase.setStatus("ambulance-accepted");
+        incidentCase.setCurrentcasehandlinguserid(this.ambulanceEmployee.getId());
 
         this.incidenteCaseDaoImplementation.update(incidentCase);
         populateAcceptedRequestsTable();
@@ -227,7 +228,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblActiveAmbulanceRequests.getModel();
         model.setRowCount(0);
 
-        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocation(this.currentOrganization.getId(),
+        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocationAndCurrentCaseHandlingUserId(this.currentOrganization.getId(),
+                this.ambulanceEmployee.getId(),
                 this.currentOrganization.getType(),
                 "ambulance-accepted",
                 currentOrganization.getLocation())) {

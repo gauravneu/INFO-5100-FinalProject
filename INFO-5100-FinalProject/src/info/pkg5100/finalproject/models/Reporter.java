@@ -4,6 +4,11 @@ public class Reporter {
     String reporterName;
     String phone;
 
+    public Reporter() {
+        this.reporterName = "";
+        this.phone = "";
+    }
+
     public Reporter(String reporterName, String phone) {
         this.reporterName = reporterName;
         this.phone = phone;

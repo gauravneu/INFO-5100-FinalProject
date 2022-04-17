@@ -66,7 +66,7 @@ public class IncidentManager extends javax.swing.JPanel {
         btnAssignInvestigationOfficer = new javax.swing.JButton();
         btnDetailedView = new javax.swing.JButton();
         cmbBoxInvestigationOfficerList = new javax.swing.JComboBox<>();
-        btnAssignAmbulanceService = new javax.swing.JButton();
+        btnSendAmbulanceRequest = new javax.swing.JButton();
         lblReportIncident1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -77,17 +77,17 @@ public class IncidentManager extends javax.swing.JPanel {
 
         tblReportedIncidents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Incident Id", "Reporter Mobile", "Location", "Description", "Assigned Investigation officer"
+                "Incident Id", "Reporter Mobile", "Location", "Description", "Assigned Investigation officer", "status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, false, false
+                false, true, true, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -117,12 +117,12 @@ public class IncidentManager extends javax.swing.JPanel {
 
         cmbBoxInvestigationOfficerList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnAssignAmbulanceService.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnAssignAmbulanceService.setText("Assign Ambulance Service");
-        btnAssignAmbulanceService.addActionListener(new java.awt.event.ActionListener() {
+        btnSendAmbulanceRequest.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSendAmbulanceRequest.setText("Send Ambulance request to near by ambulance services");
+        btnSendAmbulanceRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-                    btnAssignAmbulanceServiceActionPerformed(evt);
+                    btnSendAmbulanceRequestActionPerformed(evt);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -156,7 +156,7 @@ public class IncidentManager extends javax.swing.JPanel {
                                 .addGap(58, 58, 58)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -193,7 +193,7 @@ public class IncidentManager extends javax.swing.JPanel {
                 .addGap(49, 49, 49)
                 .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
@@ -223,7 +223,7 @@ public class IncidentManager extends javax.swing.JPanel {
 //        layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnDetailedViewActionPerformed
 
-    private void btnAssignAmbulanceServiceActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAssignAmbulanceServiceActionPerformed
+    private void btnSendAmbulanceRequestActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnSendAmbulanceRequestActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblReportedIncidents.getSelectedRow();
         if(selectedRowIndex < 0 ) {
@@ -236,24 +236,27 @@ public class IncidentManager extends javax.swing.JPanel {
 
         incidentCase.setStatus("ambulance-requested");
         this.incidenteCaseDaoImplementation.update(incidentCase);
-    }//GEN-LAST:event_btnAssignAmbulanceServiceActionPerformed
+
+        JOptionPane.showMessageDialog(this, "Request for ambulance sent to all near by ambulance services!!");
+    }//GEN-LAST:event_btnSendAmbulanceRequestActionPerformed
 
     void populateIncidentsTable(String location) throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
         model.setRowCount(0);
 
         for(IncidentCase  incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByLocation(location)) {
-            Object[] row = new Object[5];
+            Object[] row = new Object[6];
             row[0] = incidentCase;
             row[1] = incidentCase.getReporterPhone();
             row[2] = incidentCase.getLocation();
             row[3] = incidentCase.getDescription();
             if(incidentCase.getInvestigationPoliceId() == -1) {
-                row[5] = "";
+                row[4] = "";
             } else {
                 User investigationOffice = this.userDaoImplementation.getUserById(incidentCase.getInvestigationPoliceId());
-                row[5] = investigationOffice.getId();
+                row[4] = investigationOffice.getId();
             }
+            row[5] = incidentCase.getStatus();
 
             model.addRow(row);
         }
@@ -261,9 +264,9 @@ public class IncidentManager extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAssignAmbulanceService;
     private javax.swing.JButton btnAssignInvestigationOfficer;
     private javax.swing.JButton btnDetailedView;
+    private javax.swing.JButton btnSendAmbulanceRequest;
     private javax.swing.JComboBox<String> cmbBoxInvestigationOfficerList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

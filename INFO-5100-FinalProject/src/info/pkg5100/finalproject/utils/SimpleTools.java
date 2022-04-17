@@ -23,18 +23,16 @@ public final class SimpleTools {
         boolean check = false;
 
         while(!check) {
+            System.out.println(currentTestId);
             String query = "select * from " + tableName + " where id= ?";
             PreparedStatement ps
                     = con.prepareStatement(query);
 
             ps.setInt(1, currentTestId);
-            User user = new User();
             ResultSet rs = ps.executeQuery();
 
-
-            while (rs.next()) {
+            if(!rs.next())
                 check = true;
-            }
 
             if (check == true) {
                break;

@@ -18,7 +18,7 @@ public class ReporterDaoImplementation implements ReporterDao{
     @Override
     public int add(Reporter reporter) throws SQLException {
         String query
-                = "insert into reporters(phone, name,) "
+                = "insert into reporters(phone, name) "
                 +  "VALUES (?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);

@@ -17,7 +17,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public int add(IncidentCase incidentCase) throws SQLException {
         String query
-                = "insert into incidentcases(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location, description"
+                = "insert into incidentcases(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location, description)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -168,8 +168,8 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
 
         ps.setInt(1, orgId);
         ps.setString(2, orgType);
-        ps.setString(2, status);
-        ps.setString(2, location);
+        ps.setString(3, status);
+        ps.setString(4, location);
 
         ResultSet rs = ps.executeQuery();
         List<IncidentCase> ls = new ArrayList();
@@ -194,7 +194,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public void update(IncidentCase incidentCase) throws SQLException {
         String query
-                = "update incidentcases set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterid= ?, photourl= ?, location= ?, description= ?"
+                = "update incidentcases set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterphone= ?, photourl= ?, location= ?, description= ?"
                 + "where id = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -206,8 +206,8 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setString(6, incidentCase.getReporterPhone());
         ps.setString(7, incidentCase.getPhotoUrl());
         ps.setString(8, incidentCase.getLocation());
-        ps.setString(8, incidentCase.getDescription());
-        ps.setInt(9, incidentCase.getId());
+        ps.setString(9, incidentCase.getDescription());
+        ps.setInt(10, incidentCase.getId());
         ps.executeUpdate();
     }
 }

@@ -144,10 +144,11 @@ public class Login extends javax.swing.JPanel {
         } else {
 
             User user = this.userDaoImplementation.getUserByUsernameAndPassword(txtUsername.getText(), txtPassword.getText());
-            int orgid = user.getOrgid();
-            Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
+
 
             if(user != null) {
+                int orgid = user.getOrgid();
+                Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
 
                 if(user.getRole().equals("orgadmin")) {
                     OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);

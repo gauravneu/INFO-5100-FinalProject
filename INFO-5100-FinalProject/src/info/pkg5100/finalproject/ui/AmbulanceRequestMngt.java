@@ -204,6 +204,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
 
         this.incidenteCaseDaoImplementation.update(incidentCase);
         populateAcceptedRequestsTable();
+        populatePendingRequestsTable();
 
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
 

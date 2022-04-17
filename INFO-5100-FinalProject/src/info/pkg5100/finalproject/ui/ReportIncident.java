@@ -128,7 +128,7 @@ public class ReportIncident extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Location");
 
-        cmbBoxNetworkName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBoxNetworkName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "New York" }));
         cmbBoxNetworkName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbBoxNetworkNameActionPerformed(evt);

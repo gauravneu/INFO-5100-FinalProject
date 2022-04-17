@@ -16,12 +16,13 @@ public class EnterpriseDaoImplementation implements EnterpriseDao {
     public int add(Enterprise enterprise) throws SQLException {
         String query
                 = "insert into enterprises(id, name, "
-                + "location) VALUES (?, ?, ?)";
+                + "location, type) VALUES (?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, enterprise.getId());
         ps.setString(2, enterprise.getEnterpriseName());
         ps.setString(3, enterprise.getLocation());
+        ps.setString(4, enterprise.getType());
         int n = ps.executeUpdate();
         return n;
     }
@@ -53,6 +54,7 @@ public class EnterpriseDaoImplementation implements EnterpriseDao {
             enterprise.setId(rs.getInt("id"));
             enterprise.setEnterpriseName(rs.getString("name"));
             enterprise.setLocation(rs.getString("location"));
+            enterprise.setType(rs.getString("type"));
         }
 
         if (check == true) {
@@ -75,6 +77,7 @@ public class EnterpriseDaoImplementation implements EnterpriseDao {
             enterprise.setId(rs.getInt("id"));
             enterprise.setEnterpriseName(rs.getString("name"));
             enterprise.setLocation(rs.getString("location"));
+            enterprise.setType(rs.getString("type"));
             ls.add(enterprise);
         }
         return ls;
@@ -84,12 +87,13 @@ public class EnterpriseDaoImplementation implements EnterpriseDao {
     public void update(Enterprise enterprise) throws SQLException {
         String query
                 = "update enterprises set name=?, "
-                + " location= ? where id = ?";
+                + " location= ?, type=? where id = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setString(1, enterprise.getEnterpriseName());
         ps.setString(2, enterprise.getLocation());
-        ps.setInt(3, enterprise.getId());
+        ps.setString(3, enterprise.getType());
+        ps.setInt(4, enterprise.getId());
         ps.executeUpdate();
     }
 }

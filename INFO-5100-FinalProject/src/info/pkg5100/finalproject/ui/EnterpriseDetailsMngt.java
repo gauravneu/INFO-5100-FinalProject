@@ -7,6 +7,7 @@ package info.pkg5100.finalproject.ui;
 import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
 import info.pkg5100.finalproject.models.Enterprise;
 import info.pkg5100.finalproject.models.Organization;
+import info.pkg5100.finalproject.utils.SimpleTools;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -42,7 +43,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         lblEnterpriseId.setText(Integer.toString(currentEnterprise.getId()));
         lblEnterpriseLocation.setText(currentEnterprise.getLocation());
 
-        populateOrganizationTable(this.organizationDaoImplementation.getOrganizations());
+        populateOrganizationTable(this.organizationDaoImplementation.getOrganizationByTypeAndLocation(this.currentEnterprise.getType(), this.currentEnterprise.getLocation()));
     }
 
     public void populateOrganizationTable(List<Organization> organizationList) {
@@ -75,16 +76,10 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         lblEnterpriseLocation = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrganizationList = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         btnAddOrg = new javax.swing.JButton();
         btnViewOrgDetails = new javax.swing.JButton();
-        txtOrgId = new javax.swing.JTextField();
         txtOrgName = new javax.swing.JTextField();
-        txtOrgLocation = new javax.swing.JTextField();
-        txtOrgType = new javax.swing.JTextField();
 
         jLabel1.setText("Enterprise id:");
 
@@ -111,13 +106,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblOrganizationList);
 
-        jLabel2.setText("Org id:");
-
         jLabel4.setText("org name");
-
-        jLabel6.setText("org location");
-
-        jLabel7.setText("org type");
 
         btnAddOrg.setText("Add org");
         btnAddOrg.addActionListener(new java.awt.event.ActionListener() {
@@ -141,12 +130,6 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
             }
         });
 
-        txtOrgType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrgTypeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,23 +150,14 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel5)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtOrgId, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnAddOrg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(btnAddOrg))
                                 .addGap(18, 18, 18)
                                 .addComponent(lblEnterpriseLocation))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtOrgName)
-                            .addComponent(txtOrgLocation)
-                            .addComponent(txtOrgType))))
+                        .addComponent(txtOrgName)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72))
@@ -205,7 +179,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
                         .addComponent(btnViewOrgDetails)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(58, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -215,44 +189,29 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(lblEnterpriseLocation))
-                        .addGap(70, 70, 70)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtOrgId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
+                        .addGap(119, 119, 119)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtOrgLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAddOrg)
                         .addGap(205, 205, 205))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtOrgTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrgTypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrgTypeActionPerformed
-
     private void btnAddOrgActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAddOrgActionPerformed
         // TODO add your handling code here:
-        Organization organization = new Organization(Integer.parseInt(txtOrgId.getText()),
+        int newId = SimpleTools.getUnusedId("organizations", 1000, 9999);
+        Organization organization = new Organization(newId,
                 txtOrgName.getText(),
-                txtOrgLocation.getText(),
-                txtOrgType.getText(),
+                this.currentEnterprise.getLocation(),
+                this.currentEnterprise.getType(),
                 this.currentEnterprise.getId()
         );
 
         this.organizationDaoImplementation.add(organization);
 
-        populateOrganizationTable(this.organizationDaoImplementation.getOrganizations());
+        populateOrganizationTable(this.organizationDaoImplementation.getOrganizationByTypeAndLocation(this.currentEnterprise.getType(), this.currentEnterprise.getLocation()));
     }//GEN-LAST:event_btnAddOrgActionPerformed
 
     private void btnViewOrgDetailsActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnViewOrgDetailsActionPerformed
@@ -277,20 +236,14 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
     private javax.swing.JButton btnAddOrg;
     private javax.swing.JButton btnViewOrgDetails;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEnterpriseId;
     private javax.swing.JLabel lblEnterpriseLocation;
     private javax.swing.JLabel lblEnterpriseName;
     private javax.swing.JTable tblOrganizationList;
-    private javax.swing.JTextField txtOrgId;
-    private javax.swing.JTextField txtOrgLocation;
     private javax.swing.JTextField txtOrgName;
-    private javax.swing.JTextField txtOrgType;
     // End of variables declaration//GEN-END:variables
 }

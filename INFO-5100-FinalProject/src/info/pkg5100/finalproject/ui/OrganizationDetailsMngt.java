@@ -8,6 +8,7 @@ import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.Enterprise;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
+import info.pkg5100.finalproject.utils.SimpleTools;
 
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
@@ -35,7 +36,12 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
         this.currentOrganization = currentOrganization;
         this.userDaoImplementation = new UserDaoImplementation();
 
-        populateUserTable(this.userDaoImplementation.getUsers());
+        lblOrgIdPlaceHolder.setText(Integer.toString(this.currentOrganization.getId()));
+        lblOrgNamePlaceHolder.setText(this.currentOrganization.getName());
+        lblOrgLocationPlaceHolder.setText(this.currentOrganization.getLocation());
+        lblOrgTypePlaceHolder.setText(this.currentOrganization.getType());
+
+        populateUserTable(this.userDaoImplementation.getUsersByOrgIdAndRole(this.currentOrganization.getId(), "orgadmin"));
     }
 
 	/**
@@ -61,14 +67,16 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         btnAddUser = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtOrgAdminId = new javax.swing.JTextField();
         txtOrgAdminName = new javax.swing.JTextField();
         txtOrgAdminAge = new javax.swing.JTextField();
         txtOrgAdminPhone = new javax.swing.JTextField();
         txtOrgAdminUsername = new javax.swing.JTextField();
         txtOrgAdminPasswrod = new javax.swing.JTextField();
+        lblOrgIdPlaceHolder = new javax.swing.JLabel();
+        lblOrgNamePlaceHolder = new javax.swing.JLabel();
+        lblOrgLocationPlaceHolder = new javax.swing.JLabel();
+        lblOrgTypePlaceHolder = new javax.swing.JLabel();
 
         jLabel1.setText("Org management");
 
@@ -116,10 +124,15 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
         jLabel11.setText("password");
 
-        jLabel12.setText("id");
-
         jLabel13.setText("Org admin creds:");
 
+        lblOrgIdPlaceHolder.setText("org_id_placeholder");
+
+        lblOrgNamePlaceHolder.setText("org_name_placeholder");
+
+        lblOrgLocationPlaceHolder.setText("org_location_placeholder");
+
+        lblOrgTypePlaceHolder.setText("org_type_placeholder");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -127,44 +140,56 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(74, 74, 74)
+                            .addComponent(jLabel13)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(65, 65, 65)
+                            .addComponent(lblOrgTypePlaceHolder)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel12)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtOrgAdminAge, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtOrgAdminName, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtOrgAdminPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(25, 25, 25)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblOrgNamePlaceHolder))
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblOrgLocationPlaceHolder))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel8)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtOrgAdminAge, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtOrgAdminName, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtOrgAdminPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtOrgAdminUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtOrgAdminPasswrod, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtOrgAdminUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtOrgAdminPasswrod, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtOrgAdminId, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                                .addGap(83, 83, 83)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblOrgIdPlaceHolder)
+                                    .addComponent(jLabel1))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(199, 199, 199)
@@ -192,20 +217,24 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                         .addGap(10, 10, 10)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(lblOrgIdPlaceHolder))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lblOrgNamePlaceHolder))
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(lblOrgLocationPlaceHolder))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(lblOrgTypePlaceHolder))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel13)
-                        .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtOrgAdminId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(txtOrgAdminName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -226,7 +255,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11)
                     .addComponent(txtOrgAdminPasswrod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(btnAddUser)
                 .addGap(49, 49, 49))
         );
@@ -234,7 +263,8 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
     private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAddUserActionPerformed
         // TODO add your handling code here:
-        User user = new User(Integer.parseInt(txtOrgAdminId.getText()),
+        int newId = SimpleTools.getUnusedId("users", 1000, 9999);
+        User user = new User(newId,
                 txtOrgAdminUsername.getText(),
                 txtOrgAdminPasswrod.getText(),
                 txtOrgAdminName.getText(),
@@ -244,7 +274,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                 this.currentOrganization.getId());
 
         this.userDaoImplementation.add(user);
-        populateUserTable(this.userDaoImplementation.getUsers());
+        populateUserTable(this.userDaoImplementation.getUsersByOrgIdAndRole(this.currentOrganization.getId(), "orgadmin"));
     }//GEN-LAST:event_btnAddUserActionPerformed
 
     public void populateUserTable(List<User> userList) {
@@ -266,7 +296,6 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -277,9 +306,12 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblOrgIdPlaceHolder;
+    private javax.swing.JLabel lblOrgLocationPlaceHolder;
+    private javax.swing.JLabel lblOrgNamePlaceHolder;
+    private javax.swing.JLabel lblOrgTypePlaceHolder;
     private javax.swing.JTable tblOrgAdminList;
     private javax.swing.JTextField txtOrgAdminAge;
-    private javax.swing.JTextField txtOrgAdminId;
     private javax.swing.JTextField txtOrgAdminName;
     private javax.swing.JTextField txtOrgAdminPasswrod;
     private javax.swing.JTextField txtOrgAdminPhone;

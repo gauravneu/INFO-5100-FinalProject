@@ -119,7 +119,7 @@ public class OrganizationDaoImplementation implements OrganizationDao {
     @Override
     public List<Organization> getOrganizationByLocation(String location) throws SQLException {
         String query
-                = "select * from organizations where tlocation = ?";
+                = "select * from organizations where location = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
 

@@ -121,7 +121,11 @@ public class IncidentManager extends javax.swing.JPanel {
         btnAssignAmbulanceService.setText("Assign Ambulance Service");
         btnAssignAmbulanceService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAssignAmbulanceServiceActionPerformed(evt);
+                try {
+                    btnAssignAmbulanceServiceActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -212,11 +216,11 @@ public class IncidentManager extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
         IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
-
-        IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(mainWorkJPanel, incidentCase);
-        mainWorkJPanel.add("IncidentDetailsMngt", incidentDetailsMngt);
-        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-        layout.next(mainWorkJPanel);
+//
+//        IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(mainWorkJPanel, incidentCase);
+//        mainWorkJPanel.add("IncidentDetailsMngt", incidentDetailsMngt);
+//        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+//        layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnDetailedViewActionPerformed
 
     private void btnAssignAmbulanceServiceActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAssignAmbulanceServiceActionPerformed

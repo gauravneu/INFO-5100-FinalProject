@@ -160,6 +160,11 @@ public class Login extends javax.swing.JPanel {
                     mainWorkJPanel.add("IncidentManager", incidentManager);
                     CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
                     layout.next(mainWorkJPanel);
+                } else if(user.getRole().equals("ambulance-emp")) {
+                    AmbulanceRequestMngt ambulanceRequestMngt = new AmbulanceRequestMngt(mainWorkJPanel, user, org);
+                    mainWorkJPanel.add("AmbulanceRequestMngt", ambulanceRequestMngt);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
                 }
 
             } else {

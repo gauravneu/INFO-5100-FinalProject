@@ -130,6 +130,68 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     }
 
     @Override
+    public List<IncidentCase> getIncidentCasesByStatusAndLocation(String status, String location) throws SQLException {
+        String query = "select * from incidentcases WHERE status=? AND location = ?";
+
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setString(1, status);
+        ps.setString(2, location);
+
+        ResultSet rs = ps.executeQuery();
+        List<IncidentCase> ls = new ArrayList();
+
+        while (rs.next()) {
+            IncidentCase incidentCase = new IncidentCase();
+            incidentCase.setId(rs.getInt("id"));
+            incidentCase.setStatus(rs.getString("status"));
+            incidentCase.setInvestigationDetails(rs.getString("investigationdetails"));
+            incidentCase.setOrgId(rs.getInt("orgid"));
+            incidentCase.setOrgType(rs.getString("orgtype"));
+            incidentCase.setInvestigationPoliceId(rs.getInt("investigationpoliceid"));
+            incidentCase.setReporterPhone(rs.getString("reporterphone"));
+            incidentCase.setPhotoUrl(rs.getString("photourl"));
+            incidentCase.setLocation(rs.getString("location"));
+            incidentCase.setDescription(rs.getString("description"));
+            ls.add(incidentCase);
+        }
+        return ls;
+    }
+
+    @Override
+    public List<IncidentCase> getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocation(int orgId, String orgType, String status, String location) throws SQLException {
+        String query = "select * from incidentcases WHERE orgid=? AND orgtype=? AND status=? AND location = ?";
+
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setInt(1, orgId);
+        ps.setString(2, orgType);
+        ps.setString(2, status);
+        ps.setString(2, location);
+
+        ResultSet rs = ps.executeQuery();
+        List<IncidentCase> ls = new ArrayList();
+
+        while (rs.next()) {
+            IncidentCase incidentCase = new IncidentCase();
+            incidentCase.setId(rs.getInt("id"));
+            incidentCase.setStatus(rs.getString("status"));
+            incidentCase.setInvestigationDetails(rs.getString("investigationdetails"));
+            incidentCase.setOrgId(rs.getInt("orgid"));
+            incidentCase.setOrgType(rs.getString("orgtype"));
+            incidentCase.setInvestigationPoliceId(rs.getInt("investigationpoliceid"));
+            incidentCase.setReporterPhone(rs.getString("reporterphone"));
+            incidentCase.setPhotoUrl(rs.getString("photourl"));
+            incidentCase.setLocation(rs.getString("location"));
+            incidentCase.setDescription(rs.getString("description"));
+            ls.add(incidentCase);
+        }
+        return ls;
+    }
+
+    @Override
     public void update(IncidentCase incidentCase) throws SQLException {
         String query
                 = "update incidentcases set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterid= ?, photourl= ?, location= ?, description= ?"

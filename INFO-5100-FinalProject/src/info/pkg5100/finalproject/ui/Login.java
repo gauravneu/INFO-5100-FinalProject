@@ -142,17 +142,28 @@ public class Login extends javax.swing.JPanel {
             CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
             layout.next(mainWorkJPanel);
         } else {
-            System.out.println(txtPassword.getPassword().toString());
 
             User user = this.userDaoImplementation.getUserByUsernameAndPassword(txtUsername.getText(), txtPassword.getText());
 
+
             if(user != null) {
+                int orgid = user.getOrgid();
+                Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
 
                 if(user.getRole().equals("orgadmin")) {
-                    int orgid = user.getOrgid();
-                    Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
                     OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);
                     mainWorkJPanel.add("OrganizationEmployeeMngt", organizationEmployeeMngt);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+
+                } else if(user.getRole().equals("incident-police")) {
+                    IncidentManager incidentManager = new IncidentManager(mainWorkJPanel, user, org);
+                    mainWorkJPanel.add("IncidentManager", incidentManager);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+                } else if(user.getRole().equals("ambulance-emp")) {
+                    AmbulanceRequestMngt ambulanceRequestMngt = new AmbulanceRequestMngt(mainWorkJPanel, user, org);
+                    mainWorkJPanel.add("AmbulanceRequestMngt", ambulanceRequestMngt);
                     CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
                     layout.next(mainWorkJPanel);
                 }

@@ -4,45 +4,54 @@
  */
 package info.pkg5100.finalproject.models;
 
-import java.util.ArrayList;
-
-/**
+ /**
  *
  * @author ankit
  */
 public class IncidentCase {
-    ArrayList<Patient> patientArrayList;
+    int id;
     String status;
     String investigationDetails;
-    String hospitalName;
-    Reporter reporter;
-    String incidentDescription;
-    String policeStationNetworkName;
-    InvestigationPolice investigationPolice;
-    String photoURL;
+    int orgId;
+    String orgType;
+    int investigationPoliceId;
+    String reporterPhone;
+    String photoUrl;
     String location;
+    String description;
 
+    public IncidentCase() {
+        this.id = -1;
+        this.status = "";
+        this.investigationDetails = "";
+        this.orgId = -1;
+        this.orgType = "";
+        this.investigationPoliceId = -1;
+        this.reporterPhone = "";
+        this.photoUrl = "";
+        this.location = "";
+        this.description = "";
+    }
 
-    public IncidentCase(ArrayList<Patient> patientArrayList, String status, String investigationDetails, String hospitalName, Reporter reporter, String incidentDescription, String policeStationNetworkName, InvestigationPolice investigationPolice, String photoURL, String location) {
-        this.patientArrayList = patientArrayList;
+    public IncidentCase(int id, String status, String investigationDetails, int orgId, String orgType, int investigationPoliceId, String reporterPhone, String photoUrl, String location, String description) {
+        this.id = id;
         this.status = status;
         this.investigationDetails = investigationDetails;
-        this.hospitalName = hospitalName;
-        this.reporter = reporter;
-        this.incidentDescription = incidentDescription;
-        this.policeStationNetworkName = policeStationNetworkName;
-        this.investigationPolice = investigationPolice;
-        this.photoURL = photoURL;
+        this.orgId = orgId;
+        this.orgType = orgType;
+        this.investigationPoliceId = investigationPoliceId;
+        this.reporterPhone = reporterPhone;
+        this.photoUrl = photoUrl;
         this.location = location;
+        this.description = description;
     }
 
-
-    public ArrayList<Patient> getPatientArrayList() {
-        return patientArrayList;
+    public int getId() {
+        return id;
     }
 
-    public void setPatientArrayList(ArrayList<Patient> patientArrayList) {
-        this.patientArrayList = patientArrayList;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStatus() {
@@ -61,52 +70,44 @@ public class IncidentCase {
         this.investigationDetails = investigationDetails;
     }
 
-    public String getHospitalName() {
-        return hospitalName;
+    public int getOrgId() {
+        return orgId;
     }
 
-    public void setHospitalName(String hospitalName) {
-        this.hospitalName = hospitalName;
+    public void setOrgId(int orgId) {
+        this.orgId = orgId;
     }
 
-    public Reporter getReporter() {
-        return reporter;
+    public String getOrgType() {
+        return orgType;
     }
 
-    public void setReporter(Reporter reporter) {
-        this.reporter = reporter;
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
     }
 
-    public String getIncidentDescription() {
-        return incidentDescription;
+    public int getInvestigationPoliceId() {
+        return investigationPoliceId;
     }
 
-    public void setIncidentDescription(String incidentDescription) {
-        this.incidentDescription = incidentDescription;
+    public void setInvestigationPoliceId(int investigationPoliceId) {
+        this.investigationPoliceId = investigationPoliceId;
     }
 
-    public String getPoliceStationNetworkName() {
-        return policeStationNetworkName;
+    public String getReporterPhone() {
+        return reporterPhone;
     }
 
-    public void setPoliceStationNetworkName(String policeStationNetworkName) {
-        this.policeStationNetworkName = policeStationNetworkName;
+    public void setReporterPhone(String reporterPhone) {
+        this.reporterPhone = reporterPhone;
     }
 
-    public InvestigationPolice getInvestigationPolice() {
-        return investigationPolice;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setInvestigationPolice(InvestigationPolice investigationPolice) {
-        this.investigationPolice = investigationPolice;
-    }
-
-    public String getPhotoURL() {
-        return photoURL;
-    }
-
-    public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getLocation() {
@@ -117,8 +118,16 @@ public class IncidentCase {
         this.location = location;
     }
 
-    @Override
-    public String toString() {
-        return this.incidentDescription;
-    }
-}
+     public String getDescription() {
+         return description;
+     }
+
+     public void setDescription(String description) {
+         this.description = description;
+     }
+
+     @Override
+     public String toString() {
+         return Integer.toString(this.id);
+     }
+ }

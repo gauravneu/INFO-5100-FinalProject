@@ -133,7 +133,11 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         btnViewOrgDetails.setText("View org details");
         btnViewOrgDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewOrgDetailsActionPerformed(evt);
+                try {
+                    btnViewOrgDetailsActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -251,7 +255,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         populateOrganizationTable(this.organizationDaoImplementation.getOrganizations());
     }//GEN-LAST:event_btnAddOrgActionPerformed
 
-    private void btnViewOrgDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrgDetailsActionPerformed
+    private void btnViewOrgDetailsActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnViewOrgDetailsActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblOrganizationList.getSelectedRow();
         if(selectedRowIndex < 0 ) {
@@ -262,7 +266,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblOrganizationList.getModel();
         Organization selectedOrganization = (Organization) model.getValueAt(selectedRowIndex, 0);
 
-        OrganizationDetailsMngt organizationDetailsMngt = new OrganizationDetailsMngt();
+        OrganizationDetailsMngt organizationDetailsMngt = new OrganizationDetailsMngt(selectedOrganization);
         mainWorkJPanel.add("OrganizationDetailsMngt",organizationDetailsMngt);
         CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
         layout.next(mainWorkJPanel);

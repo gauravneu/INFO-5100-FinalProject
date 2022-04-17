@@ -16,6 +16,10 @@ public interface UsersDao {
             throws SQLException;
     public List<User> getUsers()
             throws SQLException;
+    public List<User> getUsersByOrgId(int id)
+            throws SQLException;
+    public List<User> getEmployeesByOrgId(int id)
+            throws SQLException;
     public void update(User user)
             throws SQLException;
 }

@@ -20,22 +20,20 @@ public class IncidentManager extends javax.swing.JPanel {
      * Creates new form IncidentManager
      */
 
-    MainSystem mainSystem;
     JPanel mainWorkJPanel;
-    IncidentHandlingPolice incidentHandlingPolice;
+    User incidentHandlingPolice;
     public IncidentManager() {
         initComponents();
     }
 
-    public IncidentManager(MainSystem mainSystem, JPanel mainWorkJPanel, IncidentHandlingPolice incidentHandlingPolice) {
+    public IncidentManager(JPanel mainWorkJPanel, User incidentHandlingPolice) {
         initComponents();
 
-        this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
         this.incidentHandlingPolice = incidentHandlingPolice;
 
-        populateIncidentsTable("Boston-network");
-        populateAmbulanceComboBox("Boston-network");
+        populateIncidentsTable("Boston");
+        populateAmbulanceComboBox("Boston");
 
     }
 
@@ -57,6 +55,11 @@ public class IncidentManager extends javax.swing.JPanel {
         cmbBoxAmbulanceService = new javax.swing.JComboBox<>();
         cmbBoxInvestigationOfficerList = new javax.swing.JComboBox<>();
         btnAssignAmbulanceService = new javax.swing.JButton();
+        lblReportIncident1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblCurrentLoggedInIncidentPolice = new javax.swing.JLabel();
+        lblCurrentLoggedInIncidentPoliceRole = new javax.swing.JLabel();
 
         setForeground(new java.awt.Color(0, 153, 153));
 
@@ -112,6 +115,17 @@ public class IncidentManager extends javax.swing.JPanel {
             }
         });
 
+        lblReportIncident1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblReportIncident1.setText("Current logged in User");
+
+        jLabel1.setText("Police name:");
+
+        jLabel2.setText("Role:");
+
+        lblCurrentLoggedInIncidentPolice.setText("police_name_placeolder");
+
+        lblCurrentLoggedInIncidentPoliceRole.setText("police_role_placeolder");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,42 +133,61 @@ public class IncidentManager extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(246, 246, 246)
-                        .addComponent(lblReportIncident))
+                        .addGap(110, 110, 110)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnDetailedView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbBoxAmbulanceService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(58, 58, 58)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCurrentLoggedInIncidentPoliceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCurrentLoggedInIncidentPolice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(121, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDetailedView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbBoxAmbulanceService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.Alignment.TRAILING, 0, 138, Short.MAX_VALUE))
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(243, 243, 243)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblReportIncident1)
+                            .addComponent(lblReportIncident))))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(lblReportIncident)
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(lblReportIncident1)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblCurrentLoggedInIncidentPolice))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblCurrentLoggedInIncidentPoliceRole))
+                .addGap(126, 126, 126)
+                .addComponent(lblReportIncident)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbBoxAmbulanceService, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-                .addGap(117, 117, 117))
+                .addGap(101, 101, 101))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -240,8 +273,13 @@ public class IncidentManager extends javax.swing.JPanel {
     private javax.swing.JButton btnDetailedView;
     private javax.swing.JComboBox<String> cmbBoxAmbulanceService;
     private javax.swing.JComboBox<String> cmbBoxInvestigationOfficerList;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCurrentLoggedInIncidentPolice;
+    private javax.swing.JLabel lblCurrentLoggedInIncidentPoliceRole;
     private javax.swing.JLabel lblReportIncident;
+    private javax.swing.JLabel lblReportIncident1;
     private javax.swing.JTable tblReportedIncidents;
     // End of variables declaration//GEN-END:variables
 }

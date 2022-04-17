@@ -1,7 +1,5 @@
 package info.pkg5100.finalproject.daos;
 
-import info.pkg5100.finalproject.models.Enterprise;
-import info.pkg5100.finalproject.models.EnterpriseAdmin;
 import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.utils.DatabaseConnection;
 
@@ -19,7 +17,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public int add(IncidentCase incidentCase) throws SQLException {
         String query
-                = "insert into incidentcase(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterid, photourl, location"
+                = "insert into incidentcase(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -29,7 +27,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setInt(4, incidentCase.getOrgId());
         ps.setString(5, incidentCase.getOrgType());
         ps.setInt(6, incidentCase.getInvestigationPoliceId());
-        ps.setInt(7, incidentCase.getReporterId());
+        ps.setString(7, incidentCase.getReporterPhone());
         ps.setString(8, incidentCase.getPhotoUrl());
         ps.setString(9, incidentCase.getLocation());
         int n = ps.executeUpdate();
@@ -66,7 +64,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setOrgId(rs.getInt("orgid"));
             incidentCase.setOrgType(rs.getString("orgtype"));
             incidentCase.setInvestigationPoliceId(rs.getInt("investigationpoliceid"));
-            incidentCase.setReporterId(rs.getInt("reporterid"));
+            incidentCase.setReporterPhone(rs.getString("reporterphone"));
             incidentCase.setPhotoUrl(rs.getString("photourl"));
             incidentCase.setLocation(rs.getString("location"));
         }
@@ -94,7 +92,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setOrgId(rs.getInt("orgid"));
             incidentCase.setOrgType(rs.getString("orgtype"));
             incidentCase.setInvestigationPoliceId(rs.getInt("investigationpoliceid"));
-            incidentCase.setReporterId(rs.getInt("reporterid"));
+            incidentCase.setReporterPhone(rs.getString("reporterphone"));
             incidentCase.setPhotoUrl(rs.getString("photourl"));
             incidentCase.setLocation(rs.getString("location"));
             ls.add(incidentCase);
@@ -105,7 +103,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public void update(IncidentCase incidentCase) throws SQLException {
         String query
-                = "update incidentcase set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, = ?, reporterid= ?, photourl= ?, location= ?"
+                = "update incidentcase set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterid= ?, photourl= ?, location= ?"
                 + "where id = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -114,7 +112,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setInt(3, incidentCase.getOrgId());
         ps.setString(4, incidentCase.getOrgType());
         ps.setInt(5, incidentCase.getInvestigationPoliceId());
-        ps.setInt(6, incidentCase.getReporterId());
+        ps.setString(6, incidentCase.getReporterPhone());
         ps.setString(7, incidentCase.getPhotoUrl());
         ps.setString(8, incidentCase.getLocation());
         ps.setInt(9, incidentCase.getId());

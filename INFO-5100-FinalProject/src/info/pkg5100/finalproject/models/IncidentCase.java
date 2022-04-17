@@ -4,9 +4,7 @@
  */
 package info.pkg5100.finalproject.models;
 
-import java.util.ArrayList;
-
-/**
+ /**
  *
  * @author ankit
  */
@@ -17,7 +15,7 @@ public class IncidentCase {
     int orgId;
     String orgType;
     int investigationPoliceId;
-    int reporterId;
+    String reporterPhone;
     String photoUrl;
     String location;
 
@@ -28,19 +26,19 @@ public class IncidentCase {
         this.orgId = -1;
         this.orgType = "";
         this.investigationPoliceId = -1;
-        this.reporterId = -1;
+        this.reporterPhone = "";
         this.photoUrl = "";
         this.location = "";
     }
 
-    public IncidentCase(int id, String status, String investigationDetails, int orgId, String orgType, int investigationPoliceId, int reporterId, String photoUrl, String location) {
+    public IncidentCase(int id, String status, String investigationDetails, int orgId, String orgType, int investigationPoliceId, String reporterPhone, String photoUrl, String location) {
         this.id = id;
         this.status = status;
         this.investigationDetails = investigationDetails;
         this.orgId = orgId;
         this.orgType = orgType;
         this.investigationPoliceId = investigationPoliceId;
-        this.reporterId = reporterId;
+        this.reporterPhone = reporterPhone;
         this.photoUrl = photoUrl;
         this.location = location;
     }
@@ -93,12 +91,12 @@ public class IncidentCase {
         this.investigationPoliceId = investigationPoliceId;
     }
 
-    public int getReporterId() {
-        return reporterId;
+    public String getReporterPhone() {
+        return reporterPhone;
     }
 
-    public void setReporterId(int reporterId) {
-        this.reporterId = reporterId;
+    public void setReporterPhone(String reporterPhone) {
+        this.reporterPhone = reporterPhone;
     }
 
     public String getPhotoUrl() {

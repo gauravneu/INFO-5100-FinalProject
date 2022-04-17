@@ -70,6 +70,76 @@ public class OrganizationDaoImplementation implements OrganizationDao {
     }
 
     @Override
+    public List<Organization> getOrganizationByType(String type) throws SQLException {
+        String query
+                = "select * from organizations where type= ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setString(1, type);
+        ResultSet rs = ps.executeQuery();
+        List<Organization> ls = new ArrayList();
+
+        while (rs.next()) {
+            Organization organization = new Organization();
+            organization.setId(rs.getInt("id"));
+            organization.setName(rs.getString("name"));
+            organization.setLocation(rs.getString("location"));
+            organization.setType(rs.getString("type"));
+            organization.setEnterpriseId(rs.getInt("enterpriseid"));
+            ls.add(organization);
+        }
+        return ls;
+    }
+
+    @Override
+    public List<Organization> getOrganizationByTypeAndLocation(String type, String location) throws SQLException {
+        String query
+                = "select * from organizations where type= ? AND location = ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setString(1, type);
+        ps.setString(2, location);
+        ResultSet rs = ps.executeQuery();
+        List<Organization> ls = new ArrayList();
+
+        while (rs.next()) {
+            Organization organization = new Organization();
+            organization.setId(rs.getInt("id"));
+            organization.setName(rs.getString("name"));
+            organization.setLocation(rs.getString("location"));
+            organization.setType(rs.getString("type"));
+            organization.setEnterpriseId(rs.getInt("enterpriseid"));
+            ls.add(organization);
+        }
+        return ls;
+    }
+
+    @Override
+    public List<Organization> getOrganizationByLocation(String location) throws SQLException {
+        String query
+                = "select * from organizations where tlocation = ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setString(1, location);
+        ResultSet rs = ps.executeQuery();
+        List<Organization> ls = new ArrayList();
+
+        while (rs.next()) {
+            Organization organization = new Organization();
+            organization.setId(rs.getInt("id"));
+            organization.setName(rs.getString("name"));
+            organization.setLocation(rs.getString("location"));
+            organization.setType(rs.getString("type"));
+            organization.setEnterpriseId(rs.getInt("enterpriseid"));
+            ls.add(organization);
+        }
+        return ls;
+    }
+
+    @Override
     public List<Organization> getOrganizations() throws SQLException {
         String query = "select * from organizations";
         PreparedStatement ps

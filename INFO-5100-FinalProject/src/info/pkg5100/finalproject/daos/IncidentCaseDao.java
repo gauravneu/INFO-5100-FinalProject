@@ -15,6 +15,8 @@ public interface IncidentCaseDao {
             throws SQLException;
     public List<IncidentCase> getIncidentCases()
             throws SQLException;
+    public List<IncidentCase> getIncidentCasesByLocation(String location)
+            throws SQLException;
     public void update(IncidentCase incidentCase)
             throws SQLException;
 }

@@ -17,8 +17,8 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public int add(IncidentCase incidentCase) throws SQLException {
         String query
-                = "insert into incidentcase(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                = "insert into incidentcases(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location, description"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, incidentCase.getId());
@@ -30,6 +30,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setString(7, incidentCase.getReporterPhone());
         ps.setString(8, incidentCase.getPhotoUrl());
         ps.setString(9, incidentCase.getLocation());
+        ps.setString(10, incidentCase.getDescription());
         int n = ps.executeUpdate();
         return n;
     }
@@ -37,7 +38,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public void delete(int id) throws SQLException {
         String query
-                = "delete from incidentcase where id =?";
+                = "delete from incidentcases where id =?";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, id);
@@ -47,7 +48,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public IncidentCase getIncidentCaseById(int id) throws SQLException {
         String query
-                = "select * from incidentcase where id= ?";
+                = "select * from incidentcases where id= ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
 
@@ -78,7 +79,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
 
     @Override
     public List<IncidentCase> getIncidentCases() throws SQLException {
-        String query = "select * from incidentcase";
+        String query = "select * from incidentcases";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
@@ -95,6 +96,34 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setReporterPhone(rs.getString("reporterphone"));
             incidentCase.setPhotoUrl(rs.getString("photourl"));
             incidentCase.setLocation(rs.getString("location"));
+            incidentCase.setDescription(rs.getString("description"));
+            ls.add(incidentCase);
+        }
+        return ls;
+    }
+
+    @Override
+    public List<IncidentCase> getIncidentCasesByLocation(String location) throws SQLException {
+        String query = "select * from incidentcases WHERE location = ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+        ps.setString(1, location);
+
+        ResultSet rs = ps.executeQuery();
+        List<IncidentCase> ls = new ArrayList();
+
+        while (rs.next()) {
+            IncidentCase incidentCase = new IncidentCase();
+            incidentCase.setId(rs.getInt("id"));
+            incidentCase.setStatus(rs.getString("status"));
+            incidentCase.setInvestigationDetails(rs.getString("investigationdetails"));
+            incidentCase.setOrgId(rs.getInt("orgid"));
+            incidentCase.setOrgType(rs.getString("orgtype"));
+            incidentCase.setInvestigationPoliceId(rs.getInt("investigationpoliceid"));
+            incidentCase.setReporterPhone(rs.getString("reporterphone"));
+            incidentCase.setPhotoUrl(rs.getString("photourl"));
+            incidentCase.setLocation(rs.getString("location"));
+            incidentCase.setDescription(rs.getString("description"));
             ls.add(incidentCase);
         }
         return ls;
@@ -103,7 +132,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public void update(IncidentCase incidentCase) throws SQLException {
         String query
-                = "update incidentcase set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterid= ?, photourl= ?, location= ?"
+                = "update incidentcases set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterid= ?, photourl= ?, location= ?, description= ?"
                 + "where id = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -115,6 +144,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setString(6, incidentCase.getReporterPhone());
         ps.setString(7, incidentCase.getPhotoUrl());
         ps.setString(8, incidentCase.getLocation());
+        ps.setString(8, incidentCase.getDescription());
         ps.setInt(9, incidentCase.getId());
         ps.executeUpdate();
     }

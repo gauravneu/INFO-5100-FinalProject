@@ -156,7 +156,7 @@ public class Login extends javax.swing.JPanel {
                     layout.next(mainWorkJPanel);
 
                 } else if(user.getRole().equals("incident-police")) {
-                    IncidentManager incidentManager = new IncidentManager(mainWorkJPanel, org);
+                    IncidentManager incidentManager = new IncidentManager(mainWorkJPanel, user, org);
                     mainWorkJPanel.add("IncidentManager", incidentManager);
                     CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
                     layout.next(mainWorkJPanel);

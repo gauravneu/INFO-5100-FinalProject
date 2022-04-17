@@ -18,6 +18,7 @@ public class IncidentCase {
     String reporterPhone;
     String photoUrl;
     String location;
+    String description;
 
     public IncidentCase() {
         this.id = -1;
@@ -29,9 +30,10 @@ public class IncidentCase {
         this.reporterPhone = "";
         this.photoUrl = "";
         this.location = "";
+        this.description = "";
     }
 
-    public IncidentCase(int id, String status, String investigationDetails, int orgId, String orgType, int investigationPoliceId, String reporterPhone, String photoUrl, String location) {
+    public IncidentCase(int id, String status, String investigationDetails, int orgId, String orgType, int investigationPoliceId, String reporterPhone, String photoUrl, String location, String description) {
         this.id = id;
         this.status = status;
         this.investigationDetails = investigationDetails;
@@ -41,6 +43,7 @@ public class IncidentCase {
         this.reporterPhone = reporterPhone;
         this.photoUrl = photoUrl;
         this.location = location;
+        this.description = description;
     }
 
     public int getId() {
@@ -114,4 +117,17 @@ public class IncidentCase {
     public void setLocation(String location) {
         this.location = location;
     }
-}
+
+     public String getDescription() {
+         return description;
+     }
+
+     public void setDescription(String description) {
+         this.description = description;
+     }
+
+     @Override
+     public String toString() {
+         return Integer.toString(this.id);
+     }
+ }

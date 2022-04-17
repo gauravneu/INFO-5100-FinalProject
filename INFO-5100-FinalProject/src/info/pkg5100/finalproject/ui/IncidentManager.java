@@ -4,11 +4,15 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
+import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
+import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -22,18 +26,28 @@ public class IncidentManager extends javax.swing.JPanel {
 
     JPanel mainWorkJPanel;
     User incidentHandlingPolice;
+    Organization currentOrganization;
+
+    IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
+    OrganizationDaoImplementation organizationDaoImplementation;
+    UserDaoImplementation userDaoImplementation;
+
     public IncidentManager() {
         initComponents();
     }
 
-    public IncidentManager(JPanel mainWorkJPanel, User incidentHandlingPolice) {
+    public IncidentManager(JPanel mainWorkJPanel, User incidentHandlingPolice, Organization currentOrganization) {
         initComponents();
 
         this.mainWorkJPanel = mainWorkJPanel;
         this.incidentHandlingPolice = incidentHandlingPolice;
+        this.currentOrganization = currentOrganization;
+        this.incidenteCaseDaoImplementation = new IncidenteCaseDaoImplementation();
+        this.organizationDaoImplementation = new OrganizationDaoImplementation();
+        this.userDaoImplementation = new UserDaoImplementation();
 
-        populateIncidentsTable("Boston");
-        populateAmbulanceComboBox("Boston");
+        populateIncidentsTable(this.currentOrganization.getLocation());
+        populateAmbulanceComboBox(this.currentOrganization.getLocation());
 
     }
 
@@ -65,17 +79,17 @@ public class IncidentManager extends javax.swing.JPanel {
 
         tblReportedIncidents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Incident Id", "Reporter Name", "Reporter Mobile", "Location", "Description", "Assign"
+                "Incident Id", "Reporter Mobile", "Location", "Description", "Assigned Investigation officer"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, false, false
+                false, true, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -135,7 +149,6 @@ public class IncidentManager extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnDetailedView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -152,13 +165,14 @@ public class IncidentManager extends javax.swing.JPanel {
                                 .addGap(35, 35, 35)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblCurrentLoggedInIncidentPoliceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblCurrentLoggedInIncidentPolice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(lblCurrentLoggedInIncidentPolice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 837, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(243, 243, 243)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblReportIncident1)
                             .addComponent(lblReportIncident))))
-                .addContainerGap(434, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,27 +248,24 @@ public class IncidentManager extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAssignAmbulanceServiceActionPerformed
 
-    void populateIncidentsTable(String policeOrganizationNetworkName) {
+    void populateIncidentsTable(String location) throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
         model.setRowCount(0);
-
-        for(PoliceOrganization po : this.mainSystem.getMasterPoliceOrganizationList()) {
-            if(po.getNetworkName().equals(policeOrganizationNetworkName)) {
-                for (IncidentCase incidentCase : po.getIncidentCaseArrayList()) {
-                    Object[] row = new Object[6];
-                    row[0] = incidentCase;
-                    row[1] = incidentCase.getReporter().getReporterName();
-                    row[2] = incidentCase.getReporter().getPhone();
-                    row[3] = incidentCase.getPoliceStationNetworkName();
-                    row[4] = incidentCase.getIncidentDescription();
-                    if(incidentCase.getInvestigationPolice() == null) {
-                        row[5] = "";
-                    } else {
-                        row[5] = incidentCase.getInvestigationPolice().getName();
-                    }
-                    model.addRow(row);
-                }
+        
+        for(IncidentCase  incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByLocation(location)) {
+            Object[] row = new Object[5];
+            row[0] = incidentCase;
+            row[1] = incidentCase.getReporterPhone();
+            row[2] = incidentCase.getLocation();
+            row[3] = incidentCase.getDescription();
+            if(incidentCase.getInvestigationPoliceId() == -1) {
+                row[5] = "";
+            } else {
+                User investigationOffice = this.userDaoImplementation.getUserById(incidentCase.getInvestigationPoliceId());
+                row[5] = investigationOffice.getId();
             }
+
+            model.addRow(row);
         }
     }
 

@@ -67,6 +67,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         lblEmpName = new javax.swing.JLabel();
         lblEmpRole = new javax.swing.JLabel();
         lblEmpId = new javax.swing.JLabel();
+        btnCompleteRequest = new javax.swing.JButton();
+        cmbBoxHospitalList = new javax.swing.JComboBox<>();
 
         tblActiveAmbulanceRequests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,11 +103,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         btnAcceptRequest.setText("Accept");
         btnAcceptRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnAcceptRequestActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                btnAcceptRequestActionPerformed(evt);
             }
         });
 
@@ -120,6 +118,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         lblEmpRole.setText("emp_role_placeholder");
 
         lblEmpId.setText("emp_id_placeholder");
+
+        btnCompleteRequest.setText("Complete request");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -139,6 +139,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(221, 221, 221)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(66, 66, 66)
+                .addComponent(btnCompleteRequest)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(47, 47, 47)
@@ -154,6 +156,10 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cmbBoxHospitalList, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,12 +184,17 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(lblEmpId))))
                 .addGap(18, 18, 18)
-                .addComponent(btnAcceptRequest)
-                .addGap(81, 81, 81)
-                .addComponent(jLabel2)
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAcceptRequest)
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel2)
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCompleteRequest))
+                .addGap(18, 18, 18)
+                .addComponent(cmbBoxHospitalList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -246,6 +257,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
+    private javax.swing.JButton btnCompleteRequest;
+    private javax.swing.JComboBox<String> cmbBoxHospitalList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

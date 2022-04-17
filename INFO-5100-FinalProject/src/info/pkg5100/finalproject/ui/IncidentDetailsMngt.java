@@ -4,13 +4,16 @@
  */
 package info.pkg5100.finalproject.ui;
 
-import info.pkg5100.finalproject.models.IncidentCase;
-import info.pkg5100.finalproject.models.MainSystem;
-import info.pkg5100.finalproject.models.Patient;
-import info.pkg5100.finalproject.models.PoliceOrganization;
+import info.pkg5100.finalproject.daos.PatientDaoImplementation;
+import info.pkg5100.finalproject.daos.ReporterDaoImplementation;
+import info.pkg5100.finalproject.daos.UserDaoImplementation;
+import info.pkg5100.finalproject.models.*;
+import info.pkg5100.finalproject.utils.SimpleTools;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -22,22 +25,36 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
      * Creates new form ImpactedPeopleMngt
      */
 
-    MainSystem mainSystem;
     JPanel mainWorkJPanel;
     IncidentCase currentIncidentCase;
 
+    PatientDaoImplementation patientDaoImplementation;
+    ReporterDaoImplementation reporterDaoImplementation;
+    UserDaoImplementation userDaoImplementation;
+
+    Reporter currentCaseReporter;
+    User currentCaseInvestigationOfficer;
     public IncidentDetailsMngt() {
         initComponents();
     }
 
-    public IncidentDetailsMngt(MainSystem mainSystem, JPanel mainWorkJPanel, IncidentCase incidentCase) {
+    public IncidentDetailsMngt(JPanel mainWorkJPanel, IncidentCase incidentCase) throws SQLException {
         initComponents();
 
-        this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentIncidentCase = incidentCase;
 
-        populateImpactedPatientTable();
+        this.patientDaoImplementation = new PatientDaoImplementation();
+        this.reporterDaoImplementation = new ReporterDaoImplementation();
+        this.userDaoImplementation = new UserDaoImplementation();
+
+        this.currentCaseReporter = this.reporterDaoImplementation.getReporterByPhone(this.currentIncidentCase.getReporterPhone());
+
+        if(this.currentIncidentCase.getInvestigationPoliceId() != -1) {
+            this.currentCaseInvestigationOfficer = this.userDaoImplementation.getUserById(this.currentIncidentCase.getInvestigationPoliceId());
+        }
+
+        populateImpactedPatientTable(this.patientDaoImplementation.getPatientsByIncidentCaseId(this.currentIncidentCase.getId()));
         populateIncidentCaseDetails();
     }
 
@@ -179,7 +196,11 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
         btnAddPatient.setText("ADD");
         btnAddPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddPatientActionPerformed(evt);
+                try {
+                    btnAddPatientActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -311,35 +332,46 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPatientActionPerformed
+    private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAddPatientActionPerformed
         // TODO add your handling code here:
-        Patient patient = new Patient("need to create random id",
+        int newId = SimpleTools.getUnusedId("patients", 1000, 9999);
+
+        Patient patient = new Patient(newId,
                 txtName.getText(),
                 txtAge.getText(),
-                txtPhoneNumber.getText());
+                txtPhoneNumber.getText(),
+                "",
+                "rescued",
+                this.currentIncidentCase.getId(),
+                "false",
+                "false"
+                );
 
-        this.currentIncidentCase.getPatientArrayList().add(patient);
-        populateImpactedPatientTable();
+        this.patientDaoImplementation.add(patient);
+
+        populateImpactedPatientTable(this.patientDaoImplementation.getPatientsByIncidentCaseId(this.currentIncidentCase.getId()));
     }//GEN-LAST:event_btnAddPatientActionPerformed
 
-    void populateIncidentCaseDetails() {
-        lblIncidentId.setText("Incident field not added");
-        lblReporterName.setText(this.currentIncidentCase.getReporter().getReporterName());
-        lblReporterName.setText(this.currentIncidentCase.getReporter().getPhone());
-        lblDescription.setText(this.currentIncidentCase.getIncidentDescription());
+    void populateIncidentCaseDetails() throws SQLException {
+        lblIncidentId.setText(Integer.toString(this.currentIncidentCase.getId()));
+
+        Reporter reporter = this.reporterDaoImplementation.getReporterByPhone(this.currentIncidentCase.getReporterPhone());
+        lblReporterName.setText(this.currentCaseReporter.getReporterName());
+        lblReporterMobile.setText(this.currentCaseReporter.getPhone());
+        lblDescription.setText(this.currentIncidentCase.getDescription());
         lblLocation.setText(this.currentIncidentCase.getLocation());
-        if(this.currentIncidentCase.getInvestigationPolice() == null) {
+        if(this.currentIncidentCase.getInvestigationPoliceId() == -1) {
             lblAssigned.setText("Not assigned");
         } else {
-            lblAssigned.setText(this.currentIncidentCase.getInvestigationPolice().getName());
+            lblAssigned.setText(this.currentCaseInvestigationOfficer.getName());
         }
     }
 
-    void populateImpactedPatientTable() {
+    void populateImpactedPatientTable(List<Patient> patientList) {
         DefaultTableModel model = (DefaultTableModel) tblImpactedPatients.getModel();
         model.setRowCount(0);
 
-        for(Patient patient : this.currentIncidentCase.getPatientArrayList()) {
+        for(Patient patient : patientList) {
                 Object[] row = new Object[4];
                 row[0] = patient;
                 row[1] = patient.getName();

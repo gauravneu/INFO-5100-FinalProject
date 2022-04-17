@@ -121,7 +121,6 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
         jLabel13.setText("Org admin creds:");
 
 
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,9 +210,9 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                             .addComponent(jLabel7)
                             .addComponent(txtOrgAdminName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(txtOrgAdminAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtOrgAdminAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -256,8 +255,8 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
             row[0] = user;
             row[1] = user.getName();
             row[2] = user.getPhone();
-            row[2] = user.getUsername();
-            row[2] = user.getPassword();
+            row[3] = user.getUsername();
+            row[4] = user.getPassword();
             model.addRow(row);
         }
     }

@@ -4,9 +4,12 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
 import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentHandlingPolice;
 import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.Organization;
+import info.pkg5100.finalproject.models.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +28,7 @@ public class Login extends javax.swing.JPanel {
     JPanel mainWorkJPanel;
 
     UserDaoImplementation userDaoImplementation;
+    OrganizationDaoImplementation organizationDaoImplementation;
 
     public Login() {
         initComponents();
@@ -37,6 +41,7 @@ public class Login extends javax.swing.JPanel {
         this.mainWorkJPanel = mainWorkJPanel;
 
         this.userDaoImplementation = new UserDaoImplementation();
+        this.organizationDaoImplementation =  new OrganizationDaoImplementation();
     }
 
     /**
@@ -131,20 +136,47 @@ public class Login extends javax.swing.JPanel {
         // Clicking login searches for the Bosotn
         // Here for testing purpose, there is only one investigation police officer in Boston police network. Sending
         // that police into incident management.
-        if(txtUsername.equals("qwe")) {
-            IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
-
-            IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
-            mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
-            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-            layout.next(mainWorkJPanel);
-        } else if(txtUsername.getText().equals("sysadmin")){
-            // for testing purpose login to ambulance service
+        if(txtUsername.getText().equals("sysadmin")) {
             EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
             mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
             CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
             layout.next(mainWorkJPanel);
+        } else {
+            System.out.println(txtPassword.getPassword().toString());
+
+            User user = this.userDaoImplementation.getUserByUsernameAndPassword(txtUsername.getText(), txtPassword.getText());
+
+            if(user != null) {
+
+                if(user.getRole().equals("orgadmin")) {
+                    int orgid = user.getOrgid();
+                    Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
+                    OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);
+                    mainWorkJPanel.add("OrganizationEmployeeMngt", organizationEmployeeMngt);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Username/password incorrect. Please try again!!");
+            }
         }
+
+
+//        if(txtUsername.equals("qwe")) {
+//            IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
+//
+//            IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
+//            mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
+//            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+//            layout.next(mainWorkJPanel);
+//        } else if(txtUsername.getText().equals("sysadmin")){
+//            // for testing purpose login to ambulance service
+//            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
+//            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
+//            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+//            layout.next(mainWorkJPanel);
+//        }
 
     }//GEN-LAST:event_btnCreateActionPerformed
 

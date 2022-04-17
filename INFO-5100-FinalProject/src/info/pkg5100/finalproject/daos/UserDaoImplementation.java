@@ -130,6 +130,56 @@ public class UserDaoImplementation implements UsersDao {
     }
 
     @Override
+    public List<User> getUsersByOrgId(int id) throws SQLException {
+        String query = "select * from users WHERE orgid = ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        List<User> ls = new ArrayList();
+
+        while (rs.next()) {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setName(rs.getString("name"));
+            user.setAge(rs.getString("age"));
+            user.setPhone(rs.getString("phone"));
+            user.setRole(rs.getString("role"));
+            user.setOrgid(rs.getInt("orgid"));
+            ls.add(user);
+        }
+        return ls;
+    }
+
+    @Override
+    public List<User> getEmployeesByOrgId(int id) throws SQLException {
+        String query = "select * from users WHERE orgid = ? AND role != 'orgadmin'";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        List<User> ls = new ArrayList();
+
+        while (rs.next()) {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setName(rs.getString("name"));
+            user.setAge(rs.getString("age"));
+            user.setPhone(rs.getString("phone"));
+            user.setRole(rs.getString("role"));
+            user.setOrgid(rs.getInt("orgid"));
+            ls.add(user);
+        }
+        return ls;
+    }
+
+    @Override
     public void update(User user) throws SQLException {
         String query
                 = "update users set username = ?, "

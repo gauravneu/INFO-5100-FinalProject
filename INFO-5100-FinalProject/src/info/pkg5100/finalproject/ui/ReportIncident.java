@@ -244,7 +244,10 @@ public class ReportIncident extends javax.swing.JPanel {
                 currentReporter.getPhone(),
                 "",
                 location,
-                incidentDescription
+                incidentDescription,
+                -1,
+                "false",
+                -1
         );
         this.incidenteCaseDaoImplementation.add(incidentCase);
 

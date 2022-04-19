@@ -4,11 +4,13 @@ public class Enterprise {
     int id;
     String enterpriseName;
     String location;
+    String type;
 
-    public Enterprise(int id, String enterpriseName, String location) {
+    public Enterprise(int id, String enterpriseName, String location, String type) {
         this.id = id;
         this.enterpriseName = enterpriseName;
         this.location = location;
+        this.type = type;
     }
 
     public Enterprise() {
@@ -39,6 +41,14 @@ public class Enterprise {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

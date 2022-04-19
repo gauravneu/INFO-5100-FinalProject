@@ -7,6 +7,7 @@ package info.pkg5100.finalproject.ui;
 import info.pkg5100.finalproject.daos.PatientDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.Organization;
+import info.pkg5100.finalproject.models.Patient;
 import info.pkg5100.finalproject.models.User;
 
 import javax.swing.*;
@@ -33,7 +34,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 		initComponents();
 	}
 
-    public HospitalDoctorPortal(JPanel mainWorkJPanel, User currentUser, Organization currentOrganization) {
+    public HospitalDoctorPortal(JPanel mainWorkJPanel, User currentUser, Organization currentOrganization) throws SQLException {
         initComponents();
 
         this.mainWorkJPanel = mainWorkJPanel;
@@ -41,6 +42,8 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         this.currentOrganization = currentOrganization;
 
         this.patientDaoImplementation = new PatientDaoImplementation();
+        populateAvailablePatientsTable();
+        populateAcceptedPatientsTable();
     }
 
 	/**
@@ -94,7 +97,11 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         btnAcceptPatient.setText("Accept patient");
         btnAcceptPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAcceptPatientActionPerformed(evt);
+                try {
+                    btnAcceptPatientActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -150,8 +157,22 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAcceptPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptPatientActionPerformed
+    private void btnAcceptPatientActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAcceptPatientActionPerformed
         // TODO add your handling code here:
+        int selectedRowIndex = tblPatientRequest.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select a patient.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+        Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+
+        patient.setDoctorId(this.currentUser.getId());
+
+        this.patientDaoImplementation.update(patient);
+        populateAvailablePatientsTable();
+        populateAcceptedPatientsTable();
     }//GEN-LAST:event_btnAcceptPatientActionPerformed
 
     private void btnViewAcceptedPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAcceptedPatientActionPerformed
@@ -162,15 +183,12 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
         model.setRowCount(0);
 
-        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocation(this.currentOrganization.getId(),
-                this.currentOrganization.getType(),
-                "hospital-accepted",
-                currentOrganization.getLocation())) {
+        for(Patient patient : this.patientDaoImplementation.getPatientsByHospitalIdAndDoctorId(this.currentOrganization.getId(), this.currentUser.getId())) {
             Object[] row = new Object[4];
-            row[0] = incidentCase;
-            row[1] = incidentCase.getDescription();
-            row[2] = incidentCase.getLocation();
-            row[3] = incidentCase.getStatus();
+            row[0] = patient;
+            row[1] = patient.getName();
+            row[2] = patient.getPatientIssue();
+            row[3] = patient.getPatientStatus();
 
             model.addRow(row);
         }
@@ -180,14 +198,18 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
         model.setRowCount(0);
 
-        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByStatusAndLocation("hospital-requested", currentOrganization.getLocation())) {
-            Object[] row = new Object[4];
-            row[0] = incidentCase;
-            row[1] = incidentCase.getDescription();
-            row[2] = incidentCase.getLocation();
-            row[3] = incidentCase.getStatus();
+        for(Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentOrganization.getId())) {
+            // -1 means doctor is not assigned yet and is available for picking up by a doctor
+            if(patient.getDoctorId() == -1) {
+                Object[] row = new Object[4];
+                row[0] = patient;
+                row[1] = patient.getName();
+                row[2] = patient.getPatientIssue();
+                row[3] = patient.getPatientStatus();
 
-            model.addRow(row);
+                model.addRow(row);
+            }
+
         }
     }
 

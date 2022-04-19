@@ -345,6 +345,7 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
                 this.currentIncidentCase.getId(),
                 "false",
                 "false",
+                -1,
                 -1
                 );
 

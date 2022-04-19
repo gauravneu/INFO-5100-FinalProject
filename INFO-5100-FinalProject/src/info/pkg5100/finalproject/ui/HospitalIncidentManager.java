@@ -184,6 +184,7 @@ public class HospitalIncidentManager extends javax.swing.JPanel {
 
 
         for(Patient patient : this.patientDaoImplementation.getPatientsByIncidentCaseId(incidentCase.getId())) {
+            System.out.println(patient.getId());
             patient.setHospitalId(this.currentOrganization.getId());
             this.patientDaoImplementation.update(patient);
         }

@@ -136,6 +136,63 @@ public class PatientDaoImplementation implements PatientDao{
     }
 
     @Override
+    public List<Patient> getPatientsByHospitalId(int hospitalId) throws SQLException {
+        String query = "select * from patients WHERE hospitalid=?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setInt(1, hospitalId);
+        ResultSet rs = ps.executeQuery();
+        List<Patient> ls = new ArrayList();
+
+        while (rs.next()) {
+            Patient patient = new Patient();
+            patient.setId(rs.getInt("id"));
+            patient.setName(rs.getString("name"));
+            patient.setAge(rs.getString("age"));
+            patient.setPhoneNumber(rs.getString("phone"));
+            patient.setPatientIssue(rs.getString("issue"));
+            patient.setPatientStatus(rs.getString("status"));
+            patient.setIncidentCaseId(rs.getInt("incidentcaseid"));
+            patient.setLabRequested(rs.getString("labrequested"));
+            patient.setPharmacyRequested(rs.getString("pharmacyrequested"));
+            patient.setHospitalId(rs.getInt("hospitalid"));
+            patient.setDoctorId(rs.getInt("doctorid"));
+            ls.add(patient);
+        }
+        return ls;
+    }
+
+    @Override
+    public List<Patient> getPatientsByHospitalIdAndDoctorId(int hospitalId, int doctorId) throws SQLException {
+        String query = "select * from patients WHERE hospitalid=? AND doctorid= ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setInt(1, hospitalId);
+        ps.setInt(2, doctorId);
+        ResultSet rs = ps.executeQuery();
+        List<Patient> ls = new ArrayList();
+
+        while (rs.next()) {
+            Patient patient = new Patient();
+            patient.setId(rs.getInt("id"));
+            patient.setName(rs.getString("name"));
+            patient.setAge(rs.getString("age"));
+            patient.setPhoneNumber(rs.getString("phone"));
+            patient.setPatientIssue(rs.getString("issue"));
+            patient.setPatientStatus(rs.getString("status"));
+            patient.setIncidentCaseId(rs.getInt("incidentcaseid"));
+            patient.setLabRequested(rs.getString("labrequested"));
+            patient.setPharmacyRequested(rs.getString("pharmacyrequested"));
+            patient.setHospitalId(rs.getInt("hospitalid"));
+            patient.setDoctorId(rs.getInt("doctorid"));
+            ls.add(patient);
+        }
+        return ls;
+    }
+
+    @Override
     public void update(Patient patient) throws SQLException {
         String query
                 = "update patients set name=?, age=?, phone=?, issue=?, status=?, incidentcaseid=?, labrequested=? , pharmacyrequested=?, hospitalid=?, doctorid=? "
@@ -150,9 +207,9 @@ public class PatientDaoImplementation implements PatientDao{
         ps.setInt(6, patient.getIncidentCaseId());
         ps.setString(7, patient.getLabRequested());
         ps.setString(8, patient.getPharmacyRequested());
-        ps.setInt(8, patient.getHospitalId());
-        ps.setInt(8, patient.getDoctorId());
-        ps.setInt(9, patient.getId());
+        ps.setInt(9, patient.getHospitalId());
+        ps.setInt(10, patient.getDoctorId());
+        ps.setInt(11, patient.getId());
         ps.executeUpdate();
     }
 }

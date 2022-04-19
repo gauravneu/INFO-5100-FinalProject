@@ -17,7 +17,7 @@ public class PatientDaoImplementation implements PatientDao{
     @Override
     public int add(Patient patient) throws SQLException {
         String query
-                = "insert into patients(id, name, age, phone, issue, status, incidentcaseid, labrequested, pharmacyrequested)"
+                = "insert into patients(id, name, age, phone, issue, status, incidentcaseid, labrequested, pharmacyrequested, hospitalid)"
                 + "VALUES (?, ?, ?, ?, ?,?,?,?,?)";
         PreparedStatement ps
                 = con.prepareStatement(query);

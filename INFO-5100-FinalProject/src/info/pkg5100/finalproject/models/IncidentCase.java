@@ -20,6 +20,8 @@ public class IncidentCase {
     String location;
     String description;
     int currentcasehandlinguserid;
+    String hospitalCaseAccepted;
+    int hospitalId;
 
     public IncidentCase() {
         this.id = -1;
@@ -33,9 +35,13 @@ public class IncidentCase {
         this.location = "";
         this.description = "";
         this.currentcasehandlinguserid = -1;
+        this.hospitalCaseAccepted = "";
+        this.hospitalId = -1;
     }
 
-    public IncidentCase(int id, String status, String investigationDetails, int orgId, String orgType, int investigationPoliceId, String reporterPhone, String photoUrl, String location, String description, int currentcasehandlinguserid) {
+    public IncidentCase(int id, String status, String investigationDetails, int orgId, String orgType,
+                        int investigationPoliceId, String reporterPhone, String photoUrl, String location,
+                        String description, int currentcasehandlinguserid, String hospitalCaseAccepted, int hospitalId) {
         this.id = id;
         this.status = status;
         this.investigationDetails = investigationDetails;
@@ -47,6 +53,8 @@ public class IncidentCase {
         this.location = location;
         this.description = description;
         this.currentcasehandlinguserid = currentcasehandlinguserid;
+        this.hospitalCaseAccepted = hospitalCaseAccepted;
+        this.hospitalId = hospitalId;
     }
 
     public int getId() {
@@ -135,6 +143,22 @@ public class IncidentCase {
 
      public void setCurrentcasehandlinguserid(int currentcasehandlinguserid) {
          this.currentcasehandlinguserid = currentcasehandlinguserid;
+     }
+
+     public String getHospitalCaseAccepted() {
+         return hospitalCaseAccepted;
+     }
+
+     public void setHospitalCaseAccepted(String hospitalCaseAccepted) {
+         this.hospitalCaseAccepted = hospitalCaseAccepted;
+     }
+
+     public int getHospitalId() {
+         return hospitalId;
+     }
+
+     public void setHospitalId(int hospitalId) {
+         this.hospitalId = hospitalId;
      }
 
      @Override

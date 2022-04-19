@@ -344,7 +344,8 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
                 "rescued",
                 this.currentIncidentCase.getId(),
                 "false",
-                "false"
+                "false",
+                -1
                 );
 
         this.patientDaoImplementation.add(patient);

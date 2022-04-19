@@ -20,6 +20,7 @@ public class Patient {
 	int incidentCaseId;
 	String labRequested;
 	String pharmacyRequested;
+	int hospitalId;
 
 	public Patient() {
 		this.id = -1;
@@ -31,8 +32,9 @@ public class Patient {
 		this.incidentCaseId = -1;
 		this.labRequested = "";
 		this.pharmacyRequested = "";
+		this.hospitalId = -1;
 	}
-	public Patient(int id, String name, String age, String phoneNumber, String patientIssue, String patientStatus, int incidentCaseId, String labRequested, String pharmacyRequested) {
+	public Patient(int id, String name, String age, String phoneNumber, String patientIssue, String patientStatus, int incidentCaseId, String labRequested, String pharmacyRequested, int hospitalId) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
@@ -42,6 +44,7 @@ public class Patient {
 		this.incidentCaseId = incidentCaseId;
 		this.labRequested = labRequested;
 		this.pharmacyRequested = pharmacyRequested;
+		this.hospitalId = hospitalId;
 	}
 
 	public int getId() {
@@ -114,6 +117,14 @@ public class Patient {
 
 	public void setPharmacyRequested(String pharmacyRequested) {
 		this.pharmacyRequested = pharmacyRequested;
+	}
+
+	public int getHospitalId() {
+		return hospitalId;
+	}
+
+	public void setHospitalId(int hospitalId) {
+		this.hospitalId = hospitalId;
 	}
 
 	@Override

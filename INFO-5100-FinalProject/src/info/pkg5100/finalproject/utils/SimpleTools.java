@@ -62,6 +62,7 @@ public final class SimpleTools {
             roles.add("doctor");
             roles.add("lab-technician");
             roles.add("pharmacist");
+            roles.add("hospital-manager");
 
         } else {
             roles.add("housing-manager");

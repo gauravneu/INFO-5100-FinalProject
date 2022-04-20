@@ -11,30 +11,51 @@ import java.util.ArrayList;
  * @author ankita
  */
 public class Patient {
-	String patientId;
+	int id;
 	String name;
 	String age;
 	String phoneNumber;
 	String patientIssue;
 	String patientStatus;
-	ArrayList<LabTest> labTestArrayList;
+	int incidentCaseId;
+	String labRequested;
+	String pharmacyRequested;
+	int hospitalId;
+	int doctorId;
 
-	public Patient(String patientId, String name, String age, String phoneNumber) {
-		this.patientId = patientId;
+	public Patient() {
+		this.id = -1;
+		this.name = "";
+		this.age = "";
+		this.phoneNumber = "";
+		this.patientIssue = "";
+		this.patientStatus = "";
+		this.incidentCaseId = -1;
+		this.labRequested = "";
+		this.pharmacyRequested = "";
+		this.hospitalId = -1;
+		this.doctorId = -1;
+	}
+	public Patient(int id, String name, String age, String phoneNumber, String patientIssue, String patientStatus, int incidentCaseId, String labRequested, String pharmacyRequested, int hospitalId, int doctorId) {
+		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.phoneNumber = phoneNumber;
-		this.patientIssue = "";
-		this.patientStatus = "";
-		this.labTestArrayList = new ArrayList<>();
+		this.patientIssue = patientIssue;
+		this.patientStatus = patientStatus;
+		this.incidentCaseId = incidentCaseId;
+		this.labRequested = labRequested;
+		this.pharmacyRequested = pharmacyRequested;
+		this.hospitalId = hospitalId;
+		this.doctorId = doctorId;
 	}
 
-	public String getPatientId() {
-		return patientId;
+	public int getId() {
+		return id;
 	}
 
-	public void setPatientId(String patientId) {
-		this.patientId = patientId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -77,16 +98,48 @@ public class Patient {
 		this.patientStatus = patientStatus;
 	}
 
-	public ArrayList<LabTest> getLabTestArrayList() {
-		return labTestArrayList;
+	public int getIncidentCaseId() {
+		return incidentCaseId;
 	}
 
-	public void setLabTestArrayList(ArrayList<LabTest> labTestArrayList) {
-		this.labTestArrayList = labTestArrayList;
+	public void setIncidentCaseId(int incidentCaseId) {
+		this.incidentCaseId = incidentCaseId;
+	}
+
+	public String getLabRequested() {
+		return labRequested;
+	}
+
+	public void setLabRequested(String labRequested) {
+		this.labRequested = labRequested;
+	}
+
+	public String getPharmacyRequested() {
+		return pharmacyRequested;
+	}
+
+	public void setPharmacyRequested(String pharmacyRequested) {
+		this.pharmacyRequested = pharmacyRequested;
+	}
+
+	public int getHospitalId() {
+		return hospitalId;
+	}
+
+	public void setHospitalId(int hospitalId) {
+		this.hospitalId = hospitalId;
+	}
+
+	public int getDoctorId() {
+		return doctorId;
+	}
+
+	public void setDoctorId(int doctorId) {
+		this.doctorId = doctorId;
 	}
 
 	@Override
 	public String toString() {
-		return this.patientId;
+		return Integer.toString(this.id);
 	}
 }

@@ -4,12 +4,16 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
+import info.pkg5100.finalproject.daos.ReporterDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.MainSystem;
 import info.pkg5100.finalproject.models.PoliceOrganization;
 import info.pkg5100.finalproject.models.Reporter;
+import info.pkg5100.finalproject.utils.SimpleTools;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -25,6 +29,8 @@ public class ReportIncident extends javax.swing.JPanel {
      */
 
     MainSystem mainSystem;
+    ReporterDaoImplementation reporterDaoImplementation;
+    IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
 
     public ReportIncident() {
         initComponents();
@@ -32,8 +38,8 @@ public class ReportIncident extends javax.swing.JPanel {
 
     public ReportIncident(MainSystem mainSystem) {
         initComponents();
-
-        this.mainSystem = mainSystem;
+        this.reporterDaoImplementation = new ReporterDaoImplementation();
+        this.incidenteCaseDaoImplementation = new IncidenteCaseDaoImplementation();
     }
 
     /**
@@ -105,7 +111,11 @@ public class ReportIncident extends javax.swing.JPanel {
         btnReportIncident.setText("Report");
         btnReportIncident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportIncidentActionPerformed(evt);
+                try {
+                    btnReportIncidentActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -118,7 +128,7 @@ public class ReportIncident extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Location");
 
-        cmbBoxNetworkName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBoxNetworkName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "New York" }));
         cmbBoxNetworkName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbBoxNetworkNameActionPerformed(evt);
@@ -209,7 +219,7 @@ public class ReportIncident extends javax.swing.JPanel {
         txtPhoto.setText(f.getAbsolutePath());
     }//GEN-LAST:event_btnuploadActionPerformed
 
-    private void btnReportIncidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportIncidentActionPerformed
+    private void btnReportIncidentActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnReportIncidentActionPerformed
         // TODO add your handling code here:
 
         String reportName = txtReporterName.getText();
@@ -218,32 +228,28 @@ public class ReportIncident extends javax.swing.JPanel {
         String location = cmbBoxNetworkName.getSelectedItem().toString();
         String photoURL = txtPhoto.getText();
 
-        Reporter currentReporter = new Reporter(reportName, reporterMobileNumber);
-
-        IncidentCase incidentCase = new IncidentCase(new ArrayList<>(), "New Incident",
-                "",
-                "",
-                currentReporter,
-                "Fire explosion at home",
-                "Boston-network",
-                null,
-                "",
-                location
-                );
-
-        /*
-        Steps to add incident report:
-        1. Search for the incident
-         */
-
-        for(PoliceOrganization po : this.mainSystem.getMasterPoliceOrganizationList()) {
-            if(po.getNetworkName().equals(incidentCase.getPoliceStationNetworkName())) {
-                po.getIncidentCaseArrayList().add(incidentCase);
-                break;
-            }
+        Reporter currentReporter = this.reporterDaoImplementation.getReporterByPhone(reporterMobileNumber);
+        if(currentReporter == null) {
+            currentReporter = new Reporter(reportName, reporterMobileNumber);
+            this.reporterDaoImplementation.add(currentReporter);
         }
 
-
+        int newId = SimpleTools.getUnusedId("incidentcases", 1000, 9999);
+        IncidentCase incidentCase = new IncidentCase(newId,
+                "new-case",
+                "",
+                -1,
+                "",
+                -1,
+                currentReporter.getPhone(),
+                "",
+                location,
+                incidentDescription,
+                -1,
+                "false",
+                -1
+        );
+        this.incidenteCaseDaoImplementation.add(incidentCase);
 
     }//GEN-LAST:event_btnReportIncidentActionPerformed
 

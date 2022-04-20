@@ -4,11 +4,16 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
+import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentHandlingPolice;
 import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.Organization;
+import info.pkg5100.finalproject.models.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -22,6 +27,9 @@ public class Login extends javax.swing.JPanel {
     MainSystem mainSystem;
     JPanel mainWorkJPanel;
 
+    UserDaoImplementation userDaoImplementation;
+    OrganizationDaoImplementation organizationDaoImplementation;
+
     public Login() {
         initComponents();
     }
@@ -31,6 +39,9 @@ public class Login extends javax.swing.JPanel {
 
         this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
+
+        this.userDaoImplementation = new UserDaoImplementation();
+        this.organizationDaoImplementation =  new OrganizationDaoImplementation();
     }
 
     /**
@@ -64,7 +75,11 @@ public class Login extends javax.swing.JPanel {
         btnCreate.setText("Submit");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
+                try {
+                    btnCreateActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -114,24 +129,75 @@ public class Login extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
 
         // Test login implementation
         // Clicking login searches for the Bosotn
         // Here for testing purpose, there is only one investigation police officer in Boston police network. Sending
         // that police into incident management.
-        if(txtUsername.equals("qwe")) {
-            IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
-
-            IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
-            mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
+        if(txtUsername.getText().equals("sysadmin")) {
+            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
+            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
             CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
             layout.next(mainWorkJPanel);
         } else {
-            // for testing purpose login to ambulance service
-            
+
+            User user = this.userDaoImplementation.getUserByUsernameAndPassword(txtUsername.getText(), txtPassword.getText());
+
+
+            if(user != null) {
+                int orgid = user.getOrgid();
+                Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
+
+                if(user.getRole().equals("orgadmin")) {
+                    OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);
+                    mainWorkJPanel.add("OrganizationEmployeeMngt", organizationEmployeeMngt);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+
+                } else if(user.getRole().equals("incident-police")) {
+                    IncidentManager incidentManager = new IncidentManager(mainWorkJPanel, user, org);
+                    mainWorkJPanel.add("IncidentManager", incidentManager);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+                } else if(user.getRole().equals("ambulance-emp")) {
+                    AmbulanceRequestMngt ambulanceRequestMngt = new AmbulanceRequestMngt(mainWorkJPanel, user, org);
+                    mainWorkJPanel.add("AmbulanceRequestMngt", ambulanceRequestMngt);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+                } else if(user.getRole().equals("hospital-manager")) {
+                    HospitalIncidentManager hospitalIncidentManager = new HospitalIncidentManager(mainWorkJPanel, user, org);
+                    mainWorkJPanel.add("HospitalIncidentManager", hospitalIncidentManager);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+                } else if(user.getRole().equals("doctor")) {
+                    HospitalDoctorPortal hospitalDoctorPortal = new HospitalDoctorPortal(mainWorkJPanel, user, org);
+                    mainWorkJPanel.add("HospitalDoctorPortal", hospitalDoctorPortal);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Username/password incorrect. Please try again!!");
+            }
         }
+
+
+//        if(txtUsername.equals("qwe")) {
+//            IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
+//
+//            IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
+//            mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
+//            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+//            layout.next(mainWorkJPanel);
+//        } else if(txtUsername.getText().equals("sysadmin")){
+//            // for testing purpose login to ambulance service
+//            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
+//            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
+//            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+//            layout.next(mainWorkJPanel);
+//        }
 
     }//GEN-LAST:event_btnCreateActionPerformed
 

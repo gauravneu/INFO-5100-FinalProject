@@ -4,11 +4,15 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
+import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
+import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -20,22 +24,29 @@ public class IncidentManager extends javax.swing.JPanel {
      * Creates new form IncidentManager
      */
 
-    MainSystem mainSystem;
     JPanel mainWorkJPanel;
-    IncidentHandlingPolice incidentHandlingPolice;
+    User incidentHandlingPolice;
+    Organization currentOrganization;
+
+    IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
+    OrganizationDaoImplementation organizationDaoImplementation;
+    UserDaoImplementation userDaoImplementation;
+
     public IncidentManager() {
         initComponents();
     }
 
-    public IncidentManager(MainSystem mainSystem, JPanel mainWorkJPanel, IncidentHandlingPolice incidentHandlingPolice) {
+    public IncidentManager(JPanel mainWorkJPanel, User incidentHandlingPolice, Organization currentOrganization) throws SQLException {
         initComponents();
 
-        this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
         this.incidentHandlingPolice = incidentHandlingPolice;
+        this.currentOrganization = currentOrganization;
+        this.incidenteCaseDaoImplementation = new IncidenteCaseDaoImplementation();
+        this.organizationDaoImplementation = new OrganizationDaoImplementation();
+        this.userDaoImplementation = new UserDaoImplementation();
 
-        populateIncidentsTable("Boston-network");
-        populateAmbulanceComboBox("Boston-network");
+        populateIncidentsTable(this.currentOrganization.getLocation());
 
     }
 
@@ -54,9 +65,13 @@ public class IncidentManager extends javax.swing.JPanel {
         lblReportIncident = new javax.swing.JLabel();
         btnAssignInvestigationOfficer = new javax.swing.JButton();
         btnDetailedView = new javax.swing.JButton();
-        cmbBoxAmbulanceService = new javax.swing.JComboBox<>();
         cmbBoxInvestigationOfficerList = new javax.swing.JComboBox<>();
-        btnAssignAmbulanceService = new javax.swing.JButton();
+        btnSendAmbulanceRequest = new javax.swing.JButton();
+        lblReportIncident1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblCurrentLoggedInIncidentPolice = new javax.swing.JLabel();
+        lblCurrentLoggedInIncidentPoliceRole = new javax.swing.JLabel();
 
         setForeground(new java.awt.Color(0, 153, 153));
 
@@ -68,11 +83,11 @@ public class IncidentManager extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Incident Id", "Reporter Name", "Reporter Mobile", "Location", "Description", "Assign"
+                "Incident Id", "Reporter Mobile", "Location", "Description", "Assigned Investigation officer", "status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, false, false
+                false, true, true, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -96,21 +111,38 @@ public class IncidentManager extends javax.swing.JPanel {
         btnDetailedView.setText("View");
         btnDetailedView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDetailedViewActionPerformed(evt);
+                try {
+                    btnDetailedViewActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
-
-        cmbBoxAmbulanceService.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cmbBoxInvestigationOfficerList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnAssignAmbulanceService.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnAssignAmbulanceService.setText("Assign Ambulance Service");
-        btnAssignAmbulanceService.addActionListener(new java.awt.event.ActionListener() {
+        btnSendAmbulanceRequest.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSendAmbulanceRequest.setText("Send Ambulance request to near by ambulance services");
+        btnSendAmbulanceRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAssignAmbulanceServiceActionPerformed(evt);
+                try {
+                    btnSendAmbulanceRequestActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
+
+        lblReportIncident1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblReportIncident1.setText("Current logged in User");
+
+        jLabel1.setText("Police name:");
+
+        jLabel2.setText("Role:");
+
+        lblCurrentLoggedInIncidentPolice.setText("police_name_placeolder");
+
+        lblCurrentLoggedInIncidentPoliceRole.setText("police_role_placeolder");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -119,42 +151,58 @@ public class IncidentManager extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(246, 246, 246)
-                        .addComponent(lblReportIncident))
+                        .addGap(110, 110, 110)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnDetailedView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(58, 58, 58)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCurrentLoggedInIncidentPoliceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCurrentLoggedInIncidentPolice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 837, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(121, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDetailedView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbBoxAmbulanceService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.Alignment.TRAILING, 0, 138, Short.MAX_VALUE))
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(243, 243, 243)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblReportIncident1)
+                            .addComponent(lblReportIncident))))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(lblReportIncident)
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(lblReportIncident1)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblCurrentLoggedInIncidentPolice))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbBoxAmbulanceService, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAssignAmbulanceService, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(lblCurrentLoggedInIncidentPoliceRole))
+                .addGap(126, 126, 126)
+                .addComponent(lblReportIncident)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-                .addGap(117, 117, 117))
+                .addGap(101, 101, 101))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -162,7 +210,7 @@ public class IncidentManager extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAssignInvestigationOfficerActionPerformed
 
-    private void btnDetailedViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailedViewActionPerformed
+    private void btnDetailedViewActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnDetailedViewActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblReportedIncidents.getSelectedRow();
         if(selectedRowIndex < 0 ) {
@@ -173,13 +221,13 @@ public class IncidentManager extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
         IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
 
-        IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(mainSystem, mainWorkJPanel, incidentCase);
+        IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(this.mainWorkJPanel, incidentCase);
         mainWorkJPanel.add("IncidentDetailsMngt", incidentDetailsMngt);
         CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
         layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnDetailedViewActionPerformed
 
-    private void btnAssignAmbulanceServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAmbulanceServiceActionPerformed
+    private void btnSendAmbulanceRequestActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnSendAmbulanceRequestActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblReportedIncidents.getSelectedRow();
         if(selectedRowIndex < 0 ) {
@@ -190,58 +238,47 @@ public class IncidentManager extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
         IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
 
-        String selectedAmbulanceService = cmbBoxAmbulanceService.getSelectedItem().toString();
-        for(TransportationOrganization transportationOrganization : this.mainSystem.getTransportationOrganizationList()) {
-            for(AmbulanceService ambulanceService : transportationOrganization.getAmbulanceServiceArrayList()) {
-                if(ambulanceService.getAmbulanceServiceName().equals(selectedAmbulanceService)) {
-                    ambulanceService.getIncidentCaseArrayList().add(incidentCase);
-                    return;
-                }
-            }
-        }
-    }//GEN-LAST:event_btnAssignAmbulanceServiceActionPerformed
+        incidentCase.setStatus("ambulance-requested");
+        this.incidenteCaseDaoImplementation.update(incidentCase);
 
-    void populateIncidentsTable(String policeOrganizationNetworkName) {
+        JOptionPane.showMessageDialog(this, "Request for ambulance sent to all near by ambulance services!!");
+    }//GEN-LAST:event_btnSendAmbulanceRequestActionPerformed
+
+    void populateIncidentsTable(String location) throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
         model.setRowCount(0);
 
-        for(PoliceOrganization po : this.mainSystem.getMasterPoliceOrganizationList()) {
-            if(po.getNetworkName().equals(policeOrganizationNetworkName)) {
-                for (IncidentCase incidentCase : po.getIncidentCaseArrayList()) {
-                    Object[] row = new Object[6];
-                    row[0] = incidentCase;
-                    row[1] = incidentCase.getReporter().getReporterName();
-                    row[2] = incidentCase.getReporter().getPhone();
-                    row[3] = incidentCase.getPoliceStationNetworkName();
-                    row[4] = incidentCase.getIncidentDescription();
-                    if(incidentCase.getInvestigationPolice() == null) {
-                        row[5] = "";
-                    } else {
-                        row[5] = incidentCase.getInvestigationPolice().getName();
-                    }
-                    model.addRow(row);
-                }
+        for(IncidentCase  incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByLocation(location)) {
+            Object[] row = new Object[6];
+            row[0] = incidentCase;
+            row[1] = incidentCase.getReporterPhone();
+            row[2] = incidentCase.getLocation();
+            row[3] = incidentCase.getDescription();
+            if(incidentCase.getInvestigationPoliceId() == -1) {
+                row[4] = "";
+            } else {
+                User investigationOffice = this.userDaoImplementation.getUserById(incidentCase.getInvestigationPoliceId());
+                row[4] = investigationOffice.getId();
             }
+            row[5] = incidentCase.getStatus();
+
+            model.addRow(row);
         }
     }
 
-    void populateAmbulanceComboBox(String networkName) {
-        for(TransportationOrganization transportationOrganization : this.mainSystem.getTransportationOrganizationList()) {
-            if(transportationOrganization.getNetworkName().equals(networkName)) {
-                for(AmbulanceService ambulanceService : transportationOrganization.getAmbulanceServiceArrayList()) {
-                    cmbBoxAmbulanceService.addItem(ambulanceService.getAmbulanceServiceName());
-                }
-            }
-        }
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAssignAmbulanceService;
     private javax.swing.JButton btnAssignInvestigationOfficer;
     private javax.swing.JButton btnDetailedView;
-    private javax.swing.JComboBox<String> cmbBoxAmbulanceService;
+    private javax.swing.JButton btnSendAmbulanceRequest;
     private javax.swing.JComboBox<String> cmbBoxInvestigationOfficerList;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCurrentLoggedInIncidentPolice;
+    private javax.swing.JLabel lblCurrentLoggedInIncidentPoliceRole;
     private javax.swing.JLabel lblReportIncident;
+    private javax.swing.JLabel lblReportIncident1;
     private javax.swing.JTable tblReportedIncidents;
     // End of variables declaration//GEN-END:variables
 }

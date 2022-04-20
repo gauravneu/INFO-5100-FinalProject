@@ -18,6 +18,8 @@ public interface UsersDao {
             throws SQLException;
     public List<User> getUsersByOrgId(int id)
             throws SQLException;
+    public List<User> getUsersByOrgIdAndRole(int id, String role)
+            throws SQLException;
     public List<User> getEmployeesByOrgId(int id)
             throws SQLException;
     public void update(User user)

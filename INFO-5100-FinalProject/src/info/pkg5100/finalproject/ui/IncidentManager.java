@@ -111,7 +111,11 @@ public class IncidentManager extends javax.swing.JPanel {
         btnDetailedView.setText("View");
         btnDetailedView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDetailedViewActionPerformed(evt);
+                try {
+                    btnDetailedViewActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -206,7 +210,7 @@ public class IncidentManager extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAssignInvestigationOfficerActionPerformed
 
-    private void btnDetailedViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailedViewActionPerformed
+    private void btnDetailedViewActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnDetailedViewActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblReportedIncidents.getSelectedRow();
         if(selectedRowIndex < 0 ) {
@@ -216,11 +220,11 @@ public class IncidentManager extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
         IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
-//
-//        IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(mainWorkJPanel, incidentCase);
-//        mainWorkJPanel.add("IncidentDetailsMngt", incidentDetailsMngt);
-//        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-//        layout.next(mainWorkJPanel);
+
+        IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(this.mainWorkJPanel, incidentCase);
+        mainWorkJPanel.add("IncidentDetailsMngt", incidentDetailsMngt);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnDetailedViewActionPerformed
 
     private void btnSendAmbulanceRequestActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnSendAmbulanceRequestActionPerformed

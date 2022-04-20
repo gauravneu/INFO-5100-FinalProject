@@ -5,6 +5,7 @@
 package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
+import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
@@ -28,6 +29,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
     Organization currentOrganization;
 
     IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
+    OrganizationDaoImplementation organizationDaoImplementation;
 
     public AmbulanceRequestMngt() {
 		initComponents();
@@ -41,6 +43,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         this.currentOrganization = currentOrganization;
 
         this.incidenteCaseDaoImplementation = new IncidenteCaseDaoImplementation();
+        this.organizationDaoImplementation = new OrganizationDaoImplementation();
+
         populatePendingRequestsTable();
         populateAcceptedRequestsTable();
     }
@@ -67,6 +71,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         lblEmpName = new javax.swing.JLabel();
         lblEmpRole = new javax.swing.JLabel();
         lblEmpId = new javax.swing.JLabel();
+        btnCompleteRequest = new javax.swing.JButton();
+        btnSendRequestToHospitals = new javax.swing.JButton();
 
         tblActiveAmbulanceRequests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,6 +127,24 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
 
         lblEmpId.setText("emp_id_placeholder");
 
+        btnCompleteRequest.setText("Complete request");
+        btnCompleteRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompleteRequestActionPerformed(evt);
+            }
+        });
+
+        btnSendRequestToHospitals.setText("Send request to near by hospitals");
+        btnSendRequestToHospitals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnSendRequestToHospitalsActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,7 +163,15 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(221, 221, 221)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(btnSendRequestToHospitals, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCompleteRequest)
+                        .addGap(109, 109, 109)))
+                .addContainerGap(69, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -151,7 +183,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                     .addComponent(lblEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmpRole, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
@@ -178,12 +210,19 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(lblEmpId))))
                 .addGap(18, 18, 18)
-                .addComponent(btnAcceptRequest)
-                .addGap(81, 81, 81)
-                .addComponent(jLabel2)
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAcceptRequest)
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel2)
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSendRequestToHospitals, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCompleteRequest)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -201,12 +240,36 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         incidentCase.setOrgId(this.currentOrganization.getId());
         incidentCase.setOrgType(this.currentOrganization.getType());
         incidentCase.setStatus("ambulance-accepted");
+        incidentCase.setCurrentcasehandlinguserid(this.ambulanceEmployee.getId());
 
         this.incidenteCaseDaoImplementation.update(incidentCase);
         populateAcceptedRequestsTable();
         populatePendingRequestsTable();
 
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
+
+    private void btnCompleteRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteRequestActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCompleteRequestActionPerformed
+
+    private void btnSendRequestToHospitalsActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnSendRequestToHospitalsActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblActiveAmbulanceRequests.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select an incident.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblActiveAmbulanceRequests.getModel();
+        IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
+
+        incidentCase.setStatus("hospital-requested");
+
+        this.incidenteCaseDaoImplementation.update(incidentCase);
+
+        JOptionPane.showMessageDialog(this, "Request for hospital acceptance sent to all near by Hospitals!!");
+
+    }//GEN-LAST:event_btnSendRequestToHospitalsActionPerformed
 
     void populatePendingRequestsTable() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblPendingAmbulanceRequests.getModel();
@@ -227,9 +290,38 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblActiveAmbulanceRequests.getModel();
         model.setRowCount(0);
 
-        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocation(this.currentOrganization.getId(),
+        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocationAndCurrentCaseHandlingUserId(this.currentOrganization.getId(),
+                this.ambulanceEmployee.getId(),
                 this.currentOrganization.getType(),
                 "ambulance-accepted",
+                currentOrganization.getLocation())) {
+            Object[] row = new Object[4];
+            row[0] = incidentCase;
+            row[1] = incidentCase.getDescription();
+            row[2] = incidentCase.getLocation();
+            row[3] = incidentCase.getStatus();
+
+            model.addRow(row);
+        }
+
+        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocationAndCurrentCaseHandlingUserId(this.currentOrganization.getId(),
+                this.ambulanceEmployee.getId(),
+                this.currentOrganization.getType(),
+                "hospital-accepted",
+                currentOrganization.getLocation())) {
+            Object[] row = new Object[4];
+            row[0] = incidentCase;
+            row[1] = incidentCase.getDescription();
+            row[2] = incidentCase.getLocation();
+            row[3] = incidentCase.getStatus();
+
+            model.addRow(row);
+        }
+
+        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocationAndCurrentCaseHandlingUserId(this.currentOrganization.getId(),
+                this.ambulanceEmployee.getId(),
+                this.currentOrganization.getType(),
+                "ambulance-done",
                 currentOrganization.getLocation())) {
             Object[] row = new Object[4];
             row[0] = incidentCase;
@@ -244,6 +336,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
+    private javax.swing.JButton btnCompleteRequest;
+    private javax.swing.JButton btnSendRequestToHospitals;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

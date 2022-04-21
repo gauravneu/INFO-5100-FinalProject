@@ -19,4 +19,7 @@ public interface EnterpriseDao {
             throws SQLException;
     public void update(Enterprise enterprise)
             throws SQLException;
+    public List<Enterprise> getEnterpriseByLocation(String location)
+            throws SQLException;
+
 }

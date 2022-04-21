@@ -14,6 +14,7 @@ import info.pkg5100.finalproject.models.User;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import javax.swing.plaf.SplitPaneUI;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Login extends javax.swing.JPanel {
      */
     MainSystem mainSystem;
     JPanel mainWorkJPanel;
-
+    JSplitPane splitPaneUI;
     UserDaoImplementation userDaoImplementation;
     OrganizationDaoImplementation organizationDaoImplementation;
 
@@ -34,12 +35,12 @@ public class Login extends javax.swing.JPanel {
         initComponents();
     }
 
-    public Login(MainSystem mainSystem, JPanel mainWorkJPanel) {
+    public Login(MainSystem mainSystem, JPanel mainWorkJPanel,JSplitPane splitPaneUI) {
         initComponents();
 
         this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
-
+        this.splitPaneUI=splitPaneUI;
         this.userDaoImplementation = new UserDaoImplementation();
         this.organizationDaoImplementation =  new OrganizationDaoImplementation();
     }
@@ -137,8 +138,9 @@ public class Login extends javax.swing.JPanel {
         // Here for testing purpose, there is only one investigation police officer in Boston police network. Sending
         // that police into incident management.
         if(txtUsername.getText().equals("sysadmin")) {
-            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
-            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
+            NetworkMngt networkMngt = new NetworkMngt(mainWorkJPanel);
+            splitPaneUI.setLeftComponent(new Logout());
+            mainWorkJPanel.add("NetworkMngt", networkMngt);
             CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
             layout.next(mainWorkJPanel);
         } else {
@@ -149,6 +151,7 @@ public class Login extends javax.swing.JPanel {
             if(user != null) {
                 int orgid = user.getOrgid();
                 Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
+                splitPaneUI.setLeftComponent(new Logout());
 
                 if(user.getRole().equals("orgadmin")) {
                     OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);

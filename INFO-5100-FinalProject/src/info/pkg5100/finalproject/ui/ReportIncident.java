@@ -5,9 +5,11 @@
 package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
+import info.pkg5100.finalproject.daos.NetworkDaoImplementation;
 import info.pkg5100.finalproject.daos.ReporterDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.Network;
 import info.pkg5100.finalproject.models.PoliceOrganization;
 import info.pkg5100.finalproject.models.Reporter;
 import info.pkg5100.finalproject.utils.SimpleTools;
@@ -15,6 +17,9 @@ import info.pkg5100.finalproject.utils.SimpleTools;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
@@ -31,16 +36,17 @@ public class ReportIncident extends javax.swing.JPanel {
     MainSystem mainSystem;
     ReporterDaoImplementation reporterDaoImplementation;
     IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
+    NetworkDaoImplementation networkDaoImplementation;
 
     public ReportIncident() {
         initComponents();
-    }
-
-    public ReportIncident(MainSystem mainSystem) {
-        initComponents();
+        
         this.reporterDaoImplementation = new ReporterDaoImplementation();
         this.incidenteCaseDaoImplementation = new IncidenteCaseDaoImplementation();
+        this.networkDaoImplementation=new NetworkDaoImplementation();
+        populateNetworkComboBox();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +117,7 @@ public class ReportIncident extends javax.swing.JPanel {
         btnReportIncident.setText("Report");
         btnReportIncident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
+				try {
                     btnReportIncidentActionPerformed(evt);
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -128,7 +134,6 @@ public class ReportIncident extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Location");
 
-        cmbBoxNetworkName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "New York" }));
         cmbBoxNetworkName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbBoxNetworkNameActionPerformed(evt);
@@ -242,7 +247,7 @@ public class ReportIncident extends javax.swing.JPanel {
                 "",
                 -1,
                 currentReporter.getPhone(),
-                "",
+                photoURL,
                 location,
                 incidentDescription,
                 -1,
@@ -279,4 +284,16 @@ public class ReportIncident extends javax.swing.JPanel {
     private javax.swing.JTextField txtReporterMobile;
     private javax.swing.JTextField txtReporterName;
     // End of variables declaration//GEN-END:variables
+
+    private void populateNetworkComboBox() {
+        try {
+            List<Network> networks= this.networkDaoImplementation.getNetworks();
+            for(Network network:networks){
+                cmbBoxNetworkName.addItem(network.getNetworkName());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportIncident.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

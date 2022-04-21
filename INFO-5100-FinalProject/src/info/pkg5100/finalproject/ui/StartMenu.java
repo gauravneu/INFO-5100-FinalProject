@@ -141,7 +141,7 @@ public class StartMenu extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        Login login=new Login(this.mainSystem, this.RightPanel);
+        Login login=new Login(this.mainSystem, this.RightPanel,SplitPane);
         RightPanel.add("Login",login);
         CardLayout layout = (CardLayout)RightPanel.getLayout();
         layout.next(RightPanel);
@@ -149,7 +149,7 @@ public class StartMenu extends javax.swing.JFrame {
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         // TODO add your handling code here:
-        ReportIncident report= new ReportIncident(this.mainSystem);
+        ReportIncident report= new ReportIncident();
         RightPanel.add("ReportIncident",report);
         CardLayout layout = (CardLayout)RightPanel.getLayout();
         layout.next(RightPanel);

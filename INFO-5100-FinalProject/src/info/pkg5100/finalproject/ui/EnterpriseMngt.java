@@ -6,13 +6,16 @@ package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.EnterpriseDaoImplementation;
 import info.pkg5100.finalproject.models.Enterprise;
-import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.Network;
+import info.pkg5100.finalproject.utils.SimpleTools;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,21 +27,21 @@ public class EnterpriseMngt extends javax.swing.JPanel {
 	 * Creates new form NewJPanel
 	 */
 
-    MainSystem mainSystem;
     JPanel mainWorkJPanel;
+    Network currentNetwork;
     EnterpriseDaoImplementation enterpriseDaoImplementation;
 	public EnterpriseMngt() {
 		initComponents();
 	}
 
-    public EnterpriseMngt(MainSystem mainSystem, JPanel mainWorkJPanel) throws SQLException {
+    public EnterpriseMngt(JPanel mainWorkJPanel,Network network) throws SQLException {
         initComponents();
-        this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
         this.enterpriseDaoImplementation = new EnterpriseDaoImplementation();
+        this.currentNetwork=network;
 
 
-        populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterprises());
+        populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterpriseByLocation(this.currentNetwork.getNetworkName()));
     }
 
 	/**
@@ -51,39 +54,23 @@ public class EnterpriseMngt extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtEnterpriseName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnCreateEnterprise = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEnterpriseList = new javax.swing.JTable();
         btnEnterpriseView = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        txtEnterpriseId = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cmbBoxEnterpriseNetwork = new javax.swing.JComboBox<>();
         cmbBoxEnterpriseType = new javax.swing.JComboBox<>();
+        txtEnterpriseName = new javax.swing.JTextField();
 
         jLabel1.setText("Enterprise name");
-
-        jLabel2.setText("Location/Netowrk");
-
-        txtEnterpriseName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEnterpriseNameActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Add enterprise");
 
         btnCreateEnterprise.setText("Create enterprise");
         btnCreateEnterprise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnCreateEnterpriseActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                btnCreateEnterpriseActionPerformed(evt);
             }
         });
 
@@ -103,27 +90,23 @@ public class EnterpriseMngt extends javax.swing.JPanel {
         btnEnterpriseView.setText("view");
         btnEnterpriseView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnEnterpriseViewActionPerformed(evt);
+				try {
+                btnEnterpriseViewActionPerformed(evt);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        jLabel4.setText("Enterprise id");
-
-        txtEnterpriseId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEnterpriseIdActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Type");
 
-        cmbBoxEnterpriseNetwork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "New York" }));
-
         cmbBoxEnterpriseType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Police", "Hospital", "Transport", "Allocation" }));
+
+        txtEnterpriseName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEnterpriseNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,23 +120,15 @@ public class EnterpriseMngt extends javax.swing.JPanel {
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel2))
-                .addGap(63, 63, 63)
+                    .addComponent(jLabel5))
+                .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEnterpriseName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtEnterpriseId)
-                        .addGap(138, 138, 138))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEnterpriseName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(btnCreateEnterprise))
-                            .addComponent(cmbBoxEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbBoxEnterpriseNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)))
+                        .addGap(8, 8, 8)
+                        .addComponent(btnCreateEnterprise))
+                    .addComponent(cmbBoxEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -168,26 +143,15 @@ public class EnterpriseMngt extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtEnterpriseId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtEnterpriseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(cmbBoxEnterpriseNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(14, 14, 14))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(cmbBoxEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                            .addComponent(jLabel5)
+                            .addComponent(cmbBoxEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
                         .addComponent(btnCreateEnterprise))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
@@ -197,23 +161,6 @@ public class EnterpriseMngt extends javax.swing.JPanel {
                 .addContainerGap(71, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtEnterpriseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnterpriseNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEnterpriseNameActionPerformed
-
-    private void btnCreateEnterpriseActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnCreateEnterpriseActionPerformed
-        // TODO add your handling code here:
-        Enterprise enterprise = new Enterprise(Integer.parseInt(txtEnterpriseId.getText()), txtEnterpriseName.getText(), cmbBoxEnterpriseNetwork.getSelectedItem().toString(), cmbBoxEnterpriseType.getSelectedItem().toString());
-        this.enterpriseDaoImplementation.add(enterprise);
-
-        populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterprises());
-
-    }//GEN-LAST:event_btnCreateEnterpriseActionPerformed
-
-    private void txtEnterpriseIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnterpriseIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEnterpriseIdActionPerformed
 
     private void btnEnterpriseViewActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnEnterpriseViewActionPerformed
         // TODO add your handling code here:
@@ -232,6 +179,24 @@ public class EnterpriseMngt extends javax.swing.JPanel {
         layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnEnterpriseViewActionPerformed
 
+    private void txtEnterpriseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnterpriseNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEnterpriseNameActionPerformed
+
+    private void btnCreateEnterpriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateEnterpriseActionPerformed
+        try {
+            // TODO add your handling code here:
+            int newId=SimpleTools.getUnusedId("enterprises", 1000, 9999);
+            
+            Enterprise enterprise = new Enterprise(newId, txtEnterpriseName.getText(),this.currentNetwork.getNetworkName(), cmbBoxEnterpriseType.getSelectedItem().toString());
+            this.enterpriseDaoImplementation.add(enterprise);
+            
+            populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterpriseByLocation(this.currentNetwork.getNetworkName()));
+        } catch (SQLException ex) {
+            Logger.getLogger(EnterpriseMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCreateEnterpriseActionPerformed
+
     public void populateEnterpriseTable(List<Enterprise> enterpriseList) {
         DefaultTableModel model = (DefaultTableModel) tblEnterpriseList.getModel();
         model.setRowCount(0);
@@ -248,16 +213,12 @@ public class EnterpriseMngt extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreateEnterprise;
     private javax.swing.JButton btnEnterpriseView;
-    private javax.swing.JComboBox<String> cmbBoxEnterpriseNetwork;
     private javax.swing.JComboBox<String> cmbBoxEnterpriseType;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEnterpriseList;
-    private javax.swing.JTextField txtEnterpriseId;
     private javax.swing.JTextField txtEnterpriseName;
     // End of variables declaration//GEN-END:variables
 }

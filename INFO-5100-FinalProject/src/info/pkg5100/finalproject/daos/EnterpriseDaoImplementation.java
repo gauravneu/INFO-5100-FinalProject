@@ -96,4 +96,25 @@ public class EnterpriseDaoImplementation implements EnterpriseDao {
         ps.setInt(4, enterprise.getId());
         ps.executeUpdate();
     }
+    
+    @Override
+    public List<Enterprise> getEnterpriseByLocation(String location) throws SQLException {
+        String query = "select * from enterprises where location=?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+        ps.setString(1, location);
+
+        ResultSet rs = ps.executeQuery();
+        List<Enterprise> ls = new ArrayList();
+
+        while (rs.next()) {
+            Enterprise enterprise = new Enterprise();
+            enterprise.setId(rs.getInt("id"));
+            enterprise.setEnterpriseName(rs.getString("name"));
+            enterprise.setLocation(rs.getString("location"));
+            enterprise.setType(rs.getString("type"));
+            ls.add(enterprise);
+        }
+        return ls;
+    }
 }

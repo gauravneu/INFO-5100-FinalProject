@@ -59,6 +59,7 @@ public class StartMenu extends javax.swing.JFrame {
 
         SplitPane = new javax.swing.JSplitPane();
         RightPanel = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         LeftPanel = new javax.swing.JPanel();
         menu = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
@@ -66,25 +67,39 @@ public class StartMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        RightPanel.setBackground(new java.awt.Color(0, 153, 153));
+        RightPanel.setBackground(new java.awt.Color(255, 255, 255));
         RightPanel.setLayout(new java.awt.CardLayout());
+
+        lblLogo.setBackground(new java.awt.Color(120, 142, 199));
+        lblLogo.setForeground(new java.awt.Color(0, 0, 204));
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/pkg5100/finalproject/resources/logo.png"))); // NOI18N
+        RightPanel.add(lblLogo, "card3");
+
         SplitPane.setRightComponent(RightPanel);
 
-        LeftPanel.setBackground(new java.awt.Color(0, 153, 153));
+        LeftPanel.setBackground(new java.awt.Color(22, 59, 103));
+        LeftPanel.setForeground(new java.awt.Color(255, 255, 255));
 
         menu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        menu.setForeground(new java.awt.Color(255, 255, 255));
         menu.setText("MENU");
 
+        btnLogin.setBackground(new java.awt.Color(31, 75, 124));
         btnLogin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Proceed to Login");
+        btnLogin.setOpaque(false);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
 
+        btnReport.setBackground(new java.awt.Color(31, 75, 124));
         btnReport.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnReport.setForeground(new java.awt.Color(255, 255, 255));
         btnReport.setText("Report Incident");
+        btnReport.setOpaque(false);
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReportActionPerformed(evt);
@@ -96,31 +111,28 @@ public class StartMenu extends javax.swing.JFrame {
         LeftPanelLayout.setHorizontalGroup(
             LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LeftPanelLayout.createSequentialGroup()
-                        .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftPanelLayout.createSequentialGroup()
-                                .addComponent(menu)
-                                .addGap(91, 91, 91))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftPanelLayout.createSequentialGroup()
-                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))))
+                        .addComponent(menu)
+                        .addGap(91, 91, 91))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftPanelLayout.createSequentialGroup()
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftPanelLayout.createSequentialGroup()
+                        .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         LeftPanelLayout.setVerticalGroup(
             LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftPanelLayout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(menu)
-                .addGap(30, 30, 30)
+                .addGap(50, 50, 50)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(30, 30, 30)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
         );
 
         SplitPane.setLeftComponent(LeftPanel);
@@ -129,11 +141,11 @@ public class StartMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SplitPane)
+            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
         );
 
         pack();
@@ -204,6 +216,7 @@ public class StartMenu extends javax.swing.JFrame {
     private javax.swing.JSplitPane SplitPane;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnReport;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel menu;
     // End of variables declaration//GEN-END:variables
 }

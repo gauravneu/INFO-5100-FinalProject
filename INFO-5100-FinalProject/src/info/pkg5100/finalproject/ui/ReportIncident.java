@@ -262,7 +262,6 @@ public class ReportIncident extends javax.swing.JPanel {
         String incidentDescription = txtIncidentDescription.getText();
         String location = cmbBoxNetworkName.getSelectedItem().toString();
         String photoURL = txtPhoto.getText();
-        
 
         Reporter currentReporter = this.reporterDaoImplementation.getReporterByPhone(reporterMobileNumber);
         if(currentReporter == null) {

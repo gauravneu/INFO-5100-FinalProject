@@ -71,8 +71,13 @@ public class StartMenu extends javax.swing.JFrame {
         RightPanel.setLayout(new java.awt.CardLayout());
 
         lblLogo.setBackground(new java.awt.Color(120, 142, 199));
+        lblLogo.setFont(new java.awt.Font("Mongolian Baiti", 0, 48)); // NOI18N
         lblLogo.setForeground(new java.awt.Color(0, 0, 204));
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/pkg5100/finalproject/resources/logo.png"))); // NOI18N
+        lblLogo.setLabelFor(lblLogo);
+        lblLogo.setText("DISASTER RELIEF");
+        lblLogo.setPreferredSize(new java.awt.Dimension(286, 350));
         RightPanel.add(lblLogo, "card3");
 
         SplitPane.setRightComponent(RightPanel);
@@ -141,18 +146,18 @@ public class StartMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+            .addComponent(SplitPane)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         Login login=new Login(this.mainSystem, this.RightPanel,SplitPane);
         RightPanel.add("Login",login);
         CardLayout layout = (CardLayout)RightPanel.getLayout();

@@ -29,8 +29,13 @@ public class Logout extends javax.swing.JPanel {
         btnLogout = new javax.swing.JButton();
         welcome = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(22, 59, 103));
+
+        btnLogout.setBackground(new java.awt.Color(31, 75, 124));
         btnLogout.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setText("Logout");
+        btnLogout.setOpaque(false);
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -38,27 +43,31 @@ public class Logout extends javax.swing.JPanel {
         });
 
         welcome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        welcome.setText("Welcome");
+        welcome.setForeground(new java.awt.Color(255, 255, 255));
+        welcome.setText("WELCOME");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(welcome))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(welcome)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(48, 48, 48)
                 .addComponent(welcome)
-                .addGap(63, 63, 63)
-                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(344, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

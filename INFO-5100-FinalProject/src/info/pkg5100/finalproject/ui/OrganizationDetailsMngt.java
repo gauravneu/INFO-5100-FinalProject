@@ -8,14 +8,16 @@ import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import info.pkg5100.finalproject.utils.Validator;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 /**
  *
- * @author ankit
+ * @author hazel
  */
 public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
@@ -25,7 +27,8 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
     Organization currentOrganization;
     UserDaoImplementation userDaoImplementation;
-
+    Validator util;
+    
 	public OrganizationDetailsMngt() {
 		initComponents();
 	}
@@ -34,7 +37,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
         initComponents();
         this.currentOrganization = currentOrganization;
         this.userDaoImplementation = new UserDaoImplementation();
-
+        this.util=new Validator();
         lblOrgIdPlaceHolder.setText(Integer.toString(this.currentOrganization.getId()));
         lblOrgNamePlaceHolder.setText(this.currentOrganization.getName());
         lblOrgLocationPlaceHolder.setText(this.currentOrganization.getLocation());
@@ -282,6 +285,21 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
     private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAddUserActionPerformed
         // TODO add your handling code here:
+        String message="";
+            if(!(util.isNotNullAndEmpty(txtOrgAdminName.getText()) && util.isAlphabetic(txtOrgAdminName.getText())))
+                    message = "Please enter a valid name";
+            else if(!(util.isNotNullAndEmpty(txtOrgAdminAge.getText()) && util.isNumeric(txtOrgAdminAge.getText())))
+                     message = "Please enter valid age";
+            else if(!(util.isNotNullAndEmpty(txtOrgAdminPhone.getText()) && util.isNumeric(txtOrgAdminPhone.getText()) && txtOrgAdminPhone.getText().length()==10 ))
+                     message = "Please enter valid phone";
+            else if(!(util.isNotNullAndEmpty(txtOrgAdminUsername.getText()) && util.isAlphanumeric(txtOrgAdminUsername.getText())))
+                     message = "Please enter an alphanumeric username";
+            else if(!(util.isNotNullAndEmpty(txtOrgAdminPasswrod.getText()) && util.isAlphanumeric(txtOrgAdminPasswrod.getText())))
+                     message = "Please enter an alphanumeric password";
+            if(!"".equals(message)){
+                   JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
         int newId = SimpleTools.getUnusedId("users", 1000, 9999);
         User user = new User(newId,
                 txtOrgAdminUsername.getText(),
@@ -294,6 +312,8 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
         this.userDaoImplementation.add(user);
         populateUserTable(this.userDaoImplementation.getUsersByOrgIdAndRole(this.currentOrganization.getId(), "orgadmin"));
+        JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_btnAddUserActionPerformed
 
     public void populateUserTable(List<User> userList) {

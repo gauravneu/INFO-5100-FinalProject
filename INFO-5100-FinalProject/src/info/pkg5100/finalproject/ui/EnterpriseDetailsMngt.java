@@ -282,7 +282,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
             this.organizationDaoImplementation.add(organization);
             
             populateOrganizationTable(this.organizationDaoImplementation.getOrganizationByTypeAndLocation(this.currentEnterprise.getType(), this.currentEnterprise.getLocation()));
-            // TODO add your handling code here:
+            JOptionPane.showMessageDialog(this, "Organization Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(EnterpriseDetailsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }

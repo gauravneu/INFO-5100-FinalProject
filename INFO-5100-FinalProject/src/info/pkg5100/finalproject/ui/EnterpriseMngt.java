@@ -207,8 +207,8 @@ public class EnterpriseMngt extends javax.swing.JPanel {
             
             Enterprise enterprise = new Enterprise(newId, txtEnterpriseName.getText(),this.currentNetwork.getNetworkName(), cmbBoxEnterpriseType.getSelectedItem().toString());
             this.enterpriseDaoImplementation.add(enterprise);
-            
             populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterpriseByLocation(this.currentNetwork.getNetworkName()));
+            JOptionPane.showMessageDialog(this, "Enterprise Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(EnterpriseMngt.class.getName()).log(Level.SEVERE, null, ex);
         }

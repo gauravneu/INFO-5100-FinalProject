@@ -224,8 +224,8 @@ public class NetworkMngt extends javax.swing.JPanel {
             newId=SimpleTools.getUnusedId("networks", 1000, 9999);
             Network network = new Network(newId, txtNetworkName.getText());
             this.networkDaoImplementation.add(network);
-            
             populateNetworksTable(this.networkDaoImplementation.getNetworks());
+            JOptionPane.showMessageDialog(this, "Network Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(NetworkMngt.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:

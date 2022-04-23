@@ -73,8 +73,7 @@ public class Logout extends javax.swing.JPanel {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-        
-        System.exit(0);
+        new StartMenu().setVisible(true);
         
 
     }//GEN-LAST:event_btnLogoutActionPerformed

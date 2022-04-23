@@ -9,11 +9,14 @@ import info.pkg5100.finalproject.daos.ReporterDaoImplementation;
 import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.*;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import info.pkg5100.finalproject.utils.Validator;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,6 +37,7 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
 
     Reporter currentCaseReporter;
     User currentCaseInvestigationOfficer;
+    Validator util;
     public IncidentDetailsMngt() {
         initComponents();
     }
@@ -43,13 +47,13 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
 
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentIncidentCase = incidentCase;
-
+        this.util=new Validator();
         this.patientDaoImplementation = new PatientDaoImplementation();
         this.reporterDaoImplementation = new ReporterDaoImplementation();
         this.userDaoImplementation = new UserDaoImplementation();
 
         this.currentCaseReporter = this.reporterDaoImplementation.getReporterByPhone(this.currentIncidentCase.getReporterPhone());
-
+        
         if(this.currentIncidentCase.getInvestigationPoliceId() != -1) {
             this.currentCaseInvestigationOfficer = this.userDaoImplementation.getUserById(this.currentIncidentCase.getInvestigationPoliceId());
         }
@@ -71,7 +75,6 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        lblReportIncident2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblImpactedPatients = new javax.swing.JTable();
         txtPhoneNumber = new javax.swing.JTextField();
@@ -80,8 +83,6 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
         txtAge = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        lblReportIncident1 = new javax.swing.JLabel();
-        lblReportIncident = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblIncidentId = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -96,6 +97,10 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         lblAssigned = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         btnAddPatient = new javax.swing.JButton();
 
         jMenu1.setText("File");
@@ -104,24 +109,18 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        setBackground(new java.awt.Color(0, 153, 153));
-
-        lblReportIncident2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblReportIncident2.setText("IMPACTED PATIENT LIST");
+        setBackground(new java.awt.Color(255, 255, 255));
 
         tblImpactedPatients.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Patient Id", " Name", " Age", "Phone Number"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -145,31 +144,25 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
             }
         });
 
-        lblReportIncident1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblReportIncident1.setText("ADD PATIENTS");
-
-        lblReportIncident.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblReportIncident.setText("DETAILED DESCRIPTION");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Incident ID");
 
         lblIncidentId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblIncidentId.setText("Incident ID");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Reporter Name");
 
         lblReporterName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblReporterName.setText("Reporter Name");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Reporter Mobile");
 
         lblReporterMobile.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblReporterMobile.setText("Reporter Mobile");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Description");
 
         lblDescription.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -178,29 +171,40 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
         lblLocation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblLocation.setText("Location");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Location");
 
-        lblImage.setText("jLabel1");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Image");
 
         lblAssigned.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblAssigned.setText("Assigned");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Assigned");
 
-        btnAddPatient.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnAddPatient.setText("ADD");
+        jLabel12.setBackground(new java.awt.Color(31, 75, 124));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Incident Details");
+        jLabel12.setOpaque(true);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel14.setText("Impacted Patients");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel15.setText("Add Patients");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setText("Incident Information");
+
+        btnAddPatient.setBackground(new java.awt.Color(31, 75, 124));
+        btnAddPatient.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddPatient.setText("Add Patient");
         btnAddPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnAddPatientActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                btnAddPatientActionPerformed(evt);
             }
         });
 
@@ -208,81 +212,81 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel11))
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblReporterMobile)
-                                    .addComponent(lblDescription)
-                                    .addComponent(lblLocation)
-                                    .addComponent(lblAssigned)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(lblIncidentId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lblReporterName, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(57, 57, 57)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel10)
-                                            .addComponent(lblImage)))))
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel20)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(lblReportIncident)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblReportIncident1)
-                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtAge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(63, 63, 63))
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblReportIncident2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(622, Short.MAX_VALUE)
-                    .addComponent(btnAddPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(125, 125, 125)))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel10))
+                                        .addGap(29, 29, 29)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblReporterMobile)
+                                            .addComponent(lblDescription)
+                                            .addComponent(lblLocation)
+                                            .addComponent(lblAssigned)
+                                            .addComponent(lblIncidentId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblReporterName)))
+                                    .addComponent(jLabel8)
+                                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(82, 82, 82))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(484, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(btnAddPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel11, jLabel5, jLabel6, jLabel7, jLabel8, jLabel9, lblAssigned, lblDescription, lblIncidentId, lblLocation, lblReporterMobile, lblReporterName});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblReportIncident1)
-                    .addComponent(lblReportIncident))
-                .addGap(18, 18, 18)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jLabel14)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblIncidentId)
-                                    .addComponent(jLabel10))
+                                .addComponent(lblIncidentId)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblReporterName)
-                                    .addComponent(lblImage))
+                                .addComponent(lblReporterName)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblReporterMobile)
                                 .addGap(14, 14, 14)
@@ -291,7 +295,7 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
                                 .addComponent(lblLocation))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)
@@ -299,59 +303,81 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel9)))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblAssigned)
-                            .addComponent(jLabel11)))
+                            .addComponent(jLabel11))
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel20)
-                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
-                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(lblReportIncident2)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(225, Short.MAX_VALUE)
-                    .addComponent(btnAddPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(200, 200, 200)))
+                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAddPatient))
+                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel11, jLabel5, jLabel6, jLabel7, jLabel8, jLabel9, lblAssigned, lblDescription, lblIncidentId, lblLocation, lblReporterMobile, lblReporterName});
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAddPatientActionPerformed
-        // TODO add your handling code here:
-        int newId = SimpleTools.getUnusedId("patients", 1000, 9999);
+    private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPatientActionPerformed
+        try {
+            String message="";
+            if(!(util.isNotNullAndEmpty(txtName.getText()) && util.isAlphabetic(txtName.getText())))
+                message = "Please enter a valid name";
+            else if(!(util.isNotNullAndEmpty(txtAge.getText()) && util.isNumeric(txtAge.getText())))
+                message = "Please enter valid age";
+            else if(!(util.isNotNullAndEmpty(txtPhoneNumber.getText()) && util.isNumeric(txtPhoneNumber.getText()) && txtPhoneNumber.getText().length()==10 ))
+                message = "Please enter valid phone";
+            if(!"".equals(message)){
+                JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            int newId = SimpleTools.getUnusedId("patients", 1000, 9999);
+            
+            Patient patient = new Patient(newId,
+                    txtName.getText(),
+                    txtAge.getText(),
+                    txtPhoneNumber.getText(),
+                    "",
+                    "rescued",
+                    this.currentIncidentCase.getId(),
+                    "false",
+                    "false",
+                    -1,
+                    -1
+            );
+            
+            this.patientDaoImplementation.add(patient);
+            
+            populateImpactedPatientTable(this.patientDaoImplementation.getPatientsByIncidentCaseId(this.currentIncidentCase.getId()));
+        } catch (SQLException ex) {
+            Logger.getLogger(IncidentDetailsMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        Patient patient = new Patient(newId,
-                txtName.getText(),
-                txtAge.getText(),
-                txtPhoneNumber.getText(),
-                "",
-                "rescued",
-                this.currentIncidentCase.getId(),
-                "false",
-                "false",
-                -1,
-                -1
-                );
-
-        this.patientDaoImplementation.add(patient);
-
-        populateImpactedPatientTable(this.patientDaoImplementation.getPatientsByIncidentCaseId(this.currentIncidentCase.getId()));
     }//GEN-LAST:event_btnAddPatientActionPerformed
 
     void populateIncidentCaseDetails() throws SQLException {
@@ -388,6 +414,10 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
     private javax.swing.JButton btnAddPatient;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
@@ -406,9 +436,6 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblIncidentId;
     private javax.swing.JLabel lblLocation;
-    private javax.swing.JLabel lblReportIncident;
-    private javax.swing.JLabel lblReportIncident1;
-    private javax.swing.JLabel lblReportIncident2;
     private javax.swing.JLabel lblReporterMobile;
     private javax.swing.JLabel lblReporterName;
     private javax.swing.JTable tblImpactedPatients;

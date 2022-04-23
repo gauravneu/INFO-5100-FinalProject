@@ -13,6 +13,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -62,7 +64,6 @@ public class IncidentManager extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReportedIncidents = new javax.swing.JTable();
-        lblReportIncident = new javax.swing.JLabel();
         btnAssignInvestigationOfficer = new javax.swing.JButton();
         btnDetailedView = new javax.swing.JButton();
         cmbBoxInvestigationOfficerList = new javax.swing.JComboBox<>();
@@ -72,8 +73,10 @@ public class IncidentManager extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         lblCurrentLoggedInIncidentPolice = new javax.swing.JLabel();
         lblCurrentLoggedInIncidentPoliceRole = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
-        setForeground(new java.awt.Color(0, 153, 153));
+        setBackground(new java.awt.Color(255, 255, 255));
 
         tblReportedIncidents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,10 +99,9 @@ public class IncidentManager extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblReportedIncidents);
 
-        lblReportIncident.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblReportIncident.setText("REPORTED INCIDENTS");
-
+        btnAssignInvestigationOfficer.setBackground(new java.awt.Color(31, 75, 124));
         btnAssignInvestigationOfficer.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAssignInvestigationOfficer.setForeground(new java.awt.Color(255, 255, 255));
         btnAssignInvestigationOfficer.setText("Assign Investigation officer");
         btnAssignInvestigationOfficer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,82 +109,94 @@ public class IncidentManager extends javax.swing.JPanel {
             }
         });
 
+        btnDetailedView.setBackground(new java.awt.Color(31, 75, 124));
         btnDetailedView.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnDetailedView.setForeground(new java.awt.Color(255, 255, 255));
         btnDetailedView.setText("View");
         btnDetailedView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnDetailedViewActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                btnDetailedViewActionPerformed(evt);
             }
         });
 
         cmbBoxInvestigationOfficerList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnSendAmbulanceRequest.setBackground(new java.awt.Color(31, 75, 124));
         btnSendAmbulanceRequest.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSendAmbulanceRequest.setText("Send Ambulance request to near by ambulance services");
+        btnSendAmbulanceRequest.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendAmbulanceRequest.setText("Notify Nearby Ambulance Service");
         btnSendAmbulanceRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnSendAmbulanceRequestActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                btnSendAmbulanceRequestActionPerformed(evt);
             }
         });
 
-        lblReportIncident1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblReportIncident1.setText("Current logged in User");
+        lblReportIncident1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblReportIncident1.setText("Current Logged in User");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Police name:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Role:");
 
         lblCurrentLoggedInIncidentPolice.setText("police_name_placeolder");
 
         lblCurrentLoggedInIncidentPoliceRole.setText("police_role_placeolder");
 
+        jLabel12.setBackground(new java.awt.Color(31, 75, 124));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Reported Incidents");
+        jLabel12.setOpaque(true);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel14.setText("Reported Incidents");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCurrentLoggedInIncidentPoliceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCurrentLoggedInIncidentPolice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 608, Short.MAX_VALUE))
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 837, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(lblReportIncident1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnDetailedView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(58, 58, 58)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblCurrentLoggedInIncidentPoliceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblCurrentLoggedInIncidentPolice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 837, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(243, 243, 243)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblReportIncident1)
-                            .addComponent(lblReportIncident))))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86)
+                        .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(211, 211, 211))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addComponent(lblReportIncident1)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblCurrentLoggedInIncidentPolice))
@@ -190,19 +204,19 @@ public class IncidentManager extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblCurrentLoggedInIncidentPoliceRole))
-                .addGap(126, 126, 126)
-                .addComponent(lblReportIncident)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75)
+                .addComponent(jLabel14)
                 .addGap(18, 18, 18)
-                .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbBoxInvestigationOfficerList, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(btnAssignInvestigationOfficer, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-                .addGap(101, 101, 101))
+                    .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAssignInvestigationOfficer)
+                    .addComponent(cmbBoxInvestigationOfficerList))
+                .addGap(181, 181, 181))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -210,38 +224,46 @@ public class IncidentManager extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAssignInvestigationOfficerActionPerformed
 
-    private void btnDetailedViewActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnDetailedViewActionPerformed
-        // TODO add your handling code here:
-        int selectedRowIndex = tblReportedIncidents.getSelectedRow();
-        if(selectedRowIndex < 0 ) {
-            JOptionPane.showMessageDialog(this, "Please select an incident.");
-            return;
+    private void btnDetailedViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailedViewActionPerformed
+        try {
+            // TODO add your handling code here:
+            int selectedRowIndex = tblReportedIncidents.getSelectedRow();
+            if(selectedRowIndex < 0 ) {
+                JOptionPane.showMessageDialog(this, "Please select an incident.");
+                return;
+            }
+            
+            DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
+            IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
+            
+            IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(this.mainWorkJPanel, incidentCase);
+            mainWorkJPanel.add("IncidentDetailsMngt", incidentDetailsMngt);
+            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+            layout.next(mainWorkJPanel);
+        } catch (SQLException ex) {
+            Logger.getLogger(IncidentManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
-        IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
-
-        IncidentDetailsMngt incidentDetailsMngt = new IncidentDetailsMngt(this.mainWorkJPanel, incidentCase);
-        mainWorkJPanel.add("IncidentDetailsMngt", incidentDetailsMngt);
-        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-        layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnDetailedViewActionPerformed
 
-    private void btnSendAmbulanceRequestActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnSendAmbulanceRequestActionPerformed
-        // TODO add your handling code here:
-        int selectedRowIndex = tblReportedIncidents.getSelectedRow();
-        if(selectedRowIndex < 0 ) {
-            JOptionPane.showMessageDialog(this, "Please select an incident.");
-            return;
+    private void btnSendAmbulanceRequestActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_btnSendAmbulanceRequestActionPerformed
+        try {
+            // TODO add your handling code here:
+            int selectedRowIndex = tblReportedIncidents.getSelectedRow();
+            if(selectedRowIndex < 0 ) {
+                JOptionPane.showMessageDialog(this, "Please select an incident.");
+                return;
+            }
+            
+            DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
+            IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
+            
+            incidentCase.setStatus("ambulance-requested");
+            this.incidenteCaseDaoImplementation.update(incidentCase);
+            
+            JOptionPane.showMessageDialog(this, "Request for ambulance sent to all near by ambulance services!!");
+        } catch (SQLException ex) {
+            Logger.getLogger(IncidentManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        DefaultTableModel model = (DefaultTableModel) tblReportedIncidents.getModel();
-        IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
-
-        incidentCase.setStatus("ambulance-requested");
-        this.incidenteCaseDaoImplementation.update(incidentCase);
-
-        JOptionPane.showMessageDialog(this, "Request for ambulance sent to all near by ambulance services!!");
     }//GEN-LAST:event_btnSendAmbulanceRequestActionPerformed
 
     void populateIncidentsTable(String location) throws SQLException {
@@ -273,11 +295,12 @@ public class IncidentManager extends javax.swing.JPanel {
     private javax.swing.JButton btnSendAmbulanceRequest;
     private javax.swing.JComboBox<String> cmbBoxInvestigationOfficerList;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCurrentLoggedInIncidentPolice;
     private javax.swing.JLabel lblCurrentLoggedInIncidentPoliceRole;
-    private javax.swing.JLabel lblReportIncident;
     private javax.swing.JLabel lblReportIncident1;
     private javax.swing.JTable tblReportedIncidents;
     // End of variables declaration//GEN-END:variables

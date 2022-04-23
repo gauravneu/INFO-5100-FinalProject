@@ -10,6 +10,7 @@ import info.pkg5100.finalproject.models.IncidentHandlingPolice;
 import info.pkg5100.finalproject.models.MainSystem;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
+import info.pkg5100.finalproject.utils.Validator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +31,7 @@ public class Login extends javax.swing.JPanel {
     JSplitPane splitPaneUI;
     UserDaoImplementation userDaoImplementation;
     OrganizationDaoImplementation organizationDaoImplementation;
+    Validator util;
 
     public Login() {
         initComponents();
@@ -43,6 +45,7 @@ public class Login extends javax.swing.JPanel {
         this.splitPaneUI=splitPaneUI;
         this.userDaoImplementation = new UserDaoImplementation();
         this.organizationDaoImplementation =  new OrganizationDaoImplementation();
+        this.util=new Validator();
     }
 
     /**
@@ -154,14 +157,10 @@ public class Login extends javax.swing.JPanel {
         // Clicking login searches for the Bosotn
         // Here for testing purpose, there is only one investigation police officer in Boston police network. Sending
         // that police into incident management.
-        if(txtUsername.getText().equals("sysadmin")) {
-            NetworkMngt networkMngt = new NetworkMngt(mainWorkJPanel);
-            splitPaneUI.setLeftComponent(new Logout());
-            mainWorkJPanel.add("NetworkMngt", networkMngt);
-            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-            layout.next(mainWorkJPanel);
-        } else {
-
+            if(!util.isNotNullAndEmpty(txtUsername.getText()) || !util.isNotNullAndEmpty(txtPassword.getText())){
+                JOptionPane.showMessageDialog(this,"Please enter valid Username and Password","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             User user = this.userDaoImplementation.getUserByUsernameAndPassword(txtUsername.getText(), txtPassword.getText());
 
 
@@ -169,13 +168,18 @@ public class Login extends javax.swing.JPanel {
                 int orgid = user.getOrgid();
                 Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
                 splitPaneUI.setLeftComponent(new Logout());
-
-                if(user.getRole().equals("orgadmin")) {
+                
+                if(user.getRole().equals("sysadmin")){
+                    NetworkMngt networkMngt = new NetworkMngt(mainWorkJPanel);
+                    splitPaneUI.setLeftComponent(new Logout());
+                    mainWorkJPanel.add("NetworkMngt", networkMngt);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
+                } else if(user.getRole().equals("orgadmin")) {
                     OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);
                     mainWorkJPanel.add("OrganizationEmployeeMngt", organizationEmployeeMngt);
                     CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
                     layout.next(mainWorkJPanel);
-
                 } else if(user.getRole().equals("incident-police")) {
                     IncidentManager incidentManager = new IncidentManager(mainWorkJPanel, user, org);
                     mainWorkJPanel.add("IncidentManager", incidentManager);
@@ -197,11 +201,10 @@ public class Login extends javax.swing.JPanel {
                     CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
                     layout.next(mainWorkJPanel);
                 }
-
             } else {
                 JOptionPane.showMessageDialog(this, "Username/password incorrect. Please try again!!");
             }
-        }
+        
 
 
 //        if(txtUsername.equals("qwe")) {

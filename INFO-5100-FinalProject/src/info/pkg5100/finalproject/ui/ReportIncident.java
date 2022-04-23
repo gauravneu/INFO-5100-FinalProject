@@ -13,6 +13,7 @@ import info.pkg5100.finalproject.models.Network;
 import info.pkg5100.finalproject.models.PoliceOrganization;
 import info.pkg5100.finalproject.models.Reporter;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import info.pkg5100.finalproject.utils.Validator;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,6 +39,8 @@ public class ReportIncident extends javax.swing.JPanel {
     ReporterDaoImplementation reporterDaoImplementation;
     IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
     NetworkDaoImplementation networkDaoImplementation;
+    Validator util;
+
 
     public ReportIncident() {
         initComponents();
@@ -44,6 +48,7 @@ public class ReportIncident extends javax.swing.JPanel {
         this.reporterDaoImplementation = new ReporterDaoImplementation();
         this.incidenteCaseDaoImplementation = new IncidenteCaseDaoImplementation();
         this.networkDaoImplementation=new NetworkDaoImplementation();
+        this.util=new Validator();
         populateNetworkComboBox();
     }
     
@@ -262,6 +267,23 @@ public class ReportIncident extends javax.swing.JPanel {
         String incidentDescription = txtIncidentDescription.getText();
         String location = cmbBoxNetworkName.getSelectedItem().toString();
         String photoURL = txtPhoto.getText();
+        
+        String message="";
+            if(!(util.isNotNullAndEmpty(reportName) && util.isAlphabetic(reportName)))
+                    message = "Please enter a valid name."; 
+             else if(!(util.isNotNullAndEmpty(reporterMobileNumber) && util.isNumeric(reporterMobileNumber) && reporterMobileNumber.length()==10))
+                    message = "Please enter a valid mobile number.";
+             else if(!(util.isNotNullAndEmpty(incidentDescription)))
+                    message = "Please enter a valid description.";
+             else  if(!(util.isNotNullAndEmpty(location)))
+                    message = "Please enter a valid location.";
+             else if(!(util.isNotNullAndEmpty(photoURL)))
+                    message = "Please select a valid photo.";
+                
+            if(!"".equals(message)){
+                JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
         Reporter currentReporter = this.reporterDaoImplementation.getReporterByPhone(reporterMobileNumber);
         if(currentReporter == null) {
@@ -285,6 +307,8 @@ public class ReportIncident extends javax.swing.JPanel {
                 -1
         );
         this.incidenteCaseDaoImplementation.add(incidentCase);
+        JOptionPane.showMessageDialog(this, "Report filed Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+
 
     }//GEN-LAST:event_btnReportIncidentActionPerformed
 

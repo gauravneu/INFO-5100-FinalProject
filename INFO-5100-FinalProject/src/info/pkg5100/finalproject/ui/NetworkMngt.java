@@ -86,6 +86,7 @@ public class NetworkMngt extends javax.swing.JPanel {
             }
         });
         tblNetworkList.setFocusable(false);
+        tblNetworkList.setGridColor(new java.awt.Color(255, 255, 255));
         tblNetworkList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblNetworkList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblNetworkList.setShowGrid(true);
@@ -111,6 +112,9 @@ public class NetworkMngt extends javax.swing.JPanel {
 
         btnUpdateNetwork.setBackground(new java.awt.Color(31, 75, 124));
         btnUpdateNetwork.setText("Update Network");
+        btnUpdateNetwork.setMaximumSize(new java.awt.Dimension(117, 23));
+        btnUpdateNetwork.setMinimumSize(new java.awt.Dimension(117, 23));
+        btnUpdateNetwork.setPreferredSize(new java.awt.Dimension(117, 23));
         btnUpdateNetwork.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateNetworkActionPerformed(evt);
@@ -129,7 +133,13 @@ public class NetworkMngt extends javax.swing.JPanel {
         jLabel2.setText("Network Name");
 
         btnCreateNetwork.setBackground(new java.awt.Color(31, 75, 124));
-        btnCreateNetwork.setText("+");
+        btnCreateNetwork.setText("Add Network");
+        btnCreateNetwork.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCreateNetwork.setIconTextGap(2);
+        btnCreateNetwork.setMaximumSize(new java.awt.Dimension(117, 23));
+        btnCreateNetwork.setMinimumSize(new java.awt.Dimension(117, 23));
+        btnCreateNetwork.setPreferredSize(new java.awt.Dimension(117, 23));
+        btnCreateNetwork.setRolloverEnabled(false);
         btnCreateNetwork.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateNetworkActionPerformed(evt);
@@ -147,19 +157,21 @@ public class NetworkMngt extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCreateNetwork))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(btnCreateEnterprise))
-                        .addGap(34, 34, 34)
-                        .addComponent(btnUpdateNetwork)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(btnCreateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(btnCreateEnterprise))
+                                .addGap(34, 34, 34)
+                                .addComponent(btnUpdateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,23 +182,19 @@ public class NetworkMngt extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCreateEnterprise)
-                    .addComponent(btnUpdateNetwork))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel6)
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(56, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCreateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))))
+                    .addComponent(btnUpdateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnCreateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

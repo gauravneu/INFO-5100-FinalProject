@@ -4,7 +4,6 @@
  */
 package info.pkg5100.finalproject.daos;
 
-import static info.pkg5100.finalproject.daos.EnterpriseDaoImplementation.con;
 import info.pkg5100.finalproject.models.Network;
 import info.pkg5100.finalproject.utils.DatabaseConnection;
 import java.sql.Connection;
@@ -91,7 +90,7 @@ public class NetworkDaoImplementation implements NetworkDao {
     @Override
     public void update(Network network) throws SQLException {
          String query
-                = "update networks set name=? "
+                = "update networks set networkName=? "
                     +" where id = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);

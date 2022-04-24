@@ -311,7 +311,8 @@ public class ReportIncident extends javax.swing.JPanel {
                     incidentDescription,
                     -1,
                     "false",
-                    -1
+                    -1,
+                    "false"
             );
             this.incidenteCaseDaoImplementation.add(incidentCase);
             JOptionPane.showMessageDialog(this, "Report filed Successfully","Success", JOptionPane.INFORMATION_MESSAGE);

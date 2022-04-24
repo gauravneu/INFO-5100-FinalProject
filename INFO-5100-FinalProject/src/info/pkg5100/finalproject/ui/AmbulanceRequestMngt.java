@@ -325,11 +325,17 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                 this.currentOrganization.getType(),
                 "ambulance-accepted",
                 currentOrganization.getLocation())) {
-            Object[] row = new Object[4];
+            Object[] row = new Object[5];
             row[0] = incidentCase;
             row[1] = incidentCase.getDescription();
             row[2] = incidentCase.getLocation();
             row[3] = incidentCase.getStatus();
+            if(incidentCase.getAmbulancetaskcompleted().equals("false")) {
+                row[4] = "In-progress";
+            } else {
+                row[4] = "Task completed.";
+            }
+
 
             model.addRow(row);
         }
@@ -339,28 +345,33 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                 this.currentOrganization.getType(),
                 "hospital-accepted",
                 currentOrganization.getLocation())) {
-            Object[] row = new Object[4];
+            Object[] row = new Object[5];
             row[0] = incidentCase;
             row[1] = incidentCase.getDescription();
             row[2] = incidentCase.getLocation();
             row[3] = incidentCase.getStatus();
+            if(incidentCase.getAmbulancetaskcompleted().equals("false")) {
+                row[4] = "In-progress";
+            } else {
+                row[4] = "Task completed.";
+            }
 
             model.addRow(row);
         }
 
-        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocationAndCurrentCaseHandlingUserId(this.currentOrganization.getId(),
-                this.ambulanceEmployee.getId(),
-                this.currentOrganization.getType(),
-                "ambulance-done",
-                currentOrganization.getLocation())) {
-            Object[] row = new Object[4];
-            row[0] = incidentCase;
-            row[1] = incidentCase.getDescription();
-            row[2] = incidentCase.getLocation();
-            row[3] = incidentCase.getStatus();
-
-            model.addRow(row);
-        }
+//        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocationAndCurrentCaseHandlingUserId(this.currentOrganization.getId(),
+//                this.ambulanceEmployee.getId(),
+//                this.currentOrganization.getType(),
+//                "ambulance-done",
+//                currentOrganization.getLocation())) {
+//            Object[] row = new Object[4];
+//            row[0] = incidentCase;
+//            row[1] = incidentCase.getDescription();
+//            row[2] = incidentCase.getLocation();
+//            row[3] = incidentCase.getStatus();
+//
+//            model.addRow(row);
+//        }
     }
 
 

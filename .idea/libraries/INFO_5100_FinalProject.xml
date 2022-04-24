@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="INFO-5100-FinalProject">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/INFO-5100-FinalProject/jfreechart-1.0.19.jar!/" />
+      <root url="jar://$PROJECT_DIR$/INFO-5100-FinalProject/db4o-8.0.184.15484-all-java5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/INFO-5100-FinalProject/AbsoluteLayout.jar!/" />
+      <root url="jar://$PROJECT_DIR$/INFO-5100-FinalProject/jfreechart-1.0.19-swt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/INFO-5100-FinalProject/jcommon-1.0.23.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

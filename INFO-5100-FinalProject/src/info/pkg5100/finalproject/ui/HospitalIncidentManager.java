@@ -16,6 +16,8 @@ import info.pkg5100.finalproject.models.User;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -72,13 +74,13 @@ public class HospitalIncidentManager extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblIncidentRequest = new javax.swing.JTable();
         btnAcceptRequest = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         tblAcceptedIncidents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "id", "Description", "Location ", "Status"
@@ -86,16 +88,15 @@ public class HospitalIncidentManager extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblAcceptedIncidents);
 
-        jLabel1.setText("Requested incidents:");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Requested Incidents");
 
-        jLabel2.setText("Accepted incidents:");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setText("Accepted Incidents");
 
         tblIncidentRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "id", "Description", "Location ", "Status"
@@ -103,90 +104,91 @@ public class HospitalIncidentManager extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(tblIncidentRequest);
 
-        btnAcceptRequest.setText("Accepted");
+        btnAcceptRequest.setBackground(new java.awt.Color(31, 75, 124));
+        btnAcceptRequest.setForeground(new java.awt.Color(255, 255, 255));
+        btnAcceptRequest.setText("Accept");
         btnAcceptRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnAcceptRequestActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                btnAcceptRequestActionPerformed(evt);
             }
         });
+
+        jLabel6.setBackground(new java.awt.Color(31, 75, 124));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Hospital Incident Management");
+        jLabel6.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(397, 397, 397)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(356, 356, 356)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(314, Short.MAX_VALUE))
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnAcceptRequest)
-                .addGap(223, 223, 223))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(209, 209, 209)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(323, Short.MAX_VALUE)))
+                .addContainerGap(250, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(176, 176, 176)
+                            .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(250, 250, 250))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnAcceptRequest)
-                .addGap(102, 102, 102)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel2)
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(65, 65, 65)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(406, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAcceptRequestActionPerformed
-        // TODO add your handling code here:
-        int selectedRowIndex = tblIncidentRequest.getSelectedRow();
-        if(selectedRowIndex < 0 ) {
-            JOptionPane.showMessageDialog(this, "Please select an incident.");
-            return;
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tblIncidentRequest.getModel();
-        IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
-
-        incidentCase.setOrgId(this.currentOrganization.getId());
-        incidentCase.setOrgType(this.currentOrganization.getType());
-        incidentCase.setStatus("hospital-accepted");
-
-        incidentCase.setHospitalCaseAccepted("true");
-        incidentCase.setHospitalId(this.currentOrganization.getId());
-
-        this.incidenteCaseDaoImplementation.update(incidentCase);
-        populateAcceptedCaseTable();
-        populateRequestsTable();
-
-
-        for(Patient patient : this.patientDaoImplementation.getPatientsByIncidentCaseId(incidentCase.getId())) {
-            System.out.println(patient.getId());
-            patient.setHospitalId(this.currentOrganization.getId());
-            this.patientDaoImplementation.update(patient);
+    private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequestActionPerformed
+        try {
+            // TODO add your handling code here:
+            int selectedRowIndex = tblIncidentRequest.getSelectedRow();
+            if(selectedRowIndex < 0 ) {
+                JOptionPane.showMessageDialog(this, "Please select an incident.");
+                return;
+            }
+            
+            DefaultTableModel model = (DefaultTableModel) tblIncidentRequest.getModel();
+            IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
+            
+            incidentCase.setOrgId(this.currentOrganization.getId());
+            incidentCase.setOrgType(this.currentOrganization.getType());
+            incidentCase.setStatus("hospital-accepted");
+            
+            incidentCase.setHospitalCaseAccepted("true");
+            incidentCase.setHospitalId(this.currentOrganization.getId());
+            
+            this.incidenteCaseDaoImplementation.update(incidentCase);
+            populateAcceptedCaseTable();
+            populateRequestsTable();
+            
+            
+            for(Patient patient : this.patientDaoImplementation.getPatientsByIncidentCaseId(incidentCase.getId())) {
+                System.out.println(patient.getId());
+                patient.setHospitalId(this.currentOrganization.getId());
+                this.patientDaoImplementation.update(patient);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HospitalIncidentManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
@@ -228,6 +230,7 @@ public class HospitalIncidentManager extends javax.swing.JPanel {
     private javax.swing.JButton btnAcceptRequest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblAcceptedIncidents;

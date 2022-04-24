@@ -5,18 +5,25 @@
 package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
+import info.pkg5100.finalproject.daos.NetworkDaoImplementation;
 import info.pkg5100.finalproject.daos.ReporterDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.MainSystem;
+import info.pkg5100.finalproject.models.Network;
 import info.pkg5100.finalproject.models.PoliceOrganization;
 import info.pkg5100.finalproject.models.Reporter;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import info.pkg5100.finalproject.utils.Validator;
 
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,16 +38,20 @@ public class ReportIncident extends javax.swing.JPanel {
     MainSystem mainSystem;
     ReporterDaoImplementation reporterDaoImplementation;
     IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
+    NetworkDaoImplementation networkDaoImplementation;
+    Validator util;
+
 
     public ReportIncident() {
         initComponents();
-    }
-
-    public ReportIncident(MainSystem mainSystem) {
-        initComponents();
+        
         this.reporterDaoImplementation = new ReporterDaoImplementation();
         this.incidenteCaseDaoImplementation = new IncidenteCaseDaoImplementation();
+        this.networkDaoImplementation=new NetworkDaoImplementation();
+        this.util=new Validator();
+        populateNetworkComboBox();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,15 +68,16 @@ public class ReportIncident extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         lblPhoto = new javax.swing.JLabel();
         txtPhoto = new javax.swing.JTextField();
-        btnupload = new javax.swing.JButton();
         lblImage = new javax.swing.JLabel();
-        btnReportIncident = new javax.swing.JButton();
         txtReporterName = new javax.swing.JTextField();
         txtReporterMobile = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cmbBoxNetworkName = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         txtIncidentDescription = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        btnSubmitReport = new javax.swing.JButton();
+        btnUpload = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -78,10 +90,16 @@ public class ReportIncident extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setBackground(new java.awt.Color(0, 153, 153));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setForeground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(952, 952));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setBackground(new java.awt.Color(31, 75, 124));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("REPORT ME");
+        jLabel4.setOpaque(true);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Name");
@@ -98,26 +116,7 @@ public class ReportIncident extends javax.swing.JPanel {
             }
         });
 
-        btnupload.setText("Upload");
-        btnupload.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnuploadActionPerformed(evt);
-            }
-        });
-
         lblImage.setBackground(new java.awt.Color(255, 255, 255));
-
-        btnReportIncident.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnReportIncident.setText("Report");
-        btnReportIncident.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnReportIncidentActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
         txtReporterName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +127,6 @@ public class ReportIncident extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Location");
 
-        cmbBoxNetworkName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "New York" }));
         cmbBoxNetworkName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbBoxNetworkNameActionPerformed(evt);
@@ -138,120 +136,128 @@ public class ReportIncident extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Incident Description");
 
+        txtIncidentDescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIncidentDescriptionActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/pkg5100/finalproject/resources/reportIncident.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+
+        btnSubmitReport.setBackground(new java.awt.Color(31, 75, 124));
+        btnSubmitReport.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSubmitReport.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubmitReport.setText("Report");
+        btnSubmitReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitReportActionPerformed(evt);
+            }
+        });
+
+        btnUpload.setBackground(new java.awt.Color(31, 75, 124));
+        btnUpload.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnUpload.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpload.setText("Upload");
+        btnUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(235, 235, 235)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addComponent(btnReportIncident, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel5))
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIncidentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtReporterName, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPhoto, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtReporterMobile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnupload))
-                            .addComponent(cmbBoxNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(263, Short.MAX_VALUE))
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(148, 148, 148))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(60, 60, 60)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbBoxNetworkName, 0, 170, Short.MAX_VALUE)
+                    .addComponent(txtReporterName)
+                    .addComponent(txtPhoto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIncidentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtReporterMobile))
+                .addGap(18, 18, 18)
+                .addComponent(btnUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSubmitReport, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(333, 333, 333))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbBoxNetworkName, txtIncidentDescription, txtPhoto, txtReporterMobile, txtReporterName});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel4)
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtReporterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtReporterMobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtIncidentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(108, 108, 108)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnUpload)
+                        .addGap(168, 168, 168)
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(806, 806, 806))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPhoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnupload)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(cmbBoxNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReportIncident, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                            .addComponent(jLabel5)
+                            .addComponent(txtReporterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtReporterMobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(cmbBoxNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtIncidentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPhoto)
+                            .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSubmitReport, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbBoxNetworkName, jLabel5, jLabel6, jLabel7, jLabel8, lblPhoto, txtIncidentDescription, txtPhoto, txtReporterMobile, txtReporterName});
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhotoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPhotoActionPerformed
-
-    private void btnuploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuploadActionPerformed
-        JFileChooser choose=new JFileChooser();
-        choose.showOpenDialog(null);
-        File f=choose.getSelectedFile();
-        lblImage.setIcon(new ImageIcon(f.toString()));
-        txtPhoto.setText(f.getAbsolutePath());
-    }//GEN-LAST:event_btnuploadActionPerformed
-
-    private void btnReportIncidentActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnReportIncidentActionPerformed
-        // TODO add your handling code here:
-
-        String reportName = txtReporterName.getText();
-        String reporterMobileNumber = txtReporterMobile.getText();
-        String incidentDescription = txtIncidentDescription.getText();
-        String location = cmbBoxNetworkName.getSelectedItem().toString();
-        String photoURL = txtPhoto.getText();
-
-        Reporter currentReporter = this.reporterDaoImplementation.getReporterByPhone(reporterMobileNumber);
-        if(currentReporter == null) {
-            currentReporter = new Reporter(reportName, reporterMobileNumber);
-            this.reporterDaoImplementation.add(currentReporter);
-        }
-
-        int newId = SimpleTools.getUnusedId("incidentcases", 1000, 9999);
-        IncidentCase incidentCase = new IncidentCase(newId,
-                "new-case",
-                "",
-                -1,
-                "",
-                -1,
-                currentReporter.getPhone(),
-                "",
-                location,
-                incidentDescription,
-                -1,
-                "false",
-                -1
-        );
-        this.incidenteCaseDaoImplementation.add(incidentCase);
-
-    }//GEN-LAST:event_btnReportIncidentActionPerformed
 
     private void txtReporterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReporterNameActionPerformed
         // TODO add your handling code here:
@@ -261,12 +267,81 @@ public class ReportIncident extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbBoxNetworkNameActionPerformed
 
+    private void btnSubmitReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitReportActionPerformed
+        try {
+            String reportName = txtReporterName.getText();
+            String reporterMobileNumber = txtReporterMobile.getText();
+            String incidentDescription = txtIncidentDescription.getText();
+            String location = cmbBoxNetworkName.getSelectedItem().toString();
+            String photoURL = txtPhoto.getText();
+            
+            String message="";
+            if(!(util.isNotNullAndEmpty(reportName) && util.isAlphabetic(reportName)))
+                message = "Please enter a valid name.";
+            else if(!(util.isNotNullAndEmpty(reporterMobileNumber) && util.isNumeric(reporterMobileNumber) && reporterMobileNumber.length()==10))
+                message = "Please enter a valid mobile number.";
+            else if(!(util.isNotNullAndEmpty(incidentDescription)))
+                message = "Please enter a valid description.";
+            else  if(!(util.isNotNullAndEmpty(location)))
+                message = "Please enter a valid location.";
+            else if(!(util.isNotNullAndEmpty(photoURL)))
+                message = "Please select a valid photo.";
+            
+            if(!"".equals(message)){
+                JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            Reporter currentReporter = this.reporterDaoImplementation.getReporterByPhone(reporterMobileNumber);
+            if(currentReporter == null) {
+                currentReporter = new Reporter(reportName, reporterMobileNumber);
+                this.reporterDaoImplementation.add(currentReporter);
+            }
+            
+            int newId = SimpleTools.getUnusedId("incidentcases", 1000, 9999);
+            IncidentCase incidentCase = new IncidentCase(newId,
+                    "new-case",
+                    "",
+                    -1,
+                    "",
+                    -1,
+                    currentReporter.getPhone(),
+                    photoURL,
+                    location,
+                    incidentDescription,
+                    -1,
+                    "false",
+                    -1
+            );
+            this.incidenteCaseDaoImplementation.add(incidentCase);
+            JOptionPane.showMessageDialog(this, "Report filed Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportIncident.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+
+      
+    }//GEN-LAST:event_btnSubmitReportActionPerformed
+
+    private void txtIncidentDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIncidentDescriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIncidentDescriptionActionPerformed
+
+    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+        JFileChooser choose=new JFileChooser();
+        choose.showOpenDialog(null);
+        File f=choose.getSelectedFile();
+            lblImage.setIcon(new ImageIcon(f.toString()));
+            txtPhoto.setText(f.getAbsolutePath());
+    }//GEN-LAST:event_btnUploadActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReportIncident;
-    private javax.swing.JButton btnupload;
+    private javax.swing.JButton btnSubmitReport;
+    private javax.swing.JButton btnUpload;
     private javax.swing.JComboBox<String> cmbBoxNetworkName;
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -279,4 +354,16 @@ public class ReportIncident extends javax.swing.JPanel {
     private javax.swing.JTextField txtReporterMobile;
     private javax.swing.JTextField txtReporterName;
     // End of variables declaration//GEN-END:variables
+
+    private void populateNetworkComboBox() {
+        try {
+            List<Network> networks= this.networkDaoImplementation.getNetworks();
+            for(Network network:networks){
+                cmbBoxNetworkName.addItem(network.getNetworkName());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportIncident.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

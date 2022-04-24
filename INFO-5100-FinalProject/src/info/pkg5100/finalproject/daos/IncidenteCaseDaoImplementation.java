@@ -17,8 +17,8 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public int add(IncidentCase incidentCase) throws SQLException {
         String query
-                = "insert into incidentcases(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location, description, currentcasehandlinguserid, hospitalcaseaccepted, hospitalid)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                = "insert into incidentcases(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location, description, currentcasehandlinguserid, hospitalcaseaccepted, hospitalid, ambulancetaskcompleted)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, incidentCase.getId());
@@ -34,6 +34,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setInt(11, incidentCase.getCurrentcasehandlinguserid());
         ps.setString(12, incidentCase.getHospitalCaseAccepted());
         ps.setInt(13, incidentCase.getHospitalId());
+        ps.setString(14, incidentCase.getAmbulancetaskcompleted());
         int n = ps.executeUpdate();
         return n;
     }

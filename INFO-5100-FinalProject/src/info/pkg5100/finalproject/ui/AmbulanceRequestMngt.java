@@ -49,6 +49,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
 
         populatePendingRequestsTable();
         populateAcceptedRequestsTable();
+        System.out.println(this.ambulanceEmployee.getId());
     }
 
 	/**
@@ -135,7 +136,11 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         btnCompleteRequest.setText("Complete request");
         btnCompleteRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCompleteRequestActionPerformed(evt);
+                try {
+                    btnCompleteRequestActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -284,7 +289,12 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblActiveAmbulanceRequests.getModel();
         IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
 
-        incidentCase.setAmbulancetaskcompleted("true");
+        if(incidentCase.getStatus().equals("hospital-accepted"))
+            incidentCase.setAmbulancetaskcompleted("true");
+        else
+            JOptionPane.showMessageDialog(this, "No hospital has accepted the case yet. Kindly " +
+                    "wait for response from hospital and then drop the patient to the assigned " +
+                    "hospital!!","Success", JOptionPane.INFORMATION_MESSAGE);
 
         this.incidenteCaseDaoImplementation.update(incidentCase);
         populateAcceptedRequestsTable();
@@ -308,6 +318,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
             this.incidenteCaseDaoImplementation.update(incidentCase);
             
             JOptionPane.showMessageDialog(this, "Request for hospital acceptance sent to all near by Hospitals!!");
+            populateAcceptedRequestsTable();
         } catch (SQLException ex) {
             Logger.getLogger(AmbulanceRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -358,6 +369,27 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                 this.currentOrganization.getType(),
                 "hospital-accepted",
                 currentOrganization.getLocation())) {
+
+            Object[] row = new Object[5];
+            row[0] = incidentCase;
+            row[1] = incidentCase.getDescription();
+            row[2] = incidentCase.getLocation();
+            row[3] = incidentCase.getStatus();
+            if(incidentCase.getAmbulancetaskcompleted().equals("false")) {
+                row[4] = "In-progress";
+            } else {
+                row[4] = "Task completed.";
+            }
+
+            model.addRow(row);
+        }
+
+        for(IncidentCase incidentCase : this.incidenteCaseDaoImplementation.getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocationAndCurrentCaseHandlingUserId(this.currentOrganization.getId(),
+                this.ambulanceEmployee.getId(),
+                this.currentOrganization.getType(),
+                "hospital-requested",
+                currentOrganization.getLocation())) {
+
             Object[] row = new Object[5];
             row[0] = incidentCase;
             row[1] = incidentCase.getDescription();

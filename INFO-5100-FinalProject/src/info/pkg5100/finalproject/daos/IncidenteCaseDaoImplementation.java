@@ -155,7 +155,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
 
         ps.setString(1, status);
         ps.setString(2, location);
-
+        //System.out.println(ps.toString());
         ResultSet rs = ps.executeQuery();
         List<IncidentCase> ls = new ArrayList();
 
@@ -220,6 +220,8 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     public List<IncidentCase> getIncidentCasesByOrgIdAndOrgTypeAndStatusAndLocationAndCurrentCaseHandlingUserId(int orgId, int currentcasehandlinguserid, String orgType, String status, String location) throws SQLException {
         String query = "select * from incidentcases WHERE orgid=? AND orgtype=? AND status=? AND location = ? AND currentcasehandlinguserid=?";
 
+        System.out.println(query);
+
         PreparedStatement ps
                 = con.prepareStatement(query);
 
@@ -228,6 +230,8 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setString(3, status);
         ps.setString(4, location);
         ps.setInt(5, currentcasehandlinguserid);
+
+        //System.out.println(ps.toString());
 
         ResultSet rs = ps.executeQuery();
         List<IncidentCase> ls = new ArrayList();

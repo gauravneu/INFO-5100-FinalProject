@@ -170,8 +170,8 @@ public class HospitalIncidentManager extends javax.swing.JPanel {
             DefaultTableModel model = (DefaultTableModel) tblIncidentRequest.getModel();
             IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
             
-            incidentCase.setOrgId(this.currentOrganization.getId());
-            incidentCase.setOrgType(this.currentOrganization.getType());
+            //incidentCase.setOrgId(this.currentOrganization.getId());
+            //incidentCase.setOrgType(this.currentOrganization.getType());
             incidentCase.setStatus("hospital-accepted");
             
             incidentCase.setHospitalCaseAccepted("true");

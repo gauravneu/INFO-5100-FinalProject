@@ -167,6 +167,16 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
     private void btnViewAcceptedPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAcceptedPatientActionPerformed
         // TODO add your handling code here:
+        int selectedRowIndex = tblPatientRequest.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select a patient.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+        Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+
+
     }//GEN-LAST:event_btnViewAcceptedPatientActionPerformed
 
     private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequestActionPerformed

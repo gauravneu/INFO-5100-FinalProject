@@ -274,8 +274,22 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
 
-    private void btnCompleteRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteRequestActionPerformed
+    private void btnCompleteRequestActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnCompleteRequestActionPerformed
         // TODO add your handling code here:
+        int selectedRowIndex = tblActiveAmbulanceRequests.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select an incident.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblActiveAmbulanceRequests.getModel();
+        IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
+
+        incidentCase.setAmbulancetaskcompleted("true");
+
+        this.incidenteCaseDaoImplementation.update(incidentCase);
+        populateAcceptedRequestsTable();
+
     }//GEN-LAST:event_btnCompleteRequestActionPerformed
 
     private void btnSendRequestToHospitalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendRequestToHospitalsActionPerformed

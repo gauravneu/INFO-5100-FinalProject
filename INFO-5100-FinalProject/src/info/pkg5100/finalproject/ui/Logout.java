@@ -4,6 +4,9 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import javax.swing.event.AncestorListener;
+
+
 /**
  *
  * @author hazel
@@ -16,6 +19,8 @@ public class Logout extends javax.swing.JPanel {
     public Logout() {
         initComponents();
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,10 +78,9 @@ public class Logout extends javax.swing.JPanel {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-        
-        System.exit(0);
-        
-
+       getTopLevelAncestor().setVisible(false);
+       new StartMenu().setVisible(true);
+       
     }//GEN-LAST:event_btnLogoutActionPerformed
 
 

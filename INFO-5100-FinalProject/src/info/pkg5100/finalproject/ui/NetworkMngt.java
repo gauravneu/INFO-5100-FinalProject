@@ -61,7 +61,6 @@ public class NetworkMngt extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         btnCreateEnterprise = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        btnUpdateNetwork = new javax.swing.JButton();
         txtNetworkName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -78,7 +77,7 @@ public class NetworkMngt extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -96,7 +95,8 @@ public class NetworkMngt extends javax.swing.JPanel {
         jLabel4.setText("Available Network");
 
         btnCreateEnterprise.setBackground(new java.awt.Color(31, 75, 124));
-        btnCreateEnterprise.setText("Create Enterprise");
+        btnCreateEnterprise.setForeground(new java.awt.Color(255, 255, 255));
+        btnCreateEnterprise.setText("View");
         btnCreateEnterprise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateEnterpriseActionPerformed(evt);
@@ -110,17 +110,6 @@ public class NetworkMngt extends javax.swing.JPanel {
         jLabel5.setText("Network Management");
         jLabel5.setOpaque(true);
 
-        btnUpdateNetwork.setBackground(new java.awt.Color(31, 75, 124));
-        btnUpdateNetwork.setText("Update Network");
-        btnUpdateNetwork.setMaximumSize(new java.awt.Dimension(117, 23));
-        btnUpdateNetwork.setMinimumSize(new java.awt.Dimension(117, 23));
-        btnUpdateNetwork.setPreferredSize(new java.awt.Dimension(117, 23));
-        btnUpdateNetwork.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateNetworkActionPerformed(evt);
-            }
-        });
-
         txtNetworkName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNetworkNameActionPerformed(evt);
@@ -133,6 +122,7 @@ public class NetworkMngt extends javax.swing.JPanel {
         jLabel2.setText("Network Name");
 
         btnCreateNetwork.setBackground(new java.awt.Color(31, 75, 124));
+        btnCreateNetwork.setForeground(new java.awt.Color(255, 255, 255));
         btnCreateNetwork.setText("Add Network");
         btnCreateNetwork.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCreateNetwork.setIconTextGap(2);
@@ -152,26 +142,23 @@ public class NetworkMngt extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1043, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(btnCreateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(btnCreateEnterprise))
-                                .addGap(34, 34, 34)
-                                .addComponent(btnUpdateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(69, 69, 69)
+                                .addComponent(txtNetworkName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(btnCreateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(btnCreateEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -183,9 +170,7 @@ public class NetworkMngt extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCreateEnterprise)
-                    .addComponent(btnUpdateNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnCreateEnterprise)
                 .addGap(67, 67, 67)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
@@ -219,25 +204,6 @@ public class NetworkMngt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnCreateEnterpriseActionPerformed
 
-    private void btnUpdateNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateNetworkActionPerformed
-        try {
-            // TODO add your handling code here:
-            int selectedRowIndex = tblNetworkList.getSelectedRow();
-            if(selectedRowIndex < 0 ) {
-                JOptionPane.showMessageDialog(this, "Please select a Network record to Update","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            DefaultTableModel model = (DefaultTableModel) tblNetworkList.getModel();
-            Network selectedNetwork = (Network) model.getValueAt(selectedRowIndex, 0);
-            //selectedNetwork.setNetworkName((String) model.getValueAt(selectedRowIndex, 1));
-            this.networkDaoImplementation.update(selectedNetwork);
-        } catch (SQLException ex) {
-            Logger.getLogger(NetworkMngt.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
-    }//GEN-LAST:event_btnUpdateNetworkActionPerformed
-
     private void txtNetworkNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNetworkNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNetworkNameActionPerformed
@@ -258,8 +224,8 @@ public class NetworkMngt extends javax.swing.JPanel {
             newId=SimpleTools.getUnusedId("networks", 1000, 9999);
             Network network = new Network(newId, txtNetworkName.getText());
             this.networkDaoImplementation.add(network);
-            
             populateNetworksTable(this.networkDaoImplementation.getNetworks());
+            JOptionPane.showMessageDialog(this, "Network Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(NetworkMngt.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:
@@ -269,7 +235,6 @@ public class NetworkMngt extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreateEnterprise;
     private javax.swing.JButton btnCreateNetwork;
-    private javax.swing.JButton btnUpdateNetwork;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

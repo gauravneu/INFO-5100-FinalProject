@@ -8,12 +8,15 @@ import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
 import info.pkg5100.finalproject.models.Enterprise;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import info.pkg5100.finalproject.utils.Validator;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,6 +31,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
     JPanel mainWorkJPanel;
     Enterprise currentEnterprise;
     OrganizationDaoImplementation organizationDaoImplementation;
+    Validator util;
 
 	public EnterpriseDetailsMngt() {
 		initComponents();
@@ -38,7 +42,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentEnterprise = currentEnterprise;
         this.organizationDaoImplementation = new OrganizationDaoImplementation();
-
+        this.util=new Validator();
         lblEnterpriseName.setText(currentEnterprise.getEnterpriseName());
         lblEnterpriseId.setText(Integer.toString(currentEnterprise.getId()));
         lblEnterpriseLocation.setText(currentEnterprise.getLocation());
@@ -77,168 +81,225 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrganizationList = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        btnAddOrg = new javax.swing.JButton();
-        btnViewOrgDetails = new javax.swing.JButton();
         txtOrgName = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        btnViewOrgDetails = new javax.swing.JButton();
+        btnCreateOrg = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
-        jLabel1.setText("Enterprise id:");
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Id:");
 
         lblEnterpriseId.setText("jLabel2");
 
-        jLabel3.setText("Enterprise name:");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Name:");
 
         lblEnterpriseName.setText("jLabel4");
 
-        jLabel5.setText("Enterprise location:");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setText("Location:");
 
         lblEnterpriseLocation.setText("jLabel2");
 
         tblOrganizationList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Name", "Location", "Type"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblOrganizationList.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblOrganizationList);
 
-        jLabel4.setText("org name");
+        jLabel4.setText("Organization Name");
 
-        btnAddOrg.setText("Add org");
-        btnAddOrg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnAddOrgActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        jLabel6.setBackground(new java.awt.Color(31, 75, 124));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Organization Management");
+        jLabel6.setOpaque(true);
 
-        btnViewOrgDetails.setText("View org details");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setText("Available Organization");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8.setText("Add Organization");
+
+        btnViewOrgDetails.setBackground(new java.awt.Color(31, 75, 124));
+        btnViewOrgDetails.setForeground(new java.awt.Color(255, 255, 255));
+        btnViewOrgDetails.setText("View");
         btnViewOrgDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnViewOrgDetailsActionPerformed(evt);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                btnViewOrgDetailsActionPerformed(evt);
             }
         });
+
+        btnCreateOrg.setBackground(new java.awt.Color(31, 75, 124));
+        btnCreateOrg.setForeground(new java.awt.Color(255, 255, 255));
+        btnCreateOrg.setText("Add Organization");
+        btnCreateOrg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateOrgActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Enterprise Information");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 1193, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(97, 97, 97)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
                                 .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEnterpriseName)
-                                    .addComponent(lblEnterpriseId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblEnterpriseId, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                    .addComponent(lblEnterpriseName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblEnterpriseLocation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(btnAddOrg))
-                                .addGap(18, 18, 18)
-                                .addComponent(lblEnterpriseLocation))))
+                                .addGap(83, 83, 83)
+                                .addComponent(jLabel2))))
+                    .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
                         .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtOrgName)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnViewOrgDetails)
-                .addGap(285, 285, 285))
+                        .addGap(69, 69, 69)
+                        .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCreateOrg, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnViewOrgDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel3, jLabel5, lblEnterpriseId, lblEnterpriseLocation, lblEnterpriseName});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblEnterpriseId))
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(btnViewOrgDetails)
-                        .addContainerGap(58, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lblEnterpriseId))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(lblEnterpriseName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(lblEnterpriseLocation))
-                        .addGap(119, 119, 119)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddOrg)
-                        .addGap(205, 205, 205))))
+                            .addComponent(lblEnterpriseLocation))))
+                .addGap(18, 18, 18)
+                .addComponent(btnViewOrgDetails)
+                .addGap(67, 67, 67)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnCreateOrg)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddOrgActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnAddOrgActionPerformed
-        // TODO add your handling code here:
-        int newId = SimpleTools.getUnusedId("organizations", 1000, 9999);
-        Organization organization = new Organization(newId,
-                txtOrgName.getText(),
-                this.currentEnterprise.getLocation(),
-                this.currentEnterprise.getType(),
-                this.currentEnterprise.getId()
-        );
-
-        this.organizationDaoImplementation.add(organization);
-
-        populateOrganizationTable(this.organizationDaoImplementation.getOrganizationByTypeAndLocation(this.currentEnterprise.getType(), this.currentEnterprise.getLocation()));
-    }//GEN-LAST:event_btnAddOrgActionPerformed
-
-    private void btnViewOrgDetailsActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnViewOrgDetailsActionPerformed
-        // TODO add your handling code here:
-        int selectedRowIndex = tblOrganizationList.getSelectedRow();
-        if(selectedRowIndex < 0 ) {
-            JOptionPane.showMessageDialog(this, "Please select an organization record to View.");
-            return;
+    private void btnViewOrgDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrgDetailsActionPerformed
+        try {
+            // TODO add your handling code here:
+            int selectedRowIndex = tblOrganizationList.getSelectedRow();
+            if(selectedRowIndex < 0 ) {
+                JOptionPane.showMessageDialog(this, "Please select an organization record to View.","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            DefaultTableModel model = (DefaultTableModel) tblOrganizationList.getModel();
+            Organization selectedOrganization = (Organization) model.getValueAt(selectedRowIndex, 0);
+            
+            OrganizationDetailsMngt organizationDetailsMngt = new OrganizationDetailsMngt(selectedOrganization);
+            mainWorkJPanel.add("OrganizationDetailsMngt",organizationDetailsMngt);
+            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+            layout.next(mainWorkJPanel);
+        } catch (SQLException ex) {
+            Logger.getLogger(EnterpriseDetailsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        DefaultTableModel model = (DefaultTableModel) tblOrganizationList.getModel();
-        Organization selectedOrganization = (Organization) model.getValueAt(selectedRowIndex, 0);
-
-        OrganizationDetailsMngt organizationDetailsMngt = new OrganizationDetailsMngt(selectedOrganization);
-        mainWorkJPanel.add("OrganizationDetailsMngt",organizationDetailsMngt);
-        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-        layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnViewOrgDetailsActionPerformed
+
+    private void btnCreateOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateOrgActionPerformed
+        try {
+            String message="";
+            if(!util.isNotNullAndEmpty(txtOrgName.getText()))
+                    message = "Please enter a valid Organization Name";
+            if(!"".equals(message)){
+                   JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
+            int newId = SimpleTools.getUnusedId("organizations", 1000, 9999);
+            Organization organization = new Organization(newId,
+                    txtOrgName.getText(),
+                    this.currentEnterprise.getLocation(),
+                    this.currentEnterprise.getType(),
+                    this.currentEnterprise.getId()
+            );
+            
+            this.organizationDaoImplementation.add(organization);
+            
+            populateOrganizationTable(this.organizationDaoImplementation.getOrganizationByTypeAndLocation(this.currentEnterprise.getType(), this.currentEnterprise.getLocation()));
+            JOptionPane.showMessageDialog(this, "Organization Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(EnterpriseDetailsMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCreateOrgActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddOrg;
+    private javax.swing.JButton btnCreateOrg;
     private javax.swing.JButton btnViewOrgDetails;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEnterpriseId;
     private javax.swing.JLabel lblEnterpriseLocation;

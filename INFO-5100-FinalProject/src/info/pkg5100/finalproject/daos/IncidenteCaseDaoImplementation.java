@@ -76,6 +76,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setCurrentcasehandlinguserid(rs.getInt("currentcasehandlinguserid"));
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
+            incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
         }
 
         if (check == true) {
@@ -108,6 +109,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setCurrentcasehandlinguserid(rs.getInt("currentcasehandlinguserid"));
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
+            incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
             ls.add(incidentCase);
         }
         return ls;
@@ -138,6 +140,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setCurrentcasehandlinguserid(rs.getInt("currentcasehandlinguserid"));
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
+            incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
             ls.add(incidentCase);
         }
         return ls;
@@ -171,6 +174,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setCurrentcasehandlinguserid(rs.getInt("currentcasehandlinguserid"));
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
+            incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
             ls.add(incidentCase);
         }
         return ls;
@@ -206,6 +210,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setCurrentcasehandlinguserid(rs.getInt("currentcasehandlinguserid"));
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
+            incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
             ls.add(incidentCase);
         }
         return ls;
@@ -242,6 +247,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setCurrentcasehandlinguserid(rs.getInt("currentcasehandlinguserid"));
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
+            incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
             ls.add(incidentCase);
         }
         return ls;
@@ -250,7 +256,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public void update(IncidentCase incidentCase) throws SQLException {
         String query
-                = "update incidentcases set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterphone= ?, photourl= ?, location= ?, description= ?, currentcasehandlinguserid =?, hospitalcaseaccepted=?, hospitalid=? "
+                = "update incidentcases set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterphone= ?, photourl= ?, location= ?, description= ?, currentcasehandlinguserid =?, hospitalcaseaccepted=?, hospitalid=?, ambulancetaskcompleted=? "
                 + "where id = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -266,7 +272,9 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setInt(10, incidentCase.getCurrentcasehandlinguserid());
         ps.setString(11, incidentCase.getHospitalCaseAccepted());
         ps.setInt(12, incidentCase.getHospitalId());
-        ps.setInt(13, incidentCase.getId());
+        ps.setString(13, incidentCase.getAmbulancetaskcompleted());
+        ps.setInt(14, incidentCase.getId());
+
         ps.executeUpdate();
     }
 }

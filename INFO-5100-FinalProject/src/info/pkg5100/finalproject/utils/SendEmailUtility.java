@@ -29,7 +29,7 @@ public class SendEmailUtility {
 
     public void sendMail(String messageContent, String subject) {
         // Setting the sender's and reciever's email address
-          
+            userDaoImplementation = new UserDaoImplementation();
         try {
             User emailSender = userDaoImplementation.getUserById(1000);
             String recieverEmailAddress = emailSender.getName();

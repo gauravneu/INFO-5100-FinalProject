@@ -26,7 +26,27 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
 	 * Creates new form HospitalDoctorPortal
 	 */
 
+    JPanel mainWorkJPanel;
+    User currentUser;
+    Organization currentOrganization;
 
+    PatientDaoImplementation patientDaoImplementation;
+
+	public PatientRehabilitationManagement() {
+		initComponents();
+	}
+
+    public PatientRehabilitationManagement(JPanel mainWorkJPanel, User currentUser, Organization currentOrganization) throws SQLException {
+        initComponents();
+
+        this.mainWorkJPanel = mainWorkJPanel;
+        this.currentUser = currentUser;
+        this.currentOrganization = currentOrganization;
+
+        this.patientDaoImplementation = new PatientDaoImplementation();
+        populateAvailablePatientsTable();
+        populateAcceptedPatientsTable();
+    }
 
 	/**
 	 * This method is called from within the constructor to initialize the form.

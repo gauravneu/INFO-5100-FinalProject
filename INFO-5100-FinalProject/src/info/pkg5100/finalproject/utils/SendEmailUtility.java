@@ -36,7 +36,18 @@ public class SendEmailUtility {
             String senderEmailAddress = emailSender.getUsername();
             String senderEmailPass = emailSender.getPassword();
 
+            Properties prop = System.getProperties();
+            String host = "smtp.gmail.com";
+            prop.put("mail.smtp.starttls.enable", "true");
+            prop.put("mail.smtp.ssl.trust", host);
+            prop.put("mail.smtp.user", senderEmailAddress);
+            prop.put("mail.smtp.port", "587");
+            prop.put("mail.smtp.auth", "true");
+            Session session = Session.getDefaultInstance(prop);
            
+        } catch (SQLException ex) {
+            Logger.getLogger(SendEmailUtility.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

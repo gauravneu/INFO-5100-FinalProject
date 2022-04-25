@@ -63,9 +63,10 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblAcceptedPatient = new javax.swing.JTable();
-        btnViewAcceptedPatient = new javax.swing.JButton();
+        btnSendToHousing = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnAcceptRequest = new javax.swing.JButton();
+        btnSendToDetention = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -95,12 +96,12 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(tblAcceptedPatient);
 
-        btnViewAcceptedPatient.setBackground(new java.awt.Color(31, 75, 124));
-        btnViewAcceptedPatient.setForeground(new java.awt.Color(255, 255, 255));
-        btnViewAcceptedPatient.setText("View");
-        btnViewAcceptedPatient.addActionListener(new java.awt.event.ActionListener() {
+        btnSendToHousing.setBackground(new java.awt.Color(31, 75, 124));
+        btnSendToHousing.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendToHousing.setText("Send To Housing");
+        btnSendToHousing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewAcceptedPatientActionPerformed(evt);
+                btnSendToHousingActionPerformed(evt);
             }
         });
 
@@ -108,7 +109,7 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Hospital Doctor Portal");
+        jLabel6.setText("Patient Rehabilitation Management");
         jLabel6.setOpaque(true);
 
         btnAcceptRequest.setBackground(new java.awt.Color(31, 75, 124));
@@ -117,6 +118,15 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
         btnAcceptRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAcceptRequestActionPerformed(evt);
+            }
+        });
+
+        btnSendToDetention.setBackground(new java.awt.Color(31, 75, 124));
+        btnSendToDetention.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendToDetention.setText("Send To Detention");
+        btnSendToDetention.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendToDetentionActionPerformed(evt);
             }
         });
 
@@ -130,19 +140,20 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(360, 360, 360)
                         .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(373, 373, 373)
-                            .addComponent(btnViewAcceptedPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(183, 183, 183)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addComponent(jLabel1))
-                                .addComponent(jLabel2)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(btnSendToHousing, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(126, 126, 126)
+                        .addComponent(btnSendToDetention, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -159,13 +170,15 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnViewAcceptedPatient)
-                .addGap(31, 31, 31))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSendToHousing)
+                    .addComponent(btnSendToDetention))
+                .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnViewAcceptedPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAcceptedPatientActionPerformed
+    private void btnSendToHousingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendToHousingActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblPatientRequest.getSelectedRow();
         if(selectedRowIndex < 0 ) {
@@ -179,7 +192,7 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
 
 
 
-    }//GEN-LAST:event_btnViewAcceptedPatientActionPerformed
+    }//GEN-LAST:event_btnSendToHousingActionPerformed
 
     private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequestActionPerformed
 
@@ -210,6 +223,10 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
         }  
     
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
+
+    private void btnSendToDetentionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendToDetentionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSendToDetentionActionPerformed
 
 
   void populateAcceptedPatientsTable() throws SQLException {
@@ -248,7 +265,8 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
-    private javax.swing.JButton btnViewAcceptedPatient;
+    private javax.swing.JButton btnSendToDetention;
+    private javax.swing.JButton btnSendToHousing;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;

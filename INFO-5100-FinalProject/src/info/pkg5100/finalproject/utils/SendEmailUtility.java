@@ -57,7 +57,13 @@ public class SendEmailUtility {
                 transport.sendMessage(message, message.getAllRecipients());
                 transport.close();
 
-          
+            } catch (MessagingException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Invalid Email Address!");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SendEmailUtility.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

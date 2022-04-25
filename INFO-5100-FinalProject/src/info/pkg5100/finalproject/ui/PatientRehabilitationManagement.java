@@ -212,6 +212,40 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
 
 
+  void populateAcceptedPatientsTable() throws SQLException {
+        DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
+        model.setRowCount(0);
+
+        for(Patient patient : this.patientDaoImplementation.getPatientsByHospitalIdAndDoctorId(this.currentOrganization.getId(), this.currentUser.getId())) {
+            Object[] row = new Object[4];
+            row[0] = patient;
+            row[1] = patient.getName();
+            row[2] = patient.getPatientIssue();
+            row[3] = patient.getPatientStatus();
+
+            model.addRow(row);
+        }
+    }
+
+    void populateAvailablePatientsTable() throws SQLException {
+        DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+        model.setRowCount(0);
+
+        for(Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentOrganization.getId())) {
+            // -1 means doctor is not assigned yet and is available for picking up by a doctor
+            if(patient.getDoctorId() == -1) {
+                Object[] row = new Object[4];
+                row[0] = patient;
+                row[1] = patient.getName();
+                row[2] = patient.getPatientIssue();
+                row[3] = patient.getPatientStatus();
+
+                model.addRow(row);
+            }
+
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
     private javax.swing.JButton btnViewAcceptedPatient;

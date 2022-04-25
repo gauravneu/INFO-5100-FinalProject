@@ -166,6 +166,15 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
 
     private void btnSendReportToAllocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendReportToAllocationActionPerformed
         // TODO add your handling code here:
+          int selectedRowIndex = tblPatientRequest.getSelectedRow();
+        if(selectedRowIndex < 0 ) {
+            JOptionPane.showMessageDialog(this, "Please select a patient.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+        Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+
 
     }//GEN-LAST:event_btnSendReportToAllocationActionPerformed
 

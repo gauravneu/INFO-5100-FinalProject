@@ -34,6 +34,17 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
     public InvestigationRequestMngt() {
         initComponents();
     }
+        public InvestigationRequestMngt(JPanel mainWorkJPanel, User currentUser, Organization currentOrganization) throws SQLException {
+        initComponents();
+
+        this.mainWorkJPanel = mainWorkJPanel;
+        this.currentUser = currentUser;
+        this.currentOrganization = currentOrganization;
+
+        this.patientDaoImplementation = new PatientDaoImplementation();
+        populateAvailablePatientsTable();
+        populateAcceptedPatientsTable();
+
 }
 
 /**

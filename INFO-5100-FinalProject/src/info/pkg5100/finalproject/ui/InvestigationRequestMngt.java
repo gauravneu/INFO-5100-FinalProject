@@ -5,7 +5,6 @@
 package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.PatientDaoImplementation;
-import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.Patient;
 import info.pkg5100.finalproject.models.User;
@@ -65,7 +64,7 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
         tblAcceptedPatient = new javax.swing.JTable();
         btnSendReportToAllocation = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        btnAcceptRequest = new javax.swing.JButton();
+        btnAcceptRequest1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -111,12 +110,12 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
         jLabel6.setText("Investigation Request Management");
         jLabel6.setOpaque(true);
 
-        btnAcceptRequest.setBackground(new java.awt.Color(31, 75, 124));
-        btnAcceptRequest.setForeground(new java.awt.Color(255, 255, 255));
-        btnAcceptRequest.setText("Accept Patient");
-        btnAcceptRequest.addActionListener(new java.awt.event.ActionListener() {
+        btnAcceptRequest1.setBackground(new java.awt.Color(31, 75, 124));
+        btnAcceptRequest1.setForeground(new java.awt.Color(255, 255, 255));
+        btnAcceptRequest1.setText("Accept Patient");
+        btnAcceptRequest1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAcceptRequestActionPerformed(evt);
+                btnAcceptRequest1ActionPerformed(evt);
             }
         });
 
@@ -129,7 +128,7 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(360, 360, 360)
-                        .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAcceptRequest1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(373, 373, 373)
@@ -154,7 +153,7 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAcceptRequest)
+                .addComponent(btnAcceptRequest1)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel2)
                 .addGap(11, 11, 11)
@@ -179,7 +178,7 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnSendReportToAllocationActionPerformed
 
-    private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequestActionPerformed
+    private void btnAcceptRequest1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequest1ActionPerformed
         try {
             // TODO add your handling code here:
             int selectedRowIndex = tblPatientRequest.getSelectedRow();
@@ -204,12 +203,45 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(InvestigationRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+        void populateAcceptedPatientsTable() throws SQLException {
+            DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
+            model.setRowCount(0);
 
-    }//GEN-LAST:event_btnAcceptRequestActionPerformed
+            for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalIdAndDoctorId(this.currentOrganization.getId(), this.currentUser.getId())) {
+                Object[] row = new Object[4];
+                row[0] = patient;
+                row[1] = patient.getName();
+                row[2] = patient.getPatientIssue();
+                row[3] = patient.getPatientStatus();
+
+                model.addRow(row);
+            }
+        }
+
+        void populateAvailablePatientsTable() throws SQLException {
+            DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+            model.setRowCount(0);
+
+            for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentOrganization.getId())) {
+                // -1 means doctor is not assigned yet and is available for picking up by a doctor
+                if (patient.getDoctorId() == -1) {
+                    Object[] row = new Object[4];
+                    row[0] = patient;
+                    row[1] = patient.getName();
+                    row[2] = patient.getPatientIssue();
+                    row[3] = patient.getPatientStatus();
+
+                    model.addRow(row);
+                }
+
+            }
+        
+    }//GEN-LAST:event_btnAcceptRequest1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAcceptRequest;
+    private javax.swing.JButton btnAcceptRequest1;
     private javax.swing.JButton btnSendReportToAllocation;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

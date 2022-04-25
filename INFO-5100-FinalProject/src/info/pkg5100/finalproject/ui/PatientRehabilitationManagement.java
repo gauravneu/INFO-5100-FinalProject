@@ -184,6 +184,31 @@ public class PatientRehabilitationManagement extends javax.swing.JPanel {
     private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequestActionPerformed
 
         
+ try {                                                 
+            // TODO add your handling code here:
+            int selectedRowIndex = tblPatientRequest.getSelectedRow();
+            if(selectedRowIndex < 0 ) {
+                JOptionPane.showMessageDialog(this, "Please select a patient.");
+                return;
+            }
+            
+            DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+            Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+            
+            patient.setDoctorId(this.currentUser.getId());
+            
+            try {
+                this.patientDaoImplementation.update(patient);
+            } catch (SQLException ex) {
+                Logger.getLogger(PatientRehabilitationManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            populateAvailablePatientsTable();
+            populateAcceptedPatientsTable();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientRehabilitationManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
 
 

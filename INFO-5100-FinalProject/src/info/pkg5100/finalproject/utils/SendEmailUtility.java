@@ -29,7 +29,7 @@ public class SendEmailUtility {
 
     public void sendMail(String messageContent, String subject) {
         // Setting the sender's and reciever's email address
-            userDaoImplementation = new UserDaoImplementation();
+          
         try {
             User emailSender = userDaoImplementation.getUserById(1000);
             String recieverEmailAddress = emailSender.getName();
@@ -44,10 +44,20 @@ public class SendEmailUtility {
             prop.put("mail.smtp.port", "587");
             prop.put("mail.smtp.auth", "true");
             Session session = Session.getDefaultInstance(prop);
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(SendEmailUtility.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                // setting an object for mimeMessage
+                MimeMessage message = new MimeMessage(session);// Set From: header field of the header.
+                message.setFrom(new InternetAddress(senderEmailAddress));// Set To: header field of the header.
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(recieverEmailAddress));// Set Subject: header field
+                message.setSubject(subject);
+                message.setText(messageContent);
+                // Send message
+                Transport transport = session.getTransport("smtp");
+                transport.connect(host, senderEmailAddress, senderEmailPass);
+                transport.sendMessage(message, message.getAllRecipients());
+                transport.close();
+
+          
     }
 
 }

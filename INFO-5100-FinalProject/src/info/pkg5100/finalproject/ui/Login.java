@@ -200,6 +200,11 @@ public class Login extends javax.swing.JPanel {
                     mainWorkJPanel.add("HospitalDoctorPortal", hospitalDoctorPortal);
                     CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
                     layout.next(mainWorkJPanel);
+                } else if(user.getRole().equals("lab-technician")) {
+                    LabRequestsMngt labRequestsMngt = new LabRequestsMngt(mainWorkJPanel, user, org);
+                    mainWorkJPanel.add("LabRequestsMngt", labRequestsMngt);
+                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+                    layout.next(mainWorkJPanel);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Username/password incorrect. Please try again!!");

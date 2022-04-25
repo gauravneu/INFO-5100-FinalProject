@@ -116,6 +116,29 @@ public class LabRequestDaoImplementation implements LabRequestDao {
     }
 
     @Override
+    public List<LabRequest> getLabRequestsByStatus(String status) throws SQLException {
+        String query = "select * from labrequests where status= ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setString(1, status);
+        ResultSet rs = ps.executeQuery();
+        List<LabRequest> ls = new ArrayList();
+
+        while (rs.next()) {
+            LabRequest labRequest = new LabRequest();
+            labRequest.setId(rs.getInt("id"));
+            labRequest.setPatientId(rs.getInt("patientid"));
+            labRequest.setRequestStatus(rs.getString("status"));
+            labRequest.setTestName(rs.getString("testname"));
+            labRequest.setTestResult(rs.getString("testresult"));
+            labRequest.setLabId(rs.getInt("labid"));
+            ls.add(labRequest);
+        }
+        return ls;
+    }
+
+    @Override
     public void update(LabRequest labRequest) throws SQLException {
         String query
                 = "update enterprises set patientid=? , status= ?, testname=? , testresult=? , labid=? "

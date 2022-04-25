@@ -19,6 +19,8 @@ public interface PharmacyRequestDao {
             throws SQLException;
     public List<PharmacyRequest> getPharmacyRequestsByPharmacyId(int PharmacyId)
             throws SQLException;
+    public List<PharmacyRequest> getPharmacyRequestsByStatus(int PharmacyId)
+            throws SQLException;
     public void update(PharmacyRequest pharmacyRequest)
             throws SQLException;
 }

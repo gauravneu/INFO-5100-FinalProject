@@ -6,7 +6,6 @@ package info.pkg5100.finalproject.utils;
 
 import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.User;
-import info.pkg5100.finalproject.ui.AmbulanceRequestMngt;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;

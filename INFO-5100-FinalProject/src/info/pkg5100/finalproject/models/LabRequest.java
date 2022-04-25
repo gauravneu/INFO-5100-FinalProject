@@ -73,4 +73,9 @@ public class LabRequest {
     public void setLabId(int labId) {
         this.labId = labId;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.id);
+    }
 }

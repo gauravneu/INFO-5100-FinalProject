@@ -12,6 +12,7 @@ import info.pkg5100.finalproject.models.User;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -176,6 +177,10 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
         Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
 
+        HospitalPatientPortal hospitalPatientPortal = new HospitalPatientPortal(mainWorkJPanel, patient);
+        mainWorkJPanel.add("HospitalPatientPortal", hospitalPatientPortal);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.next(mainWorkJPanel);
 
     }//GEN-LAST:event_btnViewAcceptedPatientActionPerformed
 

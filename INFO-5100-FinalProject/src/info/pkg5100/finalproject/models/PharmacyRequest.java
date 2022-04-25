@@ -62,4 +62,9 @@ public class PharmacyRequest {
     public void setPharmacyId(int pharmacyId) {
         this.pharmacyId = pharmacyId;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.id);
+    }
 }

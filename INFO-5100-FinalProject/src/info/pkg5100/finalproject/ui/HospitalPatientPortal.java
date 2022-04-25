@@ -4,6 +4,18 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.LabRequestDaoImplementation;
+import info.pkg5100.finalproject.daos.PatientDaoImplementation;
+import info.pkg5100.finalproject.daos.PharmacyRequestDaoImplementation;
+import info.pkg5100.finalproject.models.LabRequest;
+import info.pkg5100.finalproject.models.Patient;
+import info.pkg5100.finalproject.models.PharmacyRequest;
+import info.pkg5100.finalproject.utils.SimpleTools;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+
 /**
  *
  * @author ankit
@@ -13,9 +25,27 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
 	/**
 	 * Creates new form HospitalPatientPortal
 	 */
+
+    JPanel mainWorkJPanel;
+    Patient currentPatient;
+    PatientDaoImplementation patientDaoImplementation;
+    LabRequestDaoImplementation labRequestDaoImplementationl;
+    PharmacyRequestDaoImplementation pharmacyRequestDaoImplementation;
+
 	public HospitalPatientPortal() {
 		initComponents();
 	}
+
+    public HospitalPatientPortal(JPanel mainWorkJPanel, Patient currentPatient) {
+        initComponents();
+
+        mainWorkJPanel = this.mainWorkJPanel;
+        currentPatient = this.currentPatient;
+
+        this.patientDaoImplementation = new PatientDaoImplementation();
+        this.labRequestDaoImplementationl = new LabRequestDaoImplementation();
+        this.pharmacyRequestDaoImplementation = new PharmacyRequestDaoImplementation();
+    }
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -35,7 +65,7 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
         lblPatientPhone = new javax.swing.JLabel();
         lblPatientStatus = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPharmacyRequest = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblLabRequest = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
@@ -61,7 +91,7 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
 
         lblPatientStatus.setText("patient_status_placeholder");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPharmacyRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -72,7 +102,7 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
                 "id", "prescription name", "status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPharmacyRequest);
 
         tblLabRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,7 +121,11 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
 
         txtLabRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLabRequestActionPerformed(evt);
+                try {
+                    txtLabRequestActionPerformed(evt);
+                } catch (SQLException e) {
+                        e.printStackTrace();
+                }
             }
         });
 
@@ -101,7 +135,11 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
 
         txtPharmacyRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPharmacyRequestActionPerformed(evt);
+                try {
+                    txtPharmacyRequestActionPerformed(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -211,14 +249,59 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtLabRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLabRequestActionPerformed
+    private void txtLabRequestActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_txtLabRequestActionPerformed
         // TODO add your handling code here:
+        int newId = SimpleTools.getUnusedId("labrequests", 1000, 9999);
+
+        LabRequest labRequest = new LabRequest(newId, this.currentPatient.getId(), "test-requested", txtLabRequest.getText(), "Result not ready", -1);
+
+        this.labRequestDaoImplementationl.add(labRequest);
+
+        populateLabRequestsTable();
     }//GEN-LAST:event_txtLabRequestActionPerformed
 
-    private void txtPharmacyRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPharmacyRequestActionPerformed
+    private void txtPharmacyRequestActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_txtPharmacyRequestActionPerformed
         // TODO add your handling code here:
+        int newId = SimpleTools.getUnusedId("pharmacy", 1000, 9999);
+
+        PharmacyRequest pharmacyRequest = new PharmacyRequest(newId, this.currentPatient.getId(), txtPharmacyRequest.getText(), "drug-requested", -1);
+
+        this.pharmacyRequestDaoImplementation.add(pharmacyRequest);
+
+        populatePharmacyRequestsTable();
     }//GEN-LAST:event_txtPharmacyRequestActionPerformed
 
+    void populateLabRequestsTable() throws SQLException {
+        DefaultTableModel model = (DefaultTableModel) tblLabRequest.getModel();
+        model.setRowCount(0);
+
+        for(LabRequest labRequest : this.labRequestDaoImplementationl.getLabRequestsByPatientId(this.currentPatient.getId())) {
+            // -1 means doctor is not assigned yet and is available for picking up by a doctor
+
+            Object[] row = new Object[4];
+            row[0] = labRequest;
+            row[1] = labRequest.getTestName();
+            row[2] = labRequest.getTestResult();
+            row[3] = labRequest.getRequestStatus();
+
+            model.addRow(row);
+        }
+    }
+
+    void populatePharmacyRequestsTable() throws SQLException {
+        DefaultTableModel model = (DefaultTableModel) tblPharmacyRequest.getModel();
+        model.setRowCount(0);
+
+        for(PharmacyRequest pharmacyRequest : this.pharmacyRequestDaoImplementation.getPharmacyRequestsByPatientId(this.currentPatient.getId())) {
+            // -1 means doctor is not assigned yet and is available for picking up by a doctor
+            Object[] row = new Object[3];
+            row[0] = pharmacyRequest;
+            row[1] = pharmacyRequest.getPharmacyRequest();
+            row[2] = pharmacyRequest.getStatus();
+
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPharmacyRequest;
@@ -231,12 +314,12 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblPatientAge;
     private javax.swing.JLabel lblPatientName;
     private javax.swing.JLabel lblPatientPhone;
     private javax.swing.JLabel lblPatientStatus;
     private javax.swing.JTable tblLabRequest;
+    private javax.swing.JTable tblPharmacyRequest;
     private javax.swing.JTextField txtLabRequest;
     private javax.swing.JTextField txtPharmacyRequest;
     // End of variables declaration//GEN-END:variables

@@ -4,7 +4,13 @@
  */
 package info.pkg5100.finalproject.utils;
 
+import info.pkg5100.finalproject.daos.UserDaoImplementation;
+import info.pkg5100.finalproject.models.User;
+import info.pkg5100.finalproject.ui.AmbulanceRequestMngt;
+import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -18,38 +24,19 @@ import javax.swing.JOptionPane;
  * @author gaurav
  */
 public class SendEmailUtility {
+    
+    UserDaoImplementation userDaoImplementation;
 
-    public void main(String[] args) {
-        // Recipient's email ID needs to be mentioned.
-        String to = "gaurav21961@gmail.com";
-        String from = "gaurav131969@gmail.com";
-        String pass = "password";// Get system properties
-        Properties properties = System.getProperties();
-        String host = "smtp.gmail.com";
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.ssl.trust", host);
-        properties.put("mail.smtp.user", from);
-// properties.put("mail.smtp.password", pass);
-        properties.put("mail.smtp.port", "587");
-        properties.put("mail.smtp.auth", "true");
-        Session session = Session.getDefaultInstance(properties);
+    public void sendMail(String messageContent, String subject) {
+        // Setting the sender's and reciever's email address
+            userDaoImplementation = new UserDaoImplementation();
         try {
-// Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);// Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));// Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));// Set Subject: header field
-            message.setSubject("New Registration for Charity Management System");
-            message.setText("You have been successfully registered. Thank you!");
-// Send message
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, from, pass);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-            System.out.println("Sent message successfully....");
-        } catch (MessagingException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Email ID is invalid!.");
-        }
+            User emailSender = userDaoImplementation.getUserById(1000);
+            String recieverEmailAddress = emailSender.getName();
+            String senderEmailAddress = emailSender.getUsername();
+            String senderEmailPass = emailSender.getPassword();
+
+           
     }
 
 }

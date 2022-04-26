@@ -214,7 +214,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
                 Object[] row = new Object[4];
                 row[0] = patient;
                 row[1] = patient.getName();
-                row[2] = patient.getHousingPeriod();
+                row[2] = patient.getDetentionPeriod();
                 row[3] = patient.getIsConvicted();
 
                 model.addRow(row);

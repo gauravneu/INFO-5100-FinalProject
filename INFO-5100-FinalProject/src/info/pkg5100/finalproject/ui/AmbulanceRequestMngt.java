@@ -354,7 +354,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
             row[1] = incidentCase.getDescription();
             row[2] = incidentCase.getLocation();
             row[3] = incidentCase.getStatus();
-            if(incidentCase.getAmbulancetaskcompleted().equals("false")) {
+            if("false".equals(incidentCase.getAmbulancetaskcompleted())) {
                 row[4] = "In-progress";
             } else {
                 row[4] = "Task completed.";

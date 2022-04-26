@@ -37,15 +37,15 @@ public class Login extends javax.swing.JPanel {
         initComponents();
     }
 
-    public Login(MainSystem mainSystem, JPanel mainWorkJPanel,JSplitPane splitPaneUI) {
+    public Login(MainSystem mainSystem, JPanel mainWorkJPanel, JSplitPane splitPaneUI) {
         initComponents();
 
         this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
-        this.splitPaneUI=splitPaneUI;
+        this.splitPaneUI = splitPaneUI;
         this.userDaoImplementation = new UserDaoImplementation();
-        this.organizationDaoImplementation =  new OrganizationDaoImplementation();
-        this.util=new Validator();
+        this.organizationDaoImplementation = new OrganizationDaoImplementation();
+        this.util = new Validator();
     }
 
     /**
@@ -157,60 +157,73 @@ public class Login extends javax.swing.JPanel {
         // Clicking login searches for the Bosotn
         // Here for testing purpose, there is only one investigation police officer in Boston police network. Sending
         // that police into incident management.
-            if(!util.isNotNullAndEmpty(txtUsername.getText()) || !util.isNotNullAndEmpty(txtPassword.getText())){
-                JOptionPane.showMessageDialog(this,"Please enter valid Username and Password","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            User user = this.userDaoImplementation.getUserByUsernameAndPassword(txtUsername.getText(), txtPassword.getText());
+        if (!util.isNotNullAndEmpty(txtUsername.getText()) || !util.isNotNullAndEmpty(txtPassword.getText())) {
+            JOptionPane.showMessageDialog(this, "Please enter valid Username and Password", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        User user = this.userDaoImplementation.getUserByUsernameAndPassword(txtUsername.getText(), txtPassword.getText());
 
+        if (user != null) {
+            int orgid = user.getOrgid();
+            Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
+            splitPaneUI.setLeftComponent(new Logout());
 
-            if(user != null) {
-                int orgid = user.getOrgid();
-                Organization org = this.organizationDaoImplementation.getOrganizationById(orgid);
+            if (user.getRole().equals("sysadmin")) {
+                NetworkMngt networkMngt = new NetworkMngt(mainWorkJPanel);
                 splitPaneUI.setLeftComponent(new Logout());
-                
-                if(user.getRole().equals("sysadmin")){
-                    NetworkMngt networkMngt = new NetworkMngt(mainWorkJPanel);
-                    splitPaneUI.setLeftComponent(new Logout());
-                    mainWorkJPanel.add("NetworkMngt", networkMngt);
-                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-                    layout.next(mainWorkJPanel);
-                } else if(user.getRole().equals("orgadmin")) {
-                    OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);
-                    mainWorkJPanel.add("OrganizationEmployeeMngt", organizationEmployeeMngt);
-                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-                    layout.next(mainWorkJPanel);
-                } else if(user.getRole().equals("incident-police")) {
-                    IncidentManager incidentManager = new IncidentManager(mainWorkJPanel, user, org);
-                    mainWorkJPanel.add("IncidentManager", incidentManager);
-                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-                    layout.next(mainWorkJPanel);
-                } else if(user.getRole().equals("ambulance-emp")) {
-                    AmbulanceRequestMngt ambulanceRequestMngt = new AmbulanceRequestMngt(mainWorkJPanel, user, org);
-                    mainWorkJPanel.add("AmbulanceRequestMngt", ambulanceRequestMngt);
-                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-                    layout.next(mainWorkJPanel);
-                } else if(user.getRole().equals("hospital-manager")) {
-                    HospitalIncidentManager hospitalIncidentManager = new HospitalIncidentManager(mainWorkJPanel, user, org);
-                    mainWorkJPanel.add("HospitalIncidentManager", hospitalIncidentManager);
-                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-                    layout.next(mainWorkJPanel);
-                } else if(user.getRole().equals("doctor")) {
-                    HospitalDoctorPortal hospitalDoctorPortal = new HospitalDoctorPortal(mainWorkJPanel, user, org);
-                    mainWorkJPanel.add("HospitalDoctorPortal", hospitalDoctorPortal);
-                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-                    layout.next(mainWorkJPanel);
-                } else if(user.getRole().equals("lab-technician")) {
-                    LabRequestsMngt labRequestsMngt = new LabRequestsMngt(mainWorkJPanel, user, org);
-                    mainWorkJPanel.add("LabRequestsMngt", labRequestsMngt);
-                    CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-                    layout.next(mainWorkJPanel);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Username/password incorrect. Please try again!!");
+                mainWorkJPanel.add("NetworkMngt", networkMngt);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            } else if (user.getRole().equals("orgadmin")) {
+                OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);
+                mainWorkJPanel.add("OrganizationEmployeeMngt", organizationEmployeeMngt);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            } else if (user.getRole().equals("incident-police")) {
+                IncidentManager incidentManager = new IncidentManager(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("IncidentManager", incidentManager);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            } else if (user.getRole().equals("ambulance-emp")) {
+                AmbulanceRequestMngt ambulanceRequestMngt = new AmbulanceRequestMngt(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("AmbulanceRequestMngt", ambulanceRequestMngt);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            } else if (user.getRole().equals("hospital-manager")) {
+                HospitalIncidentManager hospitalIncidentManager = new HospitalIncidentManager(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("HospitalIncidentManager", hospitalIncidentManager);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            } else if (user.getRole().equals("doctor")) {
+                HospitalDoctorPortal hospitalDoctorPortal = new HospitalDoctorPortal(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("HospitalDoctorPortal", hospitalDoctorPortal);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            } else if (user.getRole().equals("lab-technician")) {
+                LabRequestsMngt labRequestsMngt = new LabRequestsMngt(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("LabRequestsMngt", labRequestsMngt);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            } else if (user.getRole().equals("investigation-police")) {
+                InvestigationRequestMngt investigationRequestMngt = new InvestigationRequestMngt(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("InvestigationRequestMngt", investigationRequestMngt);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            }else if (user.getRole().equals("housing-manager")) {
+                PatientHousingRequestMngt patientHousingRequestMngt = new PatientHousingRequestMngt(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("PatientHousingRequestMngt", patientHousingRequestMngt);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
+            }else if (user.getRole().equals("detention-manager")) {
+                PatientDetentionRequestMngt patientDetentionRequestMngt = new PatientDetentionRequestMngt(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("PatientDetentionRequestMngt", patientDetentionRequestMngt);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
             }
-        
 
+        } else {
+            JOptionPane.showMessageDialog(this, "Username/password incorrect. Please try again!!");
+        }
 
 //        if(txtUsername.equals("qwe")) {
 //            IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);

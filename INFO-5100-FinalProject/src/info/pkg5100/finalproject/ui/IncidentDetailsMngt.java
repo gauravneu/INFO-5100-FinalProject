@@ -368,6 +368,13 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
                     "false",
                     "false",
                     -1,
+                    -1,
+                    this.currentIncidentCase.getLocation(),
+                    "",
+                    -1,
+                    -1,
+                    -1,
+                    -1,
                     -1
             );
             

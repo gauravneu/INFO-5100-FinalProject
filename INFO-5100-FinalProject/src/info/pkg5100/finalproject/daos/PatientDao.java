@@ -18,6 +18,8 @@ public interface PatientDao {
             throws SQLException;
     public List<Patient> getPatientsByHospitalId(int hospitalId)
             throws SQLException;
+    public List<Patient> getPatientsByLocationAndConvicted(String location, String isconvicted)
+            throws SQLException;
     public List<Patient> getPatientsByHospitalIdAndDoctorId(int hospitalId, int doctorId)
             throws SQLException;
     public void update(Patient patient)

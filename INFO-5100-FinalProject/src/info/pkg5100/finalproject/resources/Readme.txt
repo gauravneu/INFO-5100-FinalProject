@@ -25,3 +25,7 @@ ambulance-requested
 ambulance-accepted
 ambulance-done
 2. hospital-requested
+3. investigation-requested
+4. under-investigation
+5. convict
+6. innocent

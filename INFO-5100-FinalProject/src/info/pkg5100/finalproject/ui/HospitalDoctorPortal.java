@@ -67,6 +67,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         btnViewAcceptedPatient = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnAcceptRequest = new javax.swing.JButton();
+        btnSendForInvestigation = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -121,6 +122,15 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
             }
         });
 
+        btnSendForInvestigation.setBackground(new java.awt.Color(31, 75, 124));
+        btnSendForInvestigation.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendForInvestigation.setText("Send For Investigation");
+        btnSendForInvestigation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendForInvestigationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,19 +141,20 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(360, 360, 360)
                         .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(373, 373, 373)
-                            .addComponent(btnViewAcceptedPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(183, 183, 183)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addComponent(jLabel1))
-                                .addComponent(jLabel2)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(223, 223, 223)
+                        .addComponent(btnViewAcceptedPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92)
+                        .addComponent(btnSendForInvestigation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -161,20 +172,22 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnViewAcceptedPatient)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnViewAcceptedPatient)
+                    .addComponent(btnSendForInvestigation))
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnViewAcceptedPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAcceptedPatientActionPerformed
         // TODO add your handling code here:
-        int selectedRowIndex = tblPatientRequest.getSelectedRow();
+        int selectedRowIndex = tblAcceptedPatient.getSelectedRow();
         if(selectedRowIndex < 0 ) {
             JOptionPane.showMessageDialog(this, "Please select a patient.");
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
         Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
 
         HospitalPatientPortal hospitalPatientPortal = new HospitalPatientPortal(mainWorkJPanel, patient);
@@ -212,11 +225,43 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
 
+    private void btnSendForInvestigationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendForInvestigationActionPerformed
+        // TODO add your handling code here:
+       
+       try {                                                 
+            // TODO add your handling code here:
+            int selectedRowIndex = tblAcceptedPatient.getSelectedRow();
+            if(selectedRowIndex < 0 ) {
+                JOptionPane.showMessageDialog(this, "Please select a patient.");
+                return;
+            }
+            
+            DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
+            Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+            
+            patient.setIsConvicted("investigation-requested");
+            
+            try {
+                this.patientDaoImplementation.update(patient);
+            } catch (SQLException ex) {
+                Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            populateAvailablePatientsTable();
+            populateAcceptedPatientsTable();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+    }//GEN-LAST:event_btnSendForInvestigationActionPerformed
+
     void populateAcceptedPatientsTable() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
         model.setRowCount(0);
 
         for(Patient patient : this.patientDaoImplementation.getPatientsByHospitalIdAndDoctorId(this.currentOrganization.getId(), this.currentUser.getId())) {
+            
+        if(("".equals(patient.getIsConvicted()))){
             Object[] row = new Object[4];
             row[0] = patient;
             row[1] = patient.getName();
@@ -224,6 +269,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
             row[3] = patient.getPatientStatus();
 
             model.addRow(row);
+            }
         }
     }
 
@@ -248,6 +294,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
+    private javax.swing.JButton btnSendForInvestigation;
     private javax.swing.JButton btnViewAcceptedPatient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

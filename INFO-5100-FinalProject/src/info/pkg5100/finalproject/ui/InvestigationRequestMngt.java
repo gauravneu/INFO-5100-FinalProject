@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author ankit
+ * @author gaurav
  */
 public class InvestigationRequestMngt extends javax.swing.JPanel {
 
@@ -44,7 +44,10 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
         this.patientDaoImplementation = new PatientDaoImplementation();
         populateAvailablePatientsTable();
         populateAcceptedPatientsTable();
-
+        cmbConvicted.removeAllItems();
+        cmbConvicted.addItem("Convict");
+        cmbConvicted.addItem("Innocent");
+        
     }
 
     /**
@@ -65,6 +68,7 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
         btnSendReportToAllocation = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnAcceptRequest1 = new javax.swing.JButton();
+        cmbConvicted = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -119,6 +123,13 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
             }
         });
 
+        cmbConvicted.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbConvicted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbConvictedActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,20 +140,22 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(360, 360, 360)
                         .addComponent(btnAcceptRequest1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(373, 373, 373)
-                            .addComponent(btnSendReportToAllocation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(183, 183, 183)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addComponent(jLabel1))
-                                .addComponent(jLabel2)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(cmbConvicted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(198, 198, 198)
+                .addComponent(btnSendReportToAllocation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(254, 254, 254))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,22 +171,36 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSendReportToAllocation)
-                .addGap(31, 31, 31))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSendReportToAllocation)
+                    .addComponent(cmbConvicted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSendReportToAllocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendReportToAllocationActionPerformed
         // TODO add your handling code here:
-        int selectedRowIndex = tblPatientRequest.getSelectedRow();
+        int selectedRowIndex = tblAcceptedPatient.getSelectedRow();
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a patient.");
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
         Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+        patient.setIsConvicted(cmbConvicted.getSelectedItem().toString());
+        
+        try{
+            
+        this.patientDaoImplementation.update(patient);
+        populateAvailablePatientsTable();
+        populateAcceptedPatientsTable();
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(InvestigationRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
 
     }//GEN-LAST:event_btnSendReportToAllocationActionPerformed
@@ -190,7 +217,8 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
             DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
             Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
 
-            patient.setDoctorId(this.currentUser.getId());
+            patient.setIsConvicted("under-investigation");
+            patient.setInvestigationpoliceid(this.currentUser.getId());
 
             try {
                 this.patientDaoImplementation.update(patient);
@@ -204,28 +232,15 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
             Logger.getLogger(InvestigationRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
+    
+    
         void populateAcceptedPatientsTable() throws SQLException {
             DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
             model.setRowCount(0);
 
-            for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalIdAndDoctorId(this.currentOrganization.getId(), this.currentUser.getId())) {
-                Object[] row = new Object[4];
-                row[0] = patient;
-                row[1] = patient.getName();
-                row[2] = patient.getPatientIssue();
-                row[3] = patient.getPatientStatus();
-
-                model.addRow(row);
-            }
-        }
-
-        void populateAvailablePatientsTable() throws SQLException {
-            DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
-            model.setRowCount(0);
-
-            for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentOrganization.getId())) {
+            for (Patient patient : this.patientDaoImplementation.getPatientsByLocationAndConvicted(this.currentOrganization.getLocation(),"under-investigation")) {
                 // -1 means doctor is not assigned yet and is available for picking up by a doctor
-                if (patient.getDoctorId() == -1) {
+                if(patient.getInvestigationpoliceid() == this.currentUser.getId()){
                     Object[] row = new Object[4];
                     row[0] = patient;
                     row[1] = patient.getName();
@@ -233,16 +248,39 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
                     row[3] = patient.getPatientStatus();
 
                     model.addRow(row);
-                }
+            }
+            }
+        }
+
+        void populateAvailablePatientsTable() throws SQLException {
+            DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
+            model.setRowCount(0);
+            for (Patient patient : this.patientDaoImplementation.getPatientsByLocationAndConvicted(this.currentOrganization.getLocation(), "investigation-requested")) {
+                // -1 means doctor is not assigned yet and is available for picking up by a doctor
+                
+                    Object[] row = new Object[4];
+                    row[0] = patient;
+                    System.out.println(row[0]);
+                    row[1] = patient.getName();
+                    row[2] = patient.getPatientIssue();
+                    row[3] = patient.getPatientStatus();
+                    model.addRow(row);
+                
 
             }
         
     }//GEN-LAST:event_btnAcceptRequest1ActionPerformed
 
+    private void cmbConvictedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbConvictedActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cmbConvictedActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest1;
     private javax.swing.JButton btnSendReportToAllocation;
+    private javax.swing.JComboBox<String> cmbConvicted;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;

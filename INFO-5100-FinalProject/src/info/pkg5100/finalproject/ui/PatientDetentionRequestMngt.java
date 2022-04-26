@@ -122,7 +122,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Housing Management");
+        jLabel6.setText("Detention Management");
         jLabel6.setOpaque(true);
 
         jcbDetentionDays.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -210,7 +210,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
 
         for (Patient patient : this.patientDaoImplementation.getPatientsByLocationAndConvicted(currentOrganization.getLocation(), "Convict")) {
 
-            if (patient.getHousingid() == this.currentuser.getId() && patient.getHousingPeriod() > -1) {
+            if (patient.getDetentionid()== this.currentuser.getId() && patient.getDetentionPeriod()> -1) {
                 Object[] row = new Object[4];
                 row[0] = patient;
                 row[1] = patient.getName();
@@ -228,7 +228,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
 
         for (Patient patient : this.patientDaoImplementation.getPatientsByLocationAndConvicted(currentOrganization.getLocation(), "Convict")) {
 
-            if (patient.getHousingPeriod() < 0) {
+            if (patient.getDetentionPeriod()< 0) {
                 Object[] row = new Object[4];
                 row[0] = patient;
                 row[1] = patient.getName();

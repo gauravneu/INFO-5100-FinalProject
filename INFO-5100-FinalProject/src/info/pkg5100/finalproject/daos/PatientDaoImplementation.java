@@ -21,7 +21,7 @@ public class PatientDaoImplementation implements PatientDao{
                 + "incidentcaseid, labrequested, pharmacyrequested, hospitalid, "
                 + "doctorid, location, isconvicted, housingperiod,  "
                 + "detentionperiod, investigationpoliceid, housingid , detentionid)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, patient.getId());

@@ -219,6 +219,11 @@ public class Login extends javax.swing.JPanel {
                 mainWorkJPanel.add("PatientDetentionRequestMngt", patientDetentionRequestMngt);
                 CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
                 layout.next(mainWorkJPanel);
+            }else if (user.getRole().equals("pharmacist")) {
+                PharmacyRequestsMngt pharmacyRequestsMngt = new PharmacyRequestsMngt(mainWorkJPanel, user, org);
+                mainWorkJPanel.add("PharmacyRequestsMngt", pharmacyRequestsMngt);
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
+                layout.next(mainWorkJPanel);
             }
 
         } else {

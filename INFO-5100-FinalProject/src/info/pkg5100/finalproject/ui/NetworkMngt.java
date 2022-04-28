@@ -29,24 +29,25 @@ public class NetworkMngt extends javax.swing.JPanel {
     JPanel mainWorkJPanel;
     NetworkDaoImplementation networkDaoImplementation;
     Validator util;
+
     public NetworkMngt() {
         initComponents();
-        this.networkDaoImplementation=new NetworkDaoImplementation();
-        this.util=new Validator();
+        this.networkDaoImplementation = new NetworkDaoImplementation();
+        this.util = new Validator();
     }
 
-    
     public NetworkMngt(JPanel mainWorkJPanel) {
         initComponents();
-         this.networkDaoImplementation=new NetworkDaoImplementation();
-        this.mainWorkJPanel=mainWorkJPanel;
-        this.util=new Validator();
+        this.networkDaoImplementation = new NetworkDaoImplementation();
+        this.mainWorkJPanel = mainWorkJPanel;
+        this.util = new Validator();
         try {
             populateNetworksTable(this.networkDaoImplementation.getNetworks());
         } catch (SQLException ex) {
             Logger.getLogger(NetworkMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,17 +188,17 @@ public class NetworkMngt extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             int selectedRowIndex = tblNetworkList.getSelectedRow();
-            if(selectedRowIndex < 0 ) {
-                JOptionPane.showMessageDialog(this, "Please select a Network record to View","Error", JOptionPane.ERROR_MESSAGE);
+            if (selectedRowIndex < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a Network record to View", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             DefaultTableModel model = (DefaultTableModel) tblNetworkList.getModel();
             Network selectedNetwork = (Network) model.getValueAt(selectedRowIndex, 0);
-            
-            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainWorkJPanel,selectedNetwork);
-            mainWorkJPanel.add("EnterpriseMngt",enterpriseMngt);
-            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+
+            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainWorkJPanel, selectedNetwork);
+            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
+            CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
             layout.next(mainWorkJPanel);
         } catch (SQLException ex) {
             Logger.getLogger(NetworkMngt.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,23 +210,37 @@ public class NetworkMngt extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNetworkNameActionPerformed
 
     private void btnCreateNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNetworkActionPerformed
- // TODO add your handling code here:
-        try {      
-            String message="";
-            int newId=-1;
-            if(!(util.isNotNullAndEmpty(txtNetworkName.getText()) && util.isAlphabetic(txtNetworkName.getText())))
-                    message = "Please enter a valid Network Name."; 
-                if(!"".equals(message)){
-                   JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
-                    return;
+        // TODO add your handling code here:
+
+        //Check if network is already in DB and insert only if it is new Network. equalsIgnoreCase
+        try {
+            String message = "";
+            int newId = -1;
+            if (!(util.isNotNullAndEmpty(txtNetworkName.getText().trim()) && util.isAlphabetic(txtNetworkName.getText().trim()))) {
+                message = "Please enter a valid Network Name.";
+            }
+            if (!"".equals(message)) {
+                JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-                // TODO add your handling code here:
-            newId=SimpleTools.getUnusedId("networks", 1000, 9999);
+            List<Network> nl = this.networkDaoImplementation.getNetworks();
+            if (!nl.isEmpty()) {
+                for (Network network : nl) {
+                    if (network.getNetworkName().equalsIgnoreCase(txtNetworkName.getText())) {
+                        JOptionPane.showMessageDialog(this, "Network already exist!");
+                        return;
+                    }
+                }
+
+            }
+
+            // TODO add your handling code here:
+            newId = SimpleTools.getUnusedId("networks", 1000, 9999);
             Network network = new Network(newId, txtNetworkName.getText());
             this.networkDaoImplementation.add(network);
             populateNetworksTable(this.networkDaoImplementation.getNetworks());
-            JOptionPane.showMessageDialog(this, "Network Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Network Added Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(NetworkMngt.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:

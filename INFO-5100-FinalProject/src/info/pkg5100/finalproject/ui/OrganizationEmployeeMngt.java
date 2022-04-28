@@ -8,6 +8,7 @@ import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import java.awt.CardLayout;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -86,6 +87,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         btnAddOrgAdim = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -153,6 +155,15 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(31, 75, 124));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,9 +195,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(130, 130, 130))
+                            .addComponent(jLabel15)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
@@ -205,11 +214,14 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
                                     .addComponent(txtEmployeePassword)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(99, 99, 99)
-                                .addComponent(btnAddOrgAdim, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72)))
+                                .addComponent(btnAddOrgAdim, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 588, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(503, 503, 503))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(btnBack)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbBoxRole, txtEmployeeAge, txtEmployeeName, txtEmployeePassword, txtEmployeePhone, txtEmployeeUsername});
@@ -218,7 +230,9 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(14, 14, 14)
+                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,6 +312,13 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnAddOrgAdimActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        mainWorkJPanel.remove(this);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.previous(mainWorkJPanel);
+    }//GEN-LAST:event_btnBackActionPerformed
+
     public void populateEmployeeTable(List<User> userList) {
         DefaultTableModel model = (DefaultTableModel) tblEmployeeList.getModel();
         model.setRowCount(0);
@@ -315,6 +336,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOrgAdim;
+    private javax.swing.JButton btnBack;
     private javax.swing.JComboBox<String> cmbBoxRole;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

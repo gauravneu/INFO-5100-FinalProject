@@ -9,12 +9,14 @@ import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
 import info.pkg5100.finalproject.utils.SimpleTools;
 import info.pkg5100.finalproject.utils.Validator;
+import java.awt.CardLayout;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
 /**
@@ -26,7 +28,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 	/**
 	 * Creates new form OrganizationDetailsMngt
 	 */
-
+    JPanel mainWorkJPanel;
     Organization currentOrganization;
     UserDaoImplementation userDaoImplementation;
     Validator util;
@@ -35,8 +37,9 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 		initComponents();
 	}
 
-    public OrganizationDetailsMngt(Organization currentOrganization) throws SQLException {
+    public OrganizationDetailsMngt(JPanel mainWorkJPanel,Organization currentOrganization) throws SQLException {
         initComponents();
+        this.mainWorkJPanel = mainWorkJPanel;
         this.currentOrganization = currentOrganization;
         this.userDaoImplementation = new UserDaoImplementation();
         this.util=new Validator();
@@ -82,6 +85,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         btnAddOrgAdim = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -158,6 +162,15 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(31, 75, 124));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -206,8 +219,13 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                         .addGap(133, 133, 133)))
                 .addGap(133, 133, 133))
             .addGroup(layout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addComponent(btnAddOrgAdim, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(btnAddOrgAdim, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(btnBack)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,7 +237,9 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(14, 14, 14)
+                .addComponent(btnBack)
+                .addGap(2, 2, 2)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +290,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                     .addComponent(txtOrgAdminPasswrod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAddOrgAdim)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel10, jLabel11, jLabel7, jLabel8, jLabel9, txtOrgAdminAge, txtOrgAdminName, txtOrgAdminPasswrod, txtOrgAdminPhone, txtOrgAdminUsername});
@@ -314,6 +334,13 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnAddOrgAdimActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        mainWorkJPanel.remove(this);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.previous(mainWorkJPanel);
+    }//GEN-LAST:event_btnBackActionPerformed
+
     public void populateUserTable(List<User> userList) {
         DefaultTableModel model = (DefaultTableModel) tblOrgAdminList.getModel();
         model.setRowCount(0);
@@ -330,6 +357,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOrgAdim;
+    private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

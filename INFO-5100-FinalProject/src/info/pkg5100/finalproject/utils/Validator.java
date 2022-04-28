@@ -34,5 +34,10 @@ public class Validator {
     public boolean isNotNullAndEmpty(String value){
         return (value!=null && !value.isEmpty());
     }
-     
+    
+    public boolean isValidEmail(String value){
+        String regex = "^(.+)@(.+)$";
+        Pattern p = Pattern.compile(regex);
+        return p.matcher(value).matches(); 
+    }   
 }

@@ -169,9 +169,9 @@ public class Login extends javax.swing.JPanel {
             splitPaneUI.setLeftComponent(new Logout());
 
             if (user.getRole().equals("sysadmin")) {
-                NetworkMngt networkMngt = new NetworkMngt(mainWorkJPanel);
+                SysadminDashboard sysadminDashboard =new SysadminDashboard(mainWorkJPanel, splitPaneUI);
                 splitPaneUI.setLeftComponent(new Logout());
-                mainWorkJPanel.add("NetworkMngt", networkMngt);
+                mainWorkJPanel.add("SysadminDashboard",sysadminDashboard );
                 CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
                 layout.next(mainWorkJPanel);
             } else if (user.getRole().equals("orgadmin")) {

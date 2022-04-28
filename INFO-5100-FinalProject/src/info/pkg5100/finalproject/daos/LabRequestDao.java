@@ -19,6 +19,8 @@ public interface LabRequestDao {
             throws SQLException;
     public List<LabRequest> getLabRequestsByStatus(String status)
             throws SQLException;
+        public List<LabRequest> getLabRequestByEmployeeId(int id)
+            throws SQLException;
     public void update(LabRequest labRequest)
             throws SQLException;
 

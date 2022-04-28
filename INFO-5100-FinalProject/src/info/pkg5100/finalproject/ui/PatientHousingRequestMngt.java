@@ -8,7 +8,6 @@ import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
 import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
 import info.pkg5100.finalproject.daos.PatientDaoImplementation;
 import info.pkg5100.finalproject.daos.UserDaoImplementation;
-import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.Patient;
 import info.pkg5100.finalproject.models.User;
@@ -81,6 +80,7 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jcbHousindDays = new javax.swing.JComboBox<>();
         lblHousingDays = new javax.swing.JLabel();
+        btnRemoveFromHousing = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -130,6 +130,15 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
 
         lblHousingDays.setText("Housing For Days :");
 
+        btnRemoveFromHousing.setBackground(new java.awt.Color(31, 75, 124));
+        btnRemoveFromHousing.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemoveFromHousing.setText("Remove Housing");
+        btnRemoveFromHousing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveFromHousingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,42 +148,49 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
                 .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                        .addComponent(jLabel1)
                         .addGap(710, 710, 710))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblHousingDays)
-                        .addGap(62, 62, 62)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblHousingDays)
+                            .addComponent(jLabel2))
+                        .addGap(55, 55, 55)
                         .addComponent(jcbHousindDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(147, 147, 147)
+                        .addGap(146, 146, 146)
                         .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(309, 309, 309))))
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
-                .addGap(223, 223, 223)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(223, 223, 223)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(378, 378, 378)
+                        .addComponent(btnRemoveFromHousing, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAcceptRequest)
+                    .addComponent(lblHousingDays)
                     .addComponent(jcbHousindDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHousingDays))
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
+                    .addComponent(btnAcceptRequest))
                 .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(btnRemoveFromHousing)
+                .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -204,6 +220,33 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_btnAcceptRequestActionPerformed
+
+    private void btnRemoveFromHousingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromHousingActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            int selectedRowIndex = tblAcceptedPatients.getSelectedRow();
+            if (selectedRowIndex < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a Patient.");
+                return;
+            }
+
+            DefaultTableModel model = (DefaultTableModel) tblAcceptedPatients.getModel();
+            Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+
+            //incidentCase.setOrgId(this.currentOrganization.getId());
+            //incidentCase.setOrgType(this.currentOrganization.getType());
+            patient.setHousingid(-1);
+            patient.setHousingPeriod(-1);
+
+            this.patientDaoImplementation.update(patient);
+            populateAcceptedCaseTable();
+            populateRequestsTable();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientHousingRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRemoveFromHousingActionPerformed
 
     void populateAcceptedCaseTable() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblAcceptedPatients.getModel();
@@ -243,6 +286,7 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
+    private javax.swing.JButton btnRemoveFromHousing;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;

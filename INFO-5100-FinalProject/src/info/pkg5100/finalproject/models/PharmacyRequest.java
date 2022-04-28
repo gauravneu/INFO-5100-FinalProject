@@ -5,14 +5,20 @@ public class PharmacyRequest {
     int patientId;
     String pharmacyRequest;
     String status;
+    String pharmacyResponse;
     int pharmacyId;
+    String network;
+    int employeeid;
 
-    public PharmacyRequest(int id, int patientId, String pharmacyRequest, String status, int pharmacyId) {
+    public PharmacyRequest(int id, int patientId, String pharmacyRequest, String status, int pharmacyId, String network, int employeeid,String pharmacyResponse) {
         this.id = id;
         this.patientId = patientId;
         this.pharmacyRequest = pharmacyRequest;
         this.status = status;
         this.pharmacyId = pharmacyId;
+        this.network = network;
+        this.employeeid = employeeid;
+        this.pharmacyResponse = pharmacyResponse;
     }
 
     public PharmacyRequest() {
@@ -21,6 +27,9 @@ public class PharmacyRequest {
         this.pharmacyRequest = "";
         this.status = "";
         this.pharmacyId = -1;
+        this.network = "";
+        this.employeeid = -1;
+        this.pharmacyResponse = "";
     }
 
     public int getId() {
@@ -63,6 +72,32 @@ public class PharmacyRequest {
         this.pharmacyId = pharmacyId;
     }
 
+    public String getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(String network) {
+        this.network = network;
+    }
+
+    public int getEmployeeid() {
+        return employeeid;
+    }
+
+    public void setEmployeeid(int employeeid) {
+        this.employeeid = employeeid;
+    }
+
+    public String getPharmacyResponse() {
+        return pharmacyResponse;
+    }
+
+    public void setPharmacyResponse(String pharmacyResponse) {
+        this.pharmacyResponse = pharmacyResponse;
+    }
+
+    
+    
     @Override
     public String toString() {
         return Integer.toString(this.id);

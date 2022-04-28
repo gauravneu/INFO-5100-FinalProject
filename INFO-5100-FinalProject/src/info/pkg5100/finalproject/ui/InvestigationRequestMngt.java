@@ -4,6 +4,7 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.CriminalRecordDaoImplementation;
 import info.pkg5100.finalproject.daos.PatientDaoImplementation;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.Patient;
@@ -27,7 +28,7 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
     JPanel mainWorkJPanel;
     User currentUser;
     Organization currentOrganization;
-
+    CriminalRecordDaoImplementation criminalRecordDaoImplementation;
     PatientDaoImplementation patientDaoImplementation;
 
     public InvestigationRequestMngt() {
@@ -40,7 +41,7 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentUser = currentUser;
         this.currentOrganization = currentOrganization;
-
+        this.criminalRecordDaoImplementation = new CriminalRecordDaoImplementation();
         this.patientDaoImplementation = new PatientDaoImplementation();
         populateAvailablePatientsTable();
         populateAcceptedPatientsTable();
@@ -69,6 +70,7 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         btnAcceptRequest1 = new javax.swing.JButton();
         cmbConvicted = new javax.swing.JComboBox<>();
+        btnCheckPatientCriminalRecord = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -130,6 +132,15 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
             }
         });
 
+        btnCheckPatientCriminalRecord.setBackground(new java.awt.Color(31, 75, 124));
+        btnCheckPatientCriminalRecord.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckPatientCriminalRecord.setText("Check Criminal Record");
+        btnCheckPatientCriminalRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckPatientCriminalRecordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,14 +159,15 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
                                 .addGap(1, 1, 1)
                                 .addComponent(jLabel1))
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(cmbConvicted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(btnSendReportToAllocation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97)
+                        .addComponent(btnCheckPatientCriminalRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(cmbConvicted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198)
-                .addComponent(btnSendReportToAllocation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(254, 254, 254))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +186,8 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSendReportToAllocation)
-                    .addComponent(cmbConvicted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbConvicted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCheckPatientCriminalRecord))
                 .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -276,9 +289,35 @@ public class InvestigationRequestMngt extends javax.swing.JPanel {
         
     }//GEN-LAST:event_cmbConvictedActionPerformed
 
+    private void btnCheckPatientCriminalRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckPatientCriminalRecordActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRowIndex = tblAcceptedPatient.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a patient.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
+        Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+        
+        
+        try{
+            String status = this.criminalRecordDaoImplementation.getCriminalRecordByPatientId(patient.getId());
+        JOptionPane.showMessageDialog(this, status);
+        populateAvailablePatientsTable();
+        populateAcceptedPatientsTable();
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(InvestigationRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnCheckPatientCriminalRecordActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest1;
+    private javax.swing.JButton btnCheckPatientCriminalRecord;
     private javax.swing.JButton btnSendReportToAllocation;
     private javax.swing.JComboBox<String> cmbConvicted;
     private javax.swing.JLabel jLabel1;

@@ -18,8 +18,8 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
     @Override
     public int add(PharmacyRequest pharmacyRequest) throws SQLException {
         String query
-                = "insert into pharmacy(id, patientid, pharmacyrequest, status, pharmacyid )"
-                + " VALUES (?, ?, ?, ?, ?)";
+                = "insert into pharmacy(id, patientid, pharmacyrequest, status, pharmacyid ,network, employeeid, pharmacyresponse)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, pharmacyRequest.getId());
@@ -27,6 +27,9 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
         ps.setString(3, pharmacyRequest.getPharmacyRequest());
         ps.setString(4, pharmacyRequest.getStatus());
         ps.setInt(5, pharmacyRequest.getPharmacyId());
+        ps.setString(6, pharmacyRequest.getNetwork());
+        ps.setInt(7, pharmacyRequest.getEmployeeid());
+        ps.setString(8, pharmacyRequest.getPharmacyResponse());
         int n = ps.executeUpdate();
         return n;
     }
@@ -59,7 +62,10 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
             pharmacyRequest.setPatientId(rs.getInt("patientid"));
             pharmacyRequest.setPharmacyRequest(rs.getString("pharmacyrequest"));
             pharmacyRequest.setStatus(rs.getString("status"));
-            pharmacyRequest.setPatientId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setPharmacyId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setNetwork(rs.getString("network"));
+            pharmacyRequest.setEmployeeid(rs.getInt("employeeid"));
+            pharmacyRequest.setEmployeeid(rs.getInt("pharmacyresponse"));
         }
 
         if (check == true) {
@@ -83,7 +89,10 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
             pharmacyRequest.setPatientId(rs.getInt("patientid"));
             pharmacyRequest.setPharmacyRequest(rs.getString("pharmacyrequest"));
             pharmacyRequest.setStatus(rs.getString("status"));
-            pharmacyRequest.setPatientId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setPharmacyId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setNetwork(rs.getString("network"));
+            pharmacyRequest.setEmployeeid(rs.getInt("employeeid"));
+            pharmacyRequest.setEmployeeid(rs.getInt("pharmacyresponse"));
             ls.add(pharmacyRequest);
         }
         return ls;
@@ -105,7 +114,10 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
             pharmacyRequest.setPatientId(rs.getInt("patientid"));
             pharmacyRequest.setPharmacyRequest(rs.getString("pharmacyrequest"));
             pharmacyRequest.setStatus(rs.getString("status"));
-            pharmacyRequest.setPatientId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setPharmacyId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setNetwork(rs.getString("network"));
+            pharmacyRequest.setEmployeeid(rs.getInt("employeeid"));
+            pharmacyRequest.setEmployeeid(rs.getInt("pharmacyresponse"));
             ls.add(pharmacyRequest);
         }
         return ls;
@@ -113,7 +125,7 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
 
     @Override
     public List<PharmacyRequest> getPharmacyRequestsByPharmacyId(int PharmacyId) throws SQLException {
-        String query = "select * from pharmacy where pharmacyid= ?";
+        String query = "select * from pharmacy where employeeid= ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
 
@@ -127,7 +139,10 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
             pharmacyRequest.setPatientId(rs.getInt("patientid"));
             pharmacyRequest.setPharmacyRequest(rs.getString("pharmacyrequest"));
             pharmacyRequest.setStatus(rs.getString("status"));
-            pharmacyRequest.setPatientId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setPharmacyId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setNetwork(rs.getString("network"));
+            pharmacyRequest.setEmployeeid(rs.getInt("employeeid"));
+            pharmacyRequest.setEmployeeid(rs.getInt("pharmacyresponse"));
             ls.add(pharmacyRequest);
         }
         return ls;
@@ -136,7 +151,7 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
     @Override
     public void update(PharmacyRequest pharmacyRequest) throws SQLException {
         String query
-                = "update pharmacy set patientid=? , pharmacyrequest= ?, status=? , pharmacyid=? "
+                = "update pharmacy set patientid=? , pharmacyrequest= ?, status=? , pharmacyid=?, network=?, employeeid=?, pharmacyresponse=?"
                 + "where id = ? ";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -145,7 +160,35 @@ public class PharmacyRequestDaoImplementation implements PharmacyRequestDao {
         ps.setString(2, pharmacyRequest.getPharmacyRequest());
         ps.setString(3, pharmacyRequest.getStatus());
         ps.setInt(4, pharmacyRequest.getPharmacyId());
-        ps.setInt(5, pharmacyRequest.getId());
+        ps.setString(5, pharmacyRequest.getNetwork());
+        ps.setInt(6, pharmacyRequest.getEmployeeid());
+        ps.setString(7,pharmacyRequest.getPharmacyResponse());
+        ps.setInt(8, pharmacyRequest.getId());
         ps.executeUpdate();
+    }
+
+    @Override
+    public List<PharmacyRequest> getPharmacyRequestsByStatus(String status) throws SQLException {
+       String query = "select * from pharmacy where status= ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setString(1, status);
+        ResultSet rs = ps.executeQuery();
+        List<PharmacyRequest> ls = new ArrayList();
+
+        while (rs.next()) {
+            PharmacyRequest pharmacyRequest = new PharmacyRequest();
+            pharmacyRequest.setId(rs.getInt("id"));
+            pharmacyRequest.setPatientId(rs.getInt("patientid"));
+            pharmacyRequest.setPharmacyRequest(rs.getString("pharmacyrequest"));
+            pharmacyRequest.setStatus(rs.getString("status"));
+            pharmacyRequest.setPharmacyId(rs.getInt("pharmacyid"));
+            pharmacyRequest.setNetwork(rs.getString("network"));
+            pharmacyRequest.setEmployeeid(rs.getInt("employeeid"));
+            pharmacyRequest.setEmployeeid(rs.getInt("pharmacyresponse"));
+            ls.add(pharmacyRequest);
+        }
+        return ls;
     }
 }

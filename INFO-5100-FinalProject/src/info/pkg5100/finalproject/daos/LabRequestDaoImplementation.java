@@ -1,6 +1,5 @@
 package info.pkg5100.finalproject.daos;
 
-import info.pkg5100.finalproject.models.Enterprise;
 import info.pkg5100.finalproject.models.LabRequest;
 import info.pkg5100.finalproject.utils.DatabaseConnection;
 
@@ -18,8 +17,8 @@ public class LabRequestDaoImplementation implements LabRequestDao {
     @Override
     public int add(LabRequest labRequest) throws SQLException {
         String query
-                = "insert into labrequests(id, patientid, status, testname, testresult, labid )"
-                + " VALUES (?, ?, ?, ?, ?, ?)";
+                = "insert into labrequests(id, patientid, status, testname, testresult, labid, network, employeeid )"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, labRequest.getId());
@@ -28,6 +27,8 @@ public class LabRequestDaoImplementation implements LabRequestDao {
         ps.setString(4, labRequest.getTestName());
         ps.setString(5, labRequest.getTestResult());
         ps.setInt(6, labRequest.getLabId());
+        ps.setString(7, labRequest.getNetwork());
+        ps.setInt(8, labRequest.getEmployeeid());
         int n = ps.executeUpdate();
         return n;
     }
@@ -62,13 +63,15 @@ public class LabRequestDaoImplementation implements LabRequestDao {
             labRequest.setTestName(rs.getString("testname"));
             labRequest.setTestResult(rs.getString("testresult"));
             labRequest.setLabId(rs.getInt("labid"));
+            labRequest.setNetwork(rs.getString("network"));
+            labRequest.setEmployeeid(rs.getInt("employeeid"));
         }
 
         if (check == true) {
             return labRequest;
-        }
-        else
+        } else {
             return null;
+        }
     }
 
     @Override
@@ -87,6 +90,8 @@ public class LabRequestDaoImplementation implements LabRequestDao {
             labRequest.setTestName(rs.getString("testname"));
             labRequest.setTestResult(rs.getString("testresult"));
             labRequest.setLabId(rs.getInt("labid"));
+            labRequest.setNetwork(rs.getString("network"));
+            labRequest.setEmployeeid(rs.getInt("employeeid"));
             ls.add(labRequest);
         }
         return ls;
@@ -110,6 +115,8 @@ public class LabRequestDaoImplementation implements LabRequestDao {
             labRequest.setTestName(rs.getString("testname"));
             labRequest.setTestResult(rs.getString("testresult"));
             labRequest.setLabId(rs.getInt("labid"));
+            labRequest.setNetwork(rs.getString("network"));
+            labRequest.setEmployeeid(rs.getInt("employeeid"));
             ls.add(labRequest);
         }
         return ls;
@@ -133,6 +140,8 @@ public class LabRequestDaoImplementation implements LabRequestDao {
             labRequest.setTestName(rs.getString("testname"));
             labRequest.setTestResult(rs.getString("testresult"));
             labRequest.setLabId(rs.getInt("labid"));
+            labRequest.setNetwork(rs.getString("network"));
+            labRequest.setEmployeeid(rs.getInt("employeeid"));
             ls.add(labRequest);
         }
         return ls;
@@ -141,7 +150,7 @@ public class LabRequestDaoImplementation implements LabRequestDao {
     @Override
     public void update(LabRequest labRequest) throws SQLException {
         String query
-                = "update enterprises set patientid=? , status= ?, testname=? , testresult=? , labid=? "
+                = "update labrequests set patientid=? , status= ?, testname=? , testresult=? , labid=? , network=?, employeeid=? "
                 + "where id = ? ";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -149,8 +158,38 @@ public class LabRequestDaoImplementation implements LabRequestDao {
         ps.setString(2, labRequest.getRequestStatus());
         ps.setString(3, labRequest.getTestName());
         ps.setString(4, labRequest.getTestResult());
-        ps.setInt(4, labRequest.getLabId());
-        ps.setInt(4, labRequest.getId());
+        ps.setInt(5, labRequest.getLabId());
+        ps.setString(6, labRequest.getNetwork());
+        ps.setInt(7, labRequest.getEmployeeid());
+        ps.setInt(8, labRequest.getId());
         ps.executeUpdate();
+
+    }
+
+    @Override
+    public List<LabRequest> getLabRequestByEmployeeId(int id) throws SQLException {
+
+        String query = "select * from labrequests where employeeid= ?";
+        PreparedStatement ps
+                = con.prepareStatement(query);
+
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        List<LabRequest> ls = new ArrayList();
+
+        while (rs.next()) {
+            LabRequest labRequest = new LabRequest();
+            labRequest.setId(rs.getInt("id"));
+            labRequest.setPatientId(rs.getInt("patientid"));
+            labRequest.setRequestStatus(rs.getString("status"));
+            labRequest.setTestName(rs.getString("testname"));
+            labRequest.setTestResult(rs.getString("testresult"));
+            labRequest.setLabId(rs.getInt("labid"));
+            labRequest.setNetwork(rs.getString("network"));
+            labRequest.setEmployeeid(rs.getInt("employeeid"));
+            ls.add(labRequest);
+        }
+        return ls;
+
     }
 }

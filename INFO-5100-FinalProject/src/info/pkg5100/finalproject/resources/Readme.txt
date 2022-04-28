@@ -29,3 +29,15 @@ ambulance-done
 4. under-investigation
 5. convict
 6. innocent
+
+
+
+Lab Requests
+1. test-requested
+2. test-in-progress
+3. test-done
+
+Pharmacy Requests:
+1. drug-requested
+2. request-in-process
+3. request-done

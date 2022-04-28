@@ -24,46 +24,46 @@
                           <Component id="jScrollPane3" pref="622" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPharmacyEmployeeName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPharmacyEmployeePhone" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPharmacyEmployeeId" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblLabTechId" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                                  <Component id="lblPharmEmpId" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="lblLabTechName" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblLabTechPhone" alignment="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="lblPharmEmpName" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblPharmEmpPhone" alignment="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnAcceptPharmRequest" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                      <Component id="txtTestResult" min="-2" pref="125" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="btnUpdateTestResult" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="txtPharmResult" min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="btnUpdatePharmRequest" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                       <Component id="btnCompleteRequest" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="76" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="120" max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="340" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="271" max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="285" max="-2" attributes="0"/>
-                      <Component id="btnAcceptLabRequest" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -75,71 +75,69 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblLabTechName" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblLabTechPhone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPharmacyEmployeeName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPharmEmpName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblLabTechId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPharmacyEmployeePhone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPharmEmpPhone" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblPharmacyEmployeeId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPharmEmpId" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane3" min="-2" pref="197" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnAcceptLabRequest" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="9" max="32767" attributes="0"/>
+              <Component id="btnAcceptPharmRequest" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="197" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtTestResult" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnUpdateTestResult" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCompleteRequest" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Component id="jScrollPane2" min="-2" pref="197" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtPharmResult" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnUpdatePharmRequest" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCompleteRequest" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="lblPharmacyEmployeeName">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lab technician name:"/>
+        <Property name="text" type="java.lang.String" value="Pharmacy Employee Name :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="lblPharmacyEmployeePhone">
       <Properties>
-        <Property name="text" type="java.lang.String" value="lab tech phone:"/>
+        <Property name="text" type="java.lang.String" value="Pharmacy Emp Phone :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="lblPharmacyEmployeeId">
       <Properties>
-        <Property name="text" type="java.lang.String" value="lab tech id:"/>
+        <Property name="text" type="java.lang.String" value="Pharmacy Employee Id :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblLabTechName">
+    <Component class="javax.swing.JLabel" name="lblPharmEmpName">
       <Properties>
-        <Property name="text" type="java.lang.String" value="lab_technician_name_placeholder"/>
+        <Property name="text" type="java.lang.String" value="pharmacyemp_name_placeholder"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblLabTechPhone">
+    <Component class="javax.swing.JLabel" name="lblPharmEmpPhone">
       <Properties>
-        <Property name="text" type="java.lang.String" value="lab_technician_phone_placeholder"/>
+        <Property name="text" type="java.lang.String" value="pharmacyemp_phone_placeholder"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblLabTechId">
+    <Component class="javax.swing.JLabel" name="lblPharmEmpId">
       <Properties>
-        <Property name="text" type="java.lang.String" value="lab_technician_id_placeholder"/>
+        <Property name="text" type="java.lang.String" value="pharmacyemp_id_placeholder"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -149,13 +147,13 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblAcceptedLabRequests">
+        <Component class="javax.swing.JTable" name="tblAcceptedPharmRequests">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="4">
                 <Column editable="true" title="id" type="java.lang.Object"/>
-                <Column editable="true" title="Lab request" type="java.lang.Object"/>
-                <Column editable="true" title="Result" type="java.lang.Object"/>
+                <Column editable="true" title="Pharm request" type="java.lang.Object"/>
+                <Column editable="true" title="Response" type="java.lang.Object"/>
                 <Column editable="true" title="status" type="java.lang.Object"/>
                 <Column editable="true" title="Patient Id" type="java.lang.Object"/>
               </Table>
@@ -203,13 +201,13 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblAvailableLabRequests">
+        <Component class="javax.swing.JTable" name="tblAvailablePharmRequests">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="4">
                 <Column editable="true" title="id" type="java.lang.Object"/>
-                <Column editable="true" title="Lab request" type="java.lang.Object"/>
-                <Column editable="true" title="Result" type="java.lang.Object"/>
+                <Column editable="true" title="Pharm request" type="java.lang.Object"/>
+                <Column editable="true" title="Response" type="java.lang.Object"/>
                 <Column editable="true" title="status" type="java.lang.Object"/>
                 <Column editable="true" title="Patient Id" type="java.lang.Object"/>
               </Table>
@@ -252,33 +250,33 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Available lab requests"/>
+        <Property name="text" type="java.lang.String" value="Available Pharmacy requests"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Accepted lab requests"/>
+        <Property name="text" type="java.lang.String" value="Accepted Pharmacy Requests"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAcceptLabRequest">
+    <Component class="javax.swing.JButton" name="btnAcceptPharmRequest">
       <Properties>
         <Property name="text" type="java.lang.String" value="Accept lab request"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAcceptLabRequestActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAcceptPharmRequestActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnUpdateTestResult">
+    <Component class="javax.swing.JButton" name="btnUpdatePharmRequest">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update test result"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateTestResultActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdatePharmRequestActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTestResult">
+    <Component class="javax.swing.JTextField" name="txtPharmResult">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTestResultActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPharmResultActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCompleteRequest">

@@ -321,11 +321,11 @@ public class VitalSignsPortal extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         if (jcbPainLevel.getSelectedItem().toString().equals("Select")
-                || jcbBloodPressure.getSelectedItem().toString().equals("Select")
-                || jcbBodyTemp.getSelectedItem().toString().equals("Select")
-                || jcbGlucoseLevel.getSelectedItem().toString().equals("Select")
-                || jcbOxygenSaturation.getSelectedItem().toString().equals("Select")
-                || jcbRespirationRate.getSelectedItem().toString().equals("Select")) {
+                && jcbBloodPressure.getSelectedItem().toString().equals("Select")
+                && jcbBodyTemp.getSelectedItem().toString().equals("Select")
+                && jcbGlucoseLevel.getSelectedItem().toString().equals("Select")
+                && jcbOxygenSaturation.getSelectedItem().toString().equals("Select")
+                && jcbRespirationRate.getSelectedItem().toString().equals("Select")) {
             JOptionPane.showMessageDialog(this, "Choose values to Update in Vital Signs");
             return;
         }
@@ -340,13 +340,32 @@ public class VitalSignsPortal extends javax.swing.JPanel {
 
             DefaultTableModel model = (DefaultTableModel) tblVitalSigns.getModel();
             VitalSigns vitalSigns = (VitalSigns) model.getValueAt(selectedRowIndex, 0);
-
-            int bloodPressure = Integer.valueOf(jcbBloodPressure.getSelectedItem().toString());
-            String painLevel = jcbPainLevel.getSelectedItem().toString();
-            int bodyTemp = Integer.valueOf(jcbBodyTemp.getSelectedItem().toString());
-            int glucoseLevel = Integer.valueOf(jcbGlucoseLevel.getSelectedItem().toString());
-            int oxygenSaturation = Integer.valueOf(jcbOxygenSaturation.getSelectedItem().toString());
-            int respirationRate = Integer.valueOf(jcbRespirationRate.getSelectedItem().toString());
+            
+            int bloodPressure = vitalSigns.getBloodPressure();
+            String painLevel = vitalSigns.getPainLevel();
+            int bodyTemp = vitalSigns.getBodyTemp();
+            int glucoseLevel = vitalSigns.getGlucoseLevel();
+            int oxygenSaturation = vitalSigns.getOxygenSaturation();
+            int respirationRate = vitalSigns.getRespirationRate();
+            
+            if(!jcbBloodPressure.getSelectedItem().toString().equals("Select")){
+            bloodPressure = Integer.valueOf(jcbBloodPressure.getSelectedItem().toString());
+            }
+            if(!jcbPainLevel.getSelectedItem().toString().equals("Select")){
+            painLevel = jcbPainLevel.getSelectedItem().toString();
+            }
+            if(!jcbBodyTemp.getSelectedItem().toString().equals("Select")){
+            bodyTemp = Integer.valueOf(jcbBodyTemp.getSelectedItem().toString());
+            }
+            if(!jcbGlucoseLevel.getSelectedItem().toString().equals("Select")){
+            glucoseLevel = Integer.valueOf(jcbGlucoseLevel.getSelectedItem().toString());
+            }
+            if(!jcbOxygenSaturation.getSelectedItem().toString().equals("Select")){
+            oxygenSaturation = Integer.valueOf(jcbOxygenSaturation.getSelectedItem().toString());
+            }
+            if(!jcbRespirationRate.getSelectedItem().toString().equals("Select")){
+            respirationRate = Integer.valueOf(jcbRespirationRate.getSelectedItem().toString());
+            }
             
             
             vitalSigns.setBloodPressure(bloodPressure);

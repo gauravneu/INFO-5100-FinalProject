@@ -211,20 +211,31 @@ public class EnterpriseMngt extends javax.swing.JPanel {
     }//GEN-LAST:event_txtEnterpriseNameActionPerformed
 
     private void btnCreateEnterpriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateEnterpriseActionPerformed
-        try {
-            // TODO add your handling code here:
-            String message="";
-            if(!(util.isNotNullAndEmpty(txtEnterpriseName.getText()) && util.isAlphabetic(txtEnterpriseName.getText())))
-                    message = "Please enter a valid Enterprise Name";
-            else if(!util.isNotNullAndEmpty(cmbBoxEnterpriseType.getSelectedItem().toString()))
-                     message = "Please enter a Enterprise Type";
-            if(!"".equals(message)){
-                   JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
-                    return;
+        try {	
+            // TODO add your handling code here:	
+            String message = "";	
+            if (!(util.isNotNullAndEmpty(txtEnterpriseName.getText().trim()) && util.isAlphabetic(txtEnterpriseName.getText().trim()))) {	
+                message = "Please enter a valid Enterprise Name";	
+            } else if (!util.isNotNullAndEmpty(cmbBoxEnterpriseType.getSelectedItem().toString())) {	
+                message = "Please enter a Enterprise Type";	
+            }	
+            if (!"".equals(message)) {	
+                JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);	
+                return;	
+            }	
+            List<Enterprise> el = this.enterpriseDaoImplementation.getEnterprises();	
+            if (!el.isEmpty()) {	
+                for (Enterprise enterprise : el) {	
+                    if (enterprise.getLocation().equals(this.currentNetwork.getNetworkName())	
+                            && enterprise.getType().equals(cmbBoxEnterpriseType.getSelectedItem().toString())) {	
+                        JOptionPane.showMessageDialog(this, "Enterprise already exists in Selected Network!!");	
+                        return;	
+                    }	
+                }	
             }
             int newId=SimpleTools.getUnusedId("enterprises", 1000, 9999);
             
-            Enterprise enterprise = new Enterprise(newId, txtEnterpriseName.getText(),this.currentNetwork.getNetworkName(), cmbBoxEnterpriseType.getSelectedItem().toString());
+            Enterprise enterprise = new Enterprise(newId, txtEnterpriseName.getText().trim(),this.currentNetwork.getNetworkName(), cmbBoxEnterpriseType.getSelectedItem().toString());
             this.enterpriseDaoImplementation.add(enterprise);
             populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterpriseByLocation(this.currentNetwork.getNetworkName()));
             JOptionPane.showMessageDialog(this, "Enterprise Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);

@@ -266,6 +266,15 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 
     private void btnAddOrgAdimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrgAdimActionPerformed
         try {
+            
+            
+            for(User user :this.userDaoImplementation.getUsers()){
+            
+                if(user.getUsername().equalsIgnoreCase(txtEmployeeUsername.getText())){
+                JOptionPane.showMessageDialog(this, "UserName is already taken!!");
+                return;
+                }
+            }
             int newId = SimpleTools.getUnusedId("users", 1000, 9999);
             
             User newEmployee = new User(newId,

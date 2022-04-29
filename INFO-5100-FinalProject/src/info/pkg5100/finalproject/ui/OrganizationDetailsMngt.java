@@ -315,6 +315,17 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            
+            for(User user :this.userDaoImplementation.getUsers()){
+            
+                if(user.getUsername().equalsIgnoreCase(txtOrgAdminUsername.getText())){
+                JOptionPane.showMessageDialog(this, "UserName is already taken!!");
+                return;
+                }
+            }
+            
+            
+            
             int newId = SimpleTools.getUnusedId("users", 1000, 9999);
             User user = new User(newId,
                     txtOrgAdminUsername.getText(),

@@ -19,14 +19,14 @@ public class OrganizationDaoImplementation implements OrganizationDao {
     public int add(Organization organization) throws SQLException {
         String query
                 = "insert into organizations(id, name, "
-                + "location, type, enterpriseid) VALUES (?, ?, ?, ?, ?)";
+                + "location, type, enterprisetype) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, organization.getId());
         ps.setString(2, organization.getName());
         ps.setString(3, organization.getLocation());
         ps.setString(4, organization.getType());
-        ps.setInt(5, organization.getEnterpriseId());
+        ps.setString(5, organization.getEnterpriseType());
         int n = ps.executeUpdate();
         return n;
     }
@@ -59,7 +59,7 @@ public class OrganizationDaoImplementation implements OrganizationDao {
             organization.setName(rs.getString("name"));
             organization.setLocation(rs.getString("location"));
             organization.setType(rs.getString("type"));
-            organization.setEnterpriseId(rs.getInt("enterpriseid"));
+            organization.setEnterpriseType(rs.getString("enterprisetype"));
         }
 
         if (check == true) {
@@ -86,20 +86,20 @@ public class OrganizationDaoImplementation implements OrganizationDao {
             organization.setName(rs.getString("name"));
             organization.setLocation(rs.getString("location"));
             organization.setType(rs.getString("type"));
-            organization.setEnterpriseId(rs.getInt("enterpriseid"));
+            organization.setEnterpriseType(rs.getString("enterprisetype"));
             ls.add(organization);
         }
         return ls;
     }
 
     @Override
-    public List<Organization> getOrganizationByTypeAndLocation(String type, String location) throws SQLException {
+    public List<Organization> getOrganizationByEnterpriseTypeAndLocation(String enterpriseType, String location) throws SQLException {
         String query
-                = "select * from organizations where type= ? AND location = ?";
+                = "select * from organizations where enterprisetype= ? AND location = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
 
-        ps.setString(1, type);
+        ps.setString(1, enterpriseType);
         ps.setString(2, location);
         ResultSet rs = ps.executeQuery();
         List<Organization> ls = new ArrayList();
@@ -110,7 +110,7 @@ public class OrganizationDaoImplementation implements OrganizationDao {
             organization.setName(rs.getString("name"));
             organization.setLocation(rs.getString("location"));
             organization.setType(rs.getString("type"));
-            organization.setEnterpriseId(rs.getInt("enterpriseid"));
+            organization.setEnterpriseType(rs.getString("enterprisetype"));
             ls.add(organization);
         }
         return ls;
@@ -133,7 +133,7 @@ public class OrganizationDaoImplementation implements OrganizationDao {
             organization.setName(rs.getString("name"));
             organization.setLocation(rs.getString("location"));
             organization.setType(rs.getString("type"));
-            organization.setEnterpriseId(rs.getInt("enterpriseid"));
+            organization.setEnterpriseType(rs.getString("enterprisetype"));
             ls.add(organization);
         }
         return ls;
@@ -153,7 +153,7 @@ public class OrganizationDaoImplementation implements OrganizationDao {
             organization.setName(rs.getString("name"));
             organization.setLocation(rs.getString("location"));
             organization.setType(rs.getString("type"));
-            organization.setEnterpriseId(rs.getInt("enterpriseid"));
+            organization.setEnterpriseType(rs.getString("enterprisetype"));
             ls.add(organization);
         }
         return ls;
@@ -169,7 +169,7 @@ public class OrganizationDaoImplementation implements OrganizationDao {
         ps.setString(1, organization.getName());
         ps.setString(2, organization.getLocation());
         ps.setString(3, organization.getType());
-        ps.setInt(4, organization.getEnterpriseId());
+        ps.setString(4, organization.getEnterpriseType());
         ps.setInt(4, organization.getId());
         ps.executeUpdate();
     }

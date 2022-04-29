@@ -21,28 +21,8 @@ public class StartMenu extends javax.swing.JFrame {
      * Creates new form StartMenu
      */
 
-    MainSystem mainSystem;
-
     public StartMenu() {
         initComponents();
-
-        this.mainSystem = new MainSystem();
-
-        // Adding test data
-        // Adding police station in network Boston
-        PoliceOrganization bostonPoliceOrganization = new PoliceOrganization( "Boston-network");
-        PoliceStation bostonPoliceStation = new PoliceStation("Boston bopo", "Boston-network");
-        bostonPoliceStation.getPoliceArrayList().add(new IncidentHandlingPolice("Ankita", "Incident Hadnling", bostonPoliceStation, new ArrayList<>()));
-        bostonPoliceOrganization.getPoliceStationArrayList().add(bostonPoliceStation);
-        this.mainSystem.getMasterPoliceOrganizationList().add(bostonPoliceOrganization);
-
-        // Creating test ambulance service
-        AmbulanceService ambulanceService = new AmbulanceService("Test ambulance service", "Boston-network");
-        TransportationOrganization testTransportationOrganization = new TransportationOrganization("Boston-network");
-        testTransportationOrganization.getAmbulanceServiceArrayList().add(ambulanceService);
-
-        this.mainSystem.getTransportationOrganizationList().add(testTransportationOrganization);
-
         SplitPane.setRightComponent(RightPanel);
         
 
@@ -158,7 +138,7 @@ public class StartMenu extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
          // TODO add your handling code here:
-        Login login=new Login(this.mainSystem, this.RightPanel,SplitPane);
+        Login login=new Login( this.RightPanel,SplitPane);
         RightPanel.add("Login",login);
         CardLayout layout = (CardLayout)RightPanel.getLayout();
         layout.next(RightPanel);

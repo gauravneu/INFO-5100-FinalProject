@@ -6,8 +6,6 @@ package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
 import info.pkg5100.finalproject.daos.UserDaoImplementation;
-import info.pkg5100.finalproject.models.IncidentHandlingPolice;
-import info.pkg5100.finalproject.models.MainSystem;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
 import info.pkg5100.finalproject.utils.Validator;
@@ -15,7 +13,6 @@ import info.pkg5100.finalproject.utils.Validator;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
-import javax.swing.plaf.SplitPaneUI;
 
 /**
  *
@@ -26,7 +23,7 @@ public class Login extends javax.swing.JPanel {
     /**
      * Creates new form Login
      */
-    MainSystem mainSystem;
+
     JPanel mainWorkJPanel;
     JSplitPane splitPaneUI;
     UserDaoImplementation userDaoImplementation;
@@ -37,10 +34,9 @@ public class Login extends javax.swing.JPanel {
         initComponents();
     }
 
-    public Login(MainSystem mainSystem, JPanel mainWorkJPanel, JSplitPane splitPaneUI) {
+    public Login( JPanel mainWorkJPanel, JSplitPane splitPaneUI) {
         initComponents();
 
-        this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
         this.splitPaneUI = splitPaneUI;
         this.userDaoImplementation = new UserDaoImplementation();
@@ -174,9 +170,16 @@ public class Login extends javax.swing.JPanel {
                 mainWorkJPanel.add("SysadminDashboard",sysadminDashboard );
                 CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
                 layout.next(mainWorkJPanel);
-            } else if (user.getRole().equals("orgadmin")) {
-                OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);
-                mainWorkJPanel.add("OrganizationEmployeeMngt", organizationEmployeeMngt);
+            }else if (user.getRole().equals("orgadmin") && org.getType().equals("Doctor")) {	
+                OrganizationDoctorEmployeeMngt organizationDoctorEmployeeMngt = new OrganizationDoctorEmployeeMngt(mainWorkJPanel, org);	
+                mainWorkJPanel.add("OrganizationDoctorEmployeeMngt", organizationDoctorEmployeeMngt);	
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();	
+                layout.next(mainWorkJPanel);	
+            }
+            
+            else if (user.getRole().equals("orgadmin")) {
+                OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel,user, org);
+                mainWorkJPanel.add("OrganizationEmployeeMngt",organizationEmployeeMngt);
                 CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
                 layout.next(mainWorkJPanel);
             } else if (user.getRole().equals("incident-police")) {
@@ -230,20 +233,6 @@ public class Login extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Username/password incorrect. Please try again!!");
         }
 
-//        if(txtUsername.equals("qwe")) {
-//            IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
-//
-//            IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
-//            mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
-//            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-//            layout.next(mainWorkJPanel);
-//        } else if(txtUsername.getText().equals("sysadmin")){
-//            // for testing purpose login to ambulance service
-//            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
-//            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
-//            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-//            layout.next(mainWorkJPanel);
-//        }
 
     }//GEN-LAST:event_btnCreateActionPerformed
 

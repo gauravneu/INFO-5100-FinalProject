@@ -6,6 +6,7 @@ package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.PatientDaoImplementation;
 import info.pkg5100.finalproject.daos.VitalSignsDaoImplementation;
+import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.Patient;
 import info.pkg5100.finalproject.models.User;
@@ -43,7 +44,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentUser = currentUser;
         this.currentOrganization = currentOrganization;
-        vitalSignsDaoImplementation = new VitalSignsDaoImplementation();
+        this.vitalSignsDaoImplementation = new VitalSignsDaoImplementation();
         this.patientDaoImplementation = new PatientDaoImplementation();
         populateAvailablePatientsTable();
         populateAcceptedPatientsTable();
@@ -301,9 +302,11 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
         model.setRowCount(0);
 
-        for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalIdAndDoctorId(this.currentOrganization.getId(), this.currentUser.getId())) {
+        for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalIdAndDoctorId(
+                this.currentUser.getHospitalid(), this.currentUser.getId())) {
+            
 
-            if (("".equals(patient.getIsConvicted()))) {
+            if (("".equals(patient.getIsConvicted()))) { //to ensure patient is not sent for investigation
                 Object[] row = new Object[4];
                 row[0] = patient;
                 row[1] = patient.getName();
@@ -319,7 +322,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblPatientRequest.getModel();
         model.setRowCount(0);
 
-        for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentOrganization.getId())) {
+        for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentUser.getHospitalid())) {
             // -1 means doctor is not assigned yet and is available for picking up by a doctor
             if (patient.getDoctorId() == -1) {
                 Object[] row = new Object[4];

@@ -8,16 +8,13 @@ import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
 import info.pkg5100.finalproject.daos.NetworkDaoImplementation;
 import info.pkg5100.finalproject.daos.ReporterDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentCase;
-import info.pkg5100.finalproject.models.MainSystem;
 import info.pkg5100.finalproject.models.Network;
-import info.pkg5100.finalproject.models.PoliceOrganization;
 import info.pkg5100.finalproject.models.Reporter;
 import info.pkg5100.finalproject.utils.SimpleTools;
 import info.pkg5100.finalproject.utils.Validator;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +32,7 @@ public class ReportIncident extends javax.swing.JPanel {
      * Creates new form ReportIncident
      */
 
-    MainSystem mainSystem;
+
     ReporterDaoImplementation reporterDaoImplementation;
     IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
     NetworkDaoImplementation networkDaoImplementation;
@@ -117,12 +114,6 @@ public class ReportIncident extends javax.swing.JPanel {
         });
 
         lblImage.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtReporterName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtReporterNameActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Location");
@@ -259,10 +250,6 @@ public class ReportIncident extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPhotoActionPerformed
 
-    private void txtReporterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReporterNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtReporterNameActionPerformed
-
     private void cmbBoxNetworkNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxNetworkNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbBoxNetworkNameActionPerformed
@@ -312,7 +299,8 @@ public class ReportIncident extends javax.swing.JPanel {
                     -1,
                     "false",
                     -1,
-                    "false"
+                    "false",
+                    -1
             );
             this.incidenteCaseDaoImplementation.add(incidentCase);
             JOptionPane.showMessageDialog(this, "Report filed Successfully","Success", JOptionPane.INFORMATION_MESSAGE);

@@ -23,6 +23,7 @@ public class IncidentCase {
     String hospitalCaseAccepted;
     int hospitalId;
     String ambulancetaskcompleted;
+    int incidentpolice;
 
     public IncidentCase() {
         this.id = -1;
@@ -39,12 +40,13 @@ public class IncidentCase {
         this.hospitalCaseAccepted = "";
         this.hospitalId = -1;
         this.ambulancetaskcompleted = "";
+        this.incidentpolice =-1;
     }
 
     public IncidentCase(int id, String status, String investigationDetails, int orgId, String orgType,
                         int investigationPoliceId, String reporterPhone, String photoUrl, String location,
                         String description, int currentcasehandlinguserid, String hospitalCaseAccepted, int hospitalId,
-                        String ambulancetaskcompleted) {
+                        String ambulancetaskcompleted, int incidentpolice) {
         this.id = id;
         this.status = status;
         this.investigationDetails = investigationDetails;
@@ -59,6 +61,7 @@ public class IncidentCase {
         this.hospitalCaseAccepted = hospitalCaseAccepted;
         this.hospitalId = hospitalId;
         this.ambulancetaskcompleted = ambulancetaskcompleted;
+        this.incidentpolice = incidentpolice;
     }
 
     public int getId() {
@@ -172,6 +175,14 @@ public class IncidentCase {
      public void setAmbulancetaskcompleted(String ambulancetaskcompleted) {
          this.ambulancetaskcompleted = ambulancetaskcompleted;
      }
+
+    public int getIncidentpolice() {
+        return incidentpolice;
+    }
+
+    public void setIncidentpolice(int incidentpolice) {
+        this.incidentpolice = incidentpolice;
+    }
 
      @Override
      public String toString() {

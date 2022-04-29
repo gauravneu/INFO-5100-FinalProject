@@ -14,7 +14,7 @@ public interface OrganizationDao {
             throws SQLException;
     public List<Organization> getOrganizationByType(String type)
             throws SQLException;
-    public List<Organization> getOrganizationByTypeAndLocation(String type, String location)
+    public List<Organization> getOrganizationByEnterpriseTypeAndLocation(String enterpriseType, String location)
             throws SQLException;
     public List<Organization> getOrganizationByLocation(String location)
             throws SQLException;

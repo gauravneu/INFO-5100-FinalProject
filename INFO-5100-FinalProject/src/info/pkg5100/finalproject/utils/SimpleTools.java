@@ -46,30 +46,46 @@ public final class SimpleTools {
         return currentTestId;
     }
 
-    public static List<String> getPossibleRoles(String enterpriseType) {
+ 
+        public static List<String> getPossibleRoles(String organizationType) {
         List<String> roles = new ArrayList<>();
-        if(enterpriseType.equals("Police")) {
+        if (organizationType.equals("Incidence Management Police")) {
 
             roles.add("incident-police");
-            roles.add("investigation-police");
 
-        } else if(enterpriseType.equals("Transport")) {
+        } else if (organizationType.equals("Ambulance")) {
 
             roles.add("ambulance-emp");
 
-        } else if(enterpriseType.equals("Hospital")) {
+        } else if (organizationType.equals("Doctor")) {
 
-            roles.add("doctor");
-            roles.add("lab-technician");
-            roles.add("pharmacist");
+            
             roles.add("hospital-manager");
+
+        } else if (organizationType.equals("Detention")) {
+
+            roles.add("detention-manager");
+
+        } else if (organizationType.equals("Investigation Police")) {
+
+            roles.add("investigation-police");
+
+        } else if (organizationType.equals("Lab Technician")) {
+
+            roles.add("lab-technician");
+
+        } else if (organizationType.equals("Pharmacist")) {
+
+            roles.add("pharmacist");
 
         } else {
             roles.add("housing-manager");
-            roles.add("detention-manager");
+            
         }
 
         return roles;
     }
-
+    
+    
+    
 }

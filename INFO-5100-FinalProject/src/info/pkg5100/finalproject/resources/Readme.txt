@@ -12,6 +12,18 @@ Types of User roles (Case-sensitive) :
 8. detention-manager
 
 
+Organizations:
+1. Ambulance
+2. Incident Police
+3. Investigation Police
+4. Doctor
+5. Lab Technician
+6. Pharmacist
+7. Housing Manager
+8. Detention Manager
+
+
+
 Enterprise types (Case- sensitive):
 1. Police
 2. Transport
@@ -21,14 +33,15 @@ Enterprise types (Case- sensitive):
 
 Patient status types (Case - sensitive):
 1. rescued (when picked up)
-ambulance-requested
-ambulance-accepted
-ambulance-done
-2. hospital-requested
-3. investigation-requested
-4. under-investigation
-5. convict
-6. innocent
+2. ambulance-requested
+3. ambulance-accepted
+4. ambulance-done
+5. incident-manager-checking
+6. hospital-requested
+7. investigation-requested
+8. under-investigation
+9. convict
+10. innocent
 
 
 

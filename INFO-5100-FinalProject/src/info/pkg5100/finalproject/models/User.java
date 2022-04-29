@@ -9,6 +9,7 @@ public class User {
     String phone;
     String role;
     int orgid;
+    int hospitalid;
 
     public User() {
         this.id = -1;
@@ -19,9 +20,10 @@ public class User {
         this.phone = "";
         this.role = "";
         this.orgid = -1;
+        this.hospitalid = -1;
     }
 
-    public User(int id, String username, String password, String name, String age, String phone, String role, int orgid) {
+    public User(int id, String username, String password, String name, String age, String phone, String role, int orgid, int hospitalid) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -30,6 +32,7 @@ public class User {
         this.phone = phone;
         this.role = role;
         this.orgid = orgid;
+        this.hospitalid = hospitalid;
     }
 
     public int getId() {
@@ -90,6 +93,14 @@ public class User {
 
     public int getOrgid() {
         return orgid;
+    }
+
+    public int getHospitalid() {
+        return hospitalid;
+    }
+
+    public void setHospitalid(int hospitalid) {
+        this.hospitalid = hospitalid;
     }
 
     public void setOrgid(int orgid) {

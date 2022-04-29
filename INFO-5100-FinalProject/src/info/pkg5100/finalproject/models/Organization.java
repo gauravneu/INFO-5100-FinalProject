@@ -5,22 +5,22 @@ public class Organization {
     String name;
     String location;
     String type;
-    int enterpriseId;
+    String enterpriseType;
 
     public Organization() {
         id = -1;
         name = "";
         location = "";
         type = "";
-        enterpriseId = -1;
+        enterpriseType = "";
     }
 
-    public Organization(int id, String name, String location, String type, int enterpriseId) {
+    public Organization(int id, String name, String location, String type, String enterpriseType) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.type = type;
-        this.enterpriseId = enterpriseId;
+        this.enterpriseType = enterpriseType;
     }
 
     public int getId() {
@@ -55,13 +55,15 @@ public class Organization {
         this.type = type;
     }
 
-    public int getEnterpriseId() {
-        return enterpriseId;
+    public String getEnterpriseType() {
+        return enterpriseType;
     }
 
-    public void setEnterpriseId(int enterpriseId) {
-        this.enterpriseId = enterpriseId;
+    public void setEnterpriseType(String enterpriseType) {
+        this.enterpriseType = enterpriseType;
     }
+
+   
 
     @Override
     public String toString() {

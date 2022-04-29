@@ -27,6 +27,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 	 */
 
     JPanel mainWorkJPanel;
+    User currentUser;
     Organization currentOrganization;
     UserDaoImplementation userDaoImplementation;
 
@@ -34,12 +35,12 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 		initComponents();
 	}
 
-    public OrganizationEmployeeMngt(JPanel mainWorkJPanel, Organization currentOrganization) throws SQLException {
+    public OrganizationEmployeeMngt(JPanel mainWorkJPanel,User currentUser, Organization currentOrganization) throws SQLException {
         initComponents();
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentOrganization = currentOrganization;
         this.userDaoImplementation = new UserDaoImplementation();
-
+        this.currentUser = currentUser;
         lblOrgIdPlaceholder.setText(Integer.toString(this.currentOrganization.getId()));
         lblOrgNamePlaceholder.setText(this.currentOrganization.getName());
         lblOrgLocationPlaceholder.setText(this.currentOrganization.getLocation());
@@ -93,7 +94,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Name", "Phone", "Username", "Password"
+                "Id", "Name", "Phone", "Username"
             }
         ));
         jScrollPane1.setViewportView(tblEmployeeList);
@@ -265,6 +266,15 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 
     private void btnAddOrgAdimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrgAdimActionPerformed
         try {
+            
+            
+            for(User user :this.userDaoImplementation.getUsers()){
+            
+                if(user.getUsername().equalsIgnoreCase(txtEmployeeUsername.getText())){
+                JOptionPane.showMessageDialog(this, "UserName is already taken!!");
+                return;
+                }
+            }
             int newId = SimpleTools.getUnusedId("users", 1000, 9999);
             
             User newEmployee = new User(newId,
@@ -274,7 +284,8 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
                     txtEmployeeAge.getText(),
                     txtEmployeePhone.getText(),
                     cmbBoxRole.getSelectedItem().toString(),
-                    this.currentOrganization.getId());
+                    this.currentOrganization.getId(),
+            -1);
             
             this.userDaoImplementation.add(newEmployee);
             populateEmployeeTable(this.userDaoImplementation.getEmployeesByOrgId(this.currentOrganization.getId()));
@@ -288,14 +299,14 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblEmployeeList.getModel();
         model.setRowCount(0);
         for (User user : userList) {
-            Object[] row = new Object[5];
+            if(user.getId() == this.currentUser.getId()){
+            Object[] row = new Object[4];
             row[0] = user;
             row[1] = user.getName();
             row[2] = user.getPhone();
             row[3] = user.getUsername();
-            row[4] = user.getPassword();
             model.addRow(row);
-            //test
+            }
         }
     }
 

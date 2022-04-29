@@ -8,16 +8,13 @@ import info.pkg5100.finalproject.daos.IncidenteCaseDaoImplementation;
 import info.pkg5100.finalproject.daos.NetworkDaoImplementation;
 import info.pkg5100.finalproject.daos.ReporterDaoImplementation;
 import info.pkg5100.finalproject.models.IncidentCase;
-import info.pkg5100.finalproject.models.MainSystem;
 import info.pkg5100.finalproject.models.Network;
-import info.pkg5100.finalproject.models.PoliceOrganization;
 import info.pkg5100.finalproject.models.Reporter;
 import info.pkg5100.finalproject.utils.SimpleTools;
 import info.pkg5100.finalproject.utils.Validator;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +32,7 @@ public class ReportIncident extends javax.swing.JPanel {
      * Creates new form ReportIncident
      */
 
-    MainSystem mainSystem;
+
     ReporterDaoImplementation reporterDaoImplementation;
     IncidenteCaseDaoImplementation incidenteCaseDaoImplementation;
     NetworkDaoImplementation networkDaoImplementation;

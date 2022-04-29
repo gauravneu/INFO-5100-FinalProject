@@ -1,6 +1,5 @@
 package info.pkg5100.finalproject.daos;
 
-import info.pkg5100.finalproject.models.EnterpriseAdmin;
 import info.pkg5100.finalproject.models.Patient;
 import info.pkg5100.finalproject.utils.DatabaseConnection;
 

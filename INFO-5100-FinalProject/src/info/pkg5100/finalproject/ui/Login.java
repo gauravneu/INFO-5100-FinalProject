@@ -6,8 +6,6 @@ package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.OrganizationDaoImplementation;
 import info.pkg5100.finalproject.daos.UserDaoImplementation;
-import info.pkg5100.finalproject.models.IncidentHandlingPolice;
-import info.pkg5100.finalproject.models.MainSystem;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
 import info.pkg5100.finalproject.utils.Validator;
@@ -15,7 +13,6 @@ import info.pkg5100.finalproject.utils.Validator;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
-import javax.swing.plaf.SplitPaneUI;
 
 /**
  *
@@ -26,7 +23,7 @@ public class Login extends javax.swing.JPanel {
     /**
      * Creates new form Login
      */
-    MainSystem mainSystem;
+
     JPanel mainWorkJPanel;
     JSplitPane splitPaneUI;
     UserDaoImplementation userDaoImplementation;
@@ -37,10 +34,9 @@ public class Login extends javax.swing.JPanel {
         initComponents();
     }
 
-    public Login(MainSystem mainSystem, JPanel mainWorkJPanel, JSplitPane splitPaneUI) {
+    public Login( JPanel mainWorkJPanel, JSplitPane splitPaneUI) {
         initComponents();
 
-        this.mainSystem = mainSystem;
         this.mainWorkJPanel = mainWorkJPanel;
         this.splitPaneUI = splitPaneUI;
         this.userDaoImplementation = new UserDaoImplementation();

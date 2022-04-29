@@ -323,7 +323,8 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                     txtOrgAdminAge.getText(),
                     txtOrgAdminPhone.getText(),
                     "orgadmin",
-                    this.currentOrganization.getId());
+                    this.currentOrganization.getId(),
+            -1);
             
             this.userDaoImplementation.add(user);
             populateUserTable(this.userDaoImplementation.getUsersByOrgIdAndRole(this.currentOrganization.getId(), "orgadmin"));

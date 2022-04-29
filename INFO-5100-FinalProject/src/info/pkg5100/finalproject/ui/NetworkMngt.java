@@ -240,7 +240,7 @@ public class NetworkMngt extends javax.swing.JPanel {
             List<Network> nl = this.networkDaoImplementation.getNetworks();
             if (!nl.isEmpty()) {
                 for (Network network : nl) {
-                    if (network.getNetworkName().equalsIgnoreCase(txtNetworkName.getText())) {
+                    if (network.getNetworkName().equalsIgnoreCase(txtNetworkName.getText().trim())) {
                         JOptionPane.showMessageDialog(this, "Network already exist!");
                         return;
                     }
@@ -250,7 +250,7 @@ public class NetworkMngt extends javax.swing.JPanel {
 
             // TODO add your handling code here:
             newId = SimpleTools.getUnusedId("networks", 1000, 9999);
-            Network network = new Network(newId, txtNetworkName.getText());
+            Network network = new Network(newId, txtNetworkName.getText().trim());
             this.networkDaoImplementation.add(network);
             populateNetworksTable(this.networkDaoImplementation.getNetworks());
             JOptionPane.showMessageDialog(this, "Network Added Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);

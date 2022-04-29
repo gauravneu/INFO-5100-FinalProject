@@ -8,6 +8,7 @@ import info.pkg5100.finalproject.daos.VitalSignsDaoImplementation;
 import info.pkg5100.finalproject.models.Patient;
 import info.pkg5100.finalproject.models.VitalSigns;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import java.awt.CardLayout;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
@@ -71,22 +72,31 @@ public class VitalSignsPortal extends javax.swing.JPanel {
         lblRespirationRate = new javax.swing.JLabel();
         lblOxygenSaturation = new javax.swing.JLabel();
         lblPainLevel = new javax.swing.JLabel();
-        btnAddVitalSigns = new javax.swing.JButton();
         jcbBloodPressure = new javax.swing.JComboBox<>();
         jcbRespirationRate = new javax.swing.JComboBox<>();
         jcbBodyTemp = new javax.swing.JComboBox<>();
         jcbOxygenSaturation = new javax.swing.JComboBox<>();
         jcbPainLevel = new javax.swing.JComboBox<>();
         jcbGlucoseLevel = new javax.swing.JComboBox<>();
-        btnUpdateVitalSigns = new javax.swing.JButton();
-        btnDeleteVitalSigns = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
+        btnAddVital = new javax.swing.JButton();
+        btnAddVital1 = new javax.swing.JButton();
+        btnAddVital2 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Patient name:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Patient Status:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient age:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Patient phone:");
 
         lblPatientName.setText("patient_name_placeholder");
@@ -99,37 +109,34 @@ public class VitalSignsPortal extends javax.swing.JPanel {
 
         tblVitalSigns.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "id", "Date", "Blood Pressure", "Glucosel Level", "Body Temp", "Respiration Rate", "Oxygen Saturation", "Pain Level"
+                "Id", "Date", "Blood Pressure", "Glucosel Level", "Body Temp", "Respiration Rate", "Oxygen Saturation", "Pain Level"
             }
         ));
         jScrollPane1.setViewportView(tblVitalSigns);
 
+        lblVitalSigns.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblVitalSigns.setText("Vital Signs");
 
+        lblBloodPressure.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblBloodPressure.setText("Blood Pressure :");
 
+        lblGlucoseLevel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblGlucoseLevel.setText("Glucose Level :");
 
+        lblBodyTemp.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblBodyTemp.setText("Body Temp :");
 
+        lblRespirationRate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblRespirationRate.setText("Respiration Rate :");
 
+        lblOxygenSaturation.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblOxygenSaturation.setText("Oxygen Saturation :");
 
+        lblPainLevel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblPainLevel.setText("Pain Level :");
-
-        btnAddVitalSigns.setText("Add");
-        btnAddVitalSigns.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddVitalSignsActionPerformed(evt);
-            }
-        });
 
         jcbBloodPressure.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -143,17 +150,49 @@ public class VitalSignsPortal extends javax.swing.JPanel {
 
         jcbGlucoseLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnUpdateVitalSigns.setText("Update Record");
-        btnUpdateVitalSigns.addActionListener(new java.awt.event.ActionListener() {
+        jLabel6.setBackground(new java.awt.Color(31, 75, 124));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Vital Signs");
+        jLabel6.setOpaque(true);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setText("Patient Information");
+
+        btnBack.setBackground(new java.awt.Color(31, 75, 124));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateVitalSignsActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
-        btnDeleteVitalSigns.setText("Delete Record");
-        btnDeleteVitalSigns.addActionListener(new java.awt.event.ActionListener() {
+        btnAddVital.setBackground(new java.awt.Color(31, 75, 124));
+        btnAddVital.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddVital.setText("Add Vitals");
+        btnAddVital.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteVitalSignsActionPerformed(evt);
+                btnAddVitalActionPerformed(evt);
+            }
+        });
+
+        btnAddVital1.setBackground(new java.awt.Color(31, 75, 124));
+        btnAddVital1.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddVital1.setText("Delete Vitals");
+        btnAddVital1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddVital1ActionPerformed(evt);
+            }
+        });
+
+        btnAddVital2.setBackground(new java.awt.Color(31, 75, 124));
+        btnAddVital2.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddVital2.setText("Update Vitals");
+        btnAddVital2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddVital2ActionPerformed(evt);
             }
         });
 
@@ -161,130 +200,143 @@ public class VitalSignsPortal extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 1061, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(jLabel4))
-                                                .addGap(51, 51, 51)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lblPatientAge, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(lblPatientStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(lblPatientPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(lblPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                .addGap(182, 182, 182))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(436, 436, 436)
-                                .addComponent(lblVitalSigns)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblGlucoseLevel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblOxygenSaturation)
-                                .addComponent(lblRespirationRate, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblBodyTemp, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblPainLevel, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(lblBloodPressure))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2))
+                                .addGap(39, 39, 39)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblPatientStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPatientAge, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPatientPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel8))
+                        .addGap(200, 200, 200)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblOxygenSaturation)
+                            .addComponent(lblBloodPressure)
+                            .addComponent(lblGlucoseLevel)
+                            .addComponent(lblBodyTemp)
+                            .addComponent(lblRespirationRate)
+                            .addComponent(lblPainLevel))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jcbBloodPressure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(141, 141, 141)
+                                .addGap(39, 39, 39)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jcbOxygenSaturation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jcbPainLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jcbRespirationRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jcbBodyTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcbGlucoseLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(0, 141, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddVitalSigns)
-                .addGap(303, 303, 303))
+                                    .addComponent(jcbGlucoseLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(381, 381, 381)
+                        .addComponent(lblVitalSigns, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(214, 214, 214)
-                .addComponent(btnUpdateVitalSigns)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDeleteVitalSigns)
-                .addGap(308, 308, 308))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAddVital2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92)
+                        .addComponent(btnAddVital1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(434, 434, 434))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAddVital, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(324, 324, 324))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(btnBack)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(lblPatientName))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(lblPatientAge))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(lblPatientPhone))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(lblPatientStatus)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jcbBloodPressure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblBloodPressure))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblRespirationRate)
-                                .addGap(24, 24, 24)
-                                .addComponent(lblOxygenSaturation))
+                            .addComponent(lblOxygenSaturation)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jcbGlucoseLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblGlucoseLevel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jcbBodyTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblBodyTemp))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jcbRespirationRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblRespirationRate))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcbRespirationRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcbOxygenSaturation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPainLevel)
-                    .addComponent(jcbPainLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addComponent(btnAddVitalSigns)
+                                .addComponent(jcbOxygenSaturation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPainLevel)
+                            .addComponent(jcbPainLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lblPatientName))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lblPatientAge))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(lblPatientPhone))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(lblPatientStatus))))
+                .addGap(18, 18, 18)
+                .addComponent(btnAddVital)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblVitalSigns, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdateVitalSigns)
-                    .addComponent(btnDeleteVitalSigns))
-                .addGap(85, 85, 85))
+                    .addComponent(btnAddVital2)
+                    .addComponent(btnAddVital1))
+                .addGap(135, 135, 135))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddVitalSignsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVitalSignsActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        mainWorkJPanel.remove(this);
+        CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
+        layout.previous(mainWorkJPanel);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddVitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVitalActionPerformed
         try {
             if (jcbPainLevel.getSelectedItem().toString().equals("Select")
                     || jcbBloodPressure.getSelectedItem().toString().equals("Select")
@@ -314,12 +366,30 @@ public class VitalSignsPortal extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(VitalSignsPortal.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }//GEN-LAST:event_btnAddVitalActionPerformed
 
-    }//GEN-LAST:event_btnAddVitalSignsActionPerformed
+    private void btnAddVital1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVital1ActionPerformed
+                try {
+            int selectedRowIndex = tblVitalSigns.getSelectedRow();
+            if (selectedRowIndex < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a Vital Record to Delete.");
+                return;
+            }
 
-    private void btnUpdateVitalSignsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateVitalSignsActionPerformed
+            DefaultTableModel model = (DefaultTableModel) tblVitalSigns.getModel();
+            VitalSigns vitalSigns = (VitalSigns) model.getValueAt(selectedRowIndex, 0);
+
+            this.vitalSignsDaoImplementation.delete(vitalSigns.getId());
+
+            populateVitalSigns();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PharmacyRequestsMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAddVital1ActionPerformed
+
+    private void btnAddVital2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVital2ActionPerformed
         // TODO add your handling code here:
-
         if (jcbPainLevel.getSelectedItem().toString().equals("Select")
                 && jcbBloodPressure.getSelectedItem().toString().equals("Select")
                 && jcbBodyTemp.getSelectedItem().toString().equals("Select")
@@ -385,31 +455,8 @@ public class VitalSignsPortal extends javax.swing.JPanel {
         }
 
 
-    }//GEN-LAST:event_btnUpdateVitalSignsActionPerformed
 
-    private void btnDeleteVitalSignsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVitalSignsActionPerformed
-        // TODO add your handling code here:
-
-        try {
-            // TODO add your handling code here:
-            int selectedRowIndex = tblVitalSigns.getSelectedRow();
-            if (selectedRowIndex < 0) {
-                JOptionPane.showMessageDialog(this, "Please select a Vital Record to Delete.");
-                return;
-            }
-
-            DefaultTableModel model = (DefaultTableModel) tblVitalSigns.getModel();
-            VitalSigns vitalSigns = (VitalSigns) model.getValueAt(selectedRowIndex, 0);
-
-            this.vitalSignsDaoImplementation.delete(vitalSigns.getId());
-
-            populateVitalSigns();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(PharmacyRequestsMngt.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_btnDeleteVitalSignsActionPerformed
+    }//GEN-LAST:event_btnAddVital2ActionPerformed
 
     void populateVitalSigns() {
         try {
@@ -485,13 +532,16 @@ public class VitalSignsPortal extends javax.swing.JPanel {
         }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddVitalSigns;
-    private javax.swing.JButton btnDeleteVitalSigns;
-    private javax.swing.JButton btnUpdateVitalSigns;
+    private javax.swing.JButton btnAddVital;
+    private javax.swing.JButton btnAddVital1;
+    private javax.swing.JButton btnAddVital2;
+    private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbBloodPressure;
     private javax.swing.JComboBox<String> jcbBodyTemp;

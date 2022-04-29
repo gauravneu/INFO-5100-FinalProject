@@ -233,20 +233,6 @@ public class Login extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Username/password incorrect. Please try again!!");
         }
 
-//        if(txtUsername.equals("qwe")) {
-//            IncidentHandlingPolice incidentHandlingPolice = (IncidentHandlingPolice) mainSystem.getMasterPoliceOrganizationList().get(0).getPoliceStationArrayList().get(0).getPoliceArrayList().get(0);
-//
-//            IncidentManager incidentManagerJPanel = new IncidentManager(mainSystem, mainWorkJPanel, incidentHandlingPolice);
-//            mainWorkJPanel.add("IncidentManager",incidentManagerJPanel);
-//            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-//            layout.next(mainWorkJPanel);
-//        } else if(txtUsername.getText().equals("sysadmin")){
-//            // for testing purpose login to ambulance service
-//            EnterpriseMngt enterpriseMngt = new EnterpriseMngt(mainSystem, mainWorkJPanel);
-//            mainWorkJPanel.add("EnterpriseMngt", enterpriseMngt);
-//            CardLayout layout = (CardLayout)mainWorkJPanel.getLayout();
-//            layout.next(mainWorkJPanel);
-//        }
 
     }//GEN-LAST:event_btnCreateActionPerformed
 

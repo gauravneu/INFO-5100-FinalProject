@@ -118,12 +118,6 @@ public class ReportIncident extends javax.swing.JPanel {
 
         lblImage.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtReporterName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtReporterNameActionPerformed(evt);
-            }
-        });
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Location");
 
@@ -259,10 +253,6 @@ public class ReportIncident extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPhotoActionPerformed
 
-    private void txtReporterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReporterNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtReporterNameActionPerformed
-
     private void cmbBoxNetworkNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxNetworkNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbBoxNetworkNameActionPerformed
@@ -312,7 +302,8 @@ public class ReportIncident extends javax.swing.JPanel {
                     -1,
                     "false",
                     -1,
-                    "false"
+                    "false",
+                    -1
             );
             this.incidenteCaseDaoImplementation.add(incidentCase);
             JOptionPane.showMessageDialog(this, "Report filed Successfully","Success", JOptionPane.INFORMATION_MESSAGE);

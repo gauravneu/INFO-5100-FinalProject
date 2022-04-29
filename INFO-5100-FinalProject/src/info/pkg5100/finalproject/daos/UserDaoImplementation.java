@@ -18,7 +18,7 @@ public class UserDaoImplementation implements UsersDao {
     @Override
     public int add(User user) throws SQLException {
         String query
-                = "insert into users(id, username, password, name, age, phone, role, orgid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                = "insert into users(id, username, password, name, age, phone, role, orgid, hospitalid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, user.getId());
@@ -29,6 +29,7 @@ public class UserDaoImplementation implements UsersDao {
         ps.setString(6, user.getPhone());
         ps.setString(7, user.getRole());
         ps.setInt(8, user.getOrgid());
+        ps.setInt(9, user.getHospitalid());
         int n = ps.executeUpdate();
         return n;
     }
@@ -65,6 +66,7 @@ public class UserDaoImplementation implements UsersDao {
             user.setPhone(rs.getString("phone"));
             user.setRole(rs.getString("role"));
             user.setOrgid(rs.getInt("orgid"));
+            user.setHospitalid(rs.getInt("hospitalid"));
         }
 
         if (check == true) {
@@ -97,6 +99,7 @@ public class UserDaoImplementation implements UsersDao {
             user.setPhone(rs.getString("phone"));
             user.setRole(rs.getString("role"));
             user.setOrgid(rs.getInt("orgid"));
+            user.setHospitalid(rs.getInt("hospitalid"));
         }
 
         if (check == true) {
@@ -124,6 +127,7 @@ public class UserDaoImplementation implements UsersDao {
             user.setPhone(rs.getString("phone"));
             user.setRole(rs.getString("role"));
             user.setOrgid(rs.getInt("orgid"));
+            user.setHospitalid(rs.getInt("hospitalid"));
             ls.add(user);
         }
         return ls;
@@ -149,6 +153,7 @@ public class UserDaoImplementation implements UsersDao {
             user.setPhone(rs.getString("phone"));
             user.setRole(rs.getString("role"));
             user.setOrgid(rs.getInt("orgid"));
+            user.setHospitalid(rs.getInt("hospitalid"));
             ls.add(user);
         }
         return ls;
@@ -175,6 +180,7 @@ public class UserDaoImplementation implements UsersDao {
             user.setPhone(rs.getString("phone"));
             user.setRole(rs.getString("role"));
             user.setOrgid(rs.getInt("orgid"));
+            user.setHospitalid(rs.getInt("hospitalid"));
             ls.add(user);
         }
         return ls;
@@ -200,6 +206,7 @@ public class UserDaoImplementation implements UsersDao {
             user.setPhone(rs.getString("phone"));
             user.setRole(rs.getString("role"));
             user.setOrgid(rs.getInt("orgid"));
+            user.setHospitalid(rs.getInt("hospitalid"));
             ls.add(user);
         }
         return ls;
@@ -209,17 +216,18 @@ public class UserDaoImplementation implements UsersDao {
     public void update(User user) throws SQLException {
         String query
                 = "update users set username = ?, "
-                + " password= ? , name = ?, age = ?, phone = ?, role = ?, orgid = ?  where id = ?";
+                + " password= ? , name = ?, age = ?, phone = ?, role = ?, orgid = ?,hospitalid =?  where id = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setString(1, user.getUsername());
         ps.setString(2, user.getPassword());
-        ps.setString(2, user.getName());
-        ps.setString(2, user.getAge());
-        ps.setString(2, user.getPhone());
-        ps.setString(2, user.getRole());
-        ps.setInt(2, user.getOrgid());
-        ps.setInt(3, user.getId());
+        ps.setString(3, user.getName());
+        ps.setString(4, user.getAge());
+        ps.setString(5, user.getPhone());
+        ps.setString(6, user.getRole());
+        ps.setInt(7, user.getOrgid());
+        ps.setInt(8, user.getHospitalid());
+        ps.setInt(9, user.getId());
         ps.executeUpdate();
     }
 }

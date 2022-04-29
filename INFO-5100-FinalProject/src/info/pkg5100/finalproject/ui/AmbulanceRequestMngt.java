@@ -310,9 +310,17 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                 return;
             }
             
+                      
+            
             DefaultTableModel model = (DefaultTableModel) tblActiveAmbulanceRequests.getModel();
             IncidentCase incidentCase = (IncidentCase) model.getValueAt(selectedRowIndex, 0);
             
+             if ((incidentCase.getStatus().equals("hospital-requested"))) {
+                JOptionPane.showMessageDialog(this, "Case is already Sent To Hospitals");
+                return;
+            }
+            
+            incidentCase.setAmbulancetaskcompleted("true");
             incidentCase.setStatus("hospital-requested");
             
             this.incidenteCaseDaoImplementation.update(incidentCase);

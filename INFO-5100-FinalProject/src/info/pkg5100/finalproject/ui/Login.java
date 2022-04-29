@@ -174,9 +174,16 @@ public class Login extends javax.swing.JPanel {
                 mainWorkJPanel.add("SysadminDashboard",sysadminDashboard );
                 CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
                 layout.next(mainWorkJPanel);
-            } else if (user.getRole().equals("orgadmin")) {
-                OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel, org);
-                mainWorkJPanel.add("OrganizationEmployeeMngt", organizationEmployeeMngt);
+            }else if (user.getRole().equals("orgadmin") && org.getType().equals("Doctor")) {	
+                OrganizationDoctorEmployeeMngt organizationDoctorEmployeeMngt = new OrganizationDoctorEmployeeMngt(mainWorkJPanel, org);	
+                mainWorkJPanel.add("OrganizationDoctorEmployeeMngt", organizationDoctorEmployeeMngt);	
+                CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();	
+                layout.next(mainWorkJPanel);	
+            }
+            
+            else if (user.getRole().equals("orgadmin")) {
+                OrganizationEmployeeMngt organizationEmployeeMngt = new OrganizationEmployeeMngt(mainWorkJPanel,user, org);
+                mainWorkJPanel.add("OrganizationEmployeeMngt",organizationEmployeeMngt);
                 CardLayout layout = (CardLayout) mainWorkJPanel.getLayout();
                 layout.next(mainWorkJPanel);
             } else if (user.getRole().equals("incident-police")) {

@@ -94,7 +94,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Name", "Phone", "Username", "Password"
+                "Id", "Name", "Phone", "Username"
             }
         ));
         jScrollPane1.setViewportView(tblEmployeeList);
@@ -300,12 +300,11 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
         model.setRowCount(0);
         for (User user : userList) {
             if(user.getId() == this.currentUser.getId()){
-            Object[] row = new Object[5];
+            Object[] row = new Object[4];
             row[0] = user;
             row[1] = user.getName();
             row[2] = user.getPhone();
             row[3] = user.getUsername();
-            row[4] = user.getPassword();
             model.addRow(row);
             }
         }

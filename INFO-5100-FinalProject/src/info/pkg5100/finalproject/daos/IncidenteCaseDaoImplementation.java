@@ -17,8 +17,8 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public int add(IncidentCase incidentCase) throws SQLException {
         String query
-                = "insert into incidentcases(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location, description, currentcasehandlinguserid, hospitalcaseaccepted, hospitalid, ambulancetaskcompleted)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                = "insert into incidentcases(id, status, investigationdetails, orgid, orgtype, investigationpoliceid, reporterphone, photourl, location, description, currentcasehandlinguserid, hospitalcaseaccepted, hospitalid, ambulancetaskcompleted, incidentpolice)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ps.setInt(1, incidentCase.getId());
@@ -35,6 +35,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setString(12, incidentCase.getHospitalCaseAccepted());
         ps.setInt(13, incidentCase.getHospitalId());
         ps.setString(14, incidentCase.getAmbulancetaskcompleted());
+        ps.setInt(15, incidentCase.getIncidentpolice());
         int n = ps.executeUpdate();
         return n;
     }
@@ -77,6 +78,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
             incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
+            incidentCase.setIncidentpolice(rs.getInt("incidentpolice"));
         }
 
         if (check == true) {
@@ -110,6 +112,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
             incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
+            incidentCase.setIncidentpolice(rs.getInt("incidentpolice"));
             ls.add(incidentCase);
         }
         return ls;
@@ -141,6 +144,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
             incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
+            incidentCase.setIncidentpolice(rs.getInt("incidentpolice"));
             ls.add(incidentCase);
         }
         return ls;
@@ -175,6 +179,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
             incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
+            incidentCase.setIncidentpolice(rs.getInt("incidentpolice"));
             ls.add(incidentCase);
         }
         return ls;
@@ -211,6 +216,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
             incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
+            incidentCase.setIncidentpolice(rs.getInt("incidentpolice"));
             ls.add(incidentCase);
         }
         return ls;
@@ -252,6 +258,7 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
             incidentCase.setHospitalCaseAccepted(rs.getString("hospitalcaseaccepted"));
             incidentCase.setHospitalId(rs.getInt("hospitalid"));
             incidentCase.setAmbulancetaskcompleted(rs.getString("ambulancetaskcompleted"));
+            incidentCase.setIncidentpolice(rs.getInt("incidentpolice"));
             ls.add(incidentCase);
         }
         return ls;
@@ -260,7 +267,11 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
     @Override
     public void update(IncidentCase incidentCase) throws SQLException {
         String query
-                = "update incidentcases set status= ?, investigationdetails= ?, orgid= ?, orgtype= ?, investigationpoliceid= ?, reporterphone= ?, photourl= ?, location= ?, description= ?, currentcasehandlinguserid =?, hospitalcaseaccepted=?, hospitalid=?, ambulancetaskcompleted=? "
+                = "update incidentcases set status= ?, investigationdetails= ?,"
+                + " orgid= ?, orgtype= ?, investigationpoliceid= ?, "
+                + "reporterphone= ?, photourl= ?, location= ?, description= ?, "
+                + "currentcasehandlinguserid =?, hospitalcaseaccepted=?, "
+                + "hospitalid=?, ambulancetaskcompleted=?, incidentpolice=? "
                 + "where id = ?";
         PreparedStatement ps
                 = con.prepareStatement(query);
@@ -277,7 +288,8 @@ public class IncidenteCaseDaoImplementation implements IncidentCaseDao{
         ps.setString(11, incidentCase.getHospitalCaseAccepted());
         ps.setInt(12, incidentCase.getHospitalId());
         ps.setString(13, incidentCase.getAmbulancetaskcompleted());
-        ps.setInt(14, incidentCase.getId());
+         ps.setInt(14, incidentCase.getIncidentpolice());
+        ps.setInt(15, incidentCase.getId());
 
         ps.executeUpdate();
     }

@@ -322,6 +322,8 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                 message = "Please enter valid phone";
             else if(!(util.isNotNullAndEmpty(txtOrgAdminUsername.getText()) && util.isAlphanumeric(txtOrgAdminUsername.getText())))
                 message = "Please enter an alphanumeric username";
+            else if(!(util.isNotNullAndEmpty(txtAdminEmail.getText()) && util.isValidEmail(txtAdminEmail.getText())))
+                message="Please enter valid email";
             if(!"".equals(message)){
                 JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -330,7 +332,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
             for(User user :this.userDaoImplementation.getUsers()){
             
                 if(user.getUsername().equalsIgnoreCase(txtOrgAdminUsername.getText())){
-                JOptionPane.showMessageDialog(this, "UserName is already taken!!");
+                JOptionPane.showMessageDialog(this, "UserName is already taken","Error", JOptionPane.ERROR_MESSAGE);
                 return;
                 }
             }

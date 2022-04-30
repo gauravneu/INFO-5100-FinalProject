@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
@@ -9,6 +9,7 @@ import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
 import info.pkg5100.finalproject.utils.SendEmailUtility;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import info.pkg5100.finalproject.utils.Validator;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -31,6 +32,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
     User currentUser;
     Organization currentOrganization;
     UserDaoImplementation userDaoImplementation;
+    Validator util;
     SendEmailUtility sendEmailUtility;
 
 	public OrganizationEmployeeMngt() {
@@ -42,6 +44,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentOrganization = currentOrganization;
         this.userDaoImplementation = new UserDaoImplementation();
+        this.util=new Validator();
         this.sendEmailUtility=new SendEmailUtility();
         this.currentUser = currentUser;
         lblOrgIdPlaceholder.setText(Integer.toString(this.currentOrganization.getId()));
@@ -278,12 +281,26 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 
     private void btnAddOrgAdimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrgAdimActionPerformed
         try {
-            
+            String message="";
+            if(!(util.isNotNullAndEmpty(txtEmployeeName.getText()) && util.isAlphabetic(txtEmployeeName.getText())))
+                message = "Please enter a valid name";
+            else if(!(util.isNotNullAndEmpty(txtEmployeeAge.getText()) && util.isNumeric(txtEmployeeAge.getText())))
+                message = "Please enter valid age";
+            else if(!(util.isNotNullAndEmpty(txtEmployeePhone.getText()) && util.isNumeric(txtEmployeePhone.getText()) && txtEmployeePhone.getText().length()==10 ))
+                message = "Please enter valid phone";
+            else if(!(util.isNotNullAndEmpty(txtEmployeeUsername.getText()) && util.isAlphanumeric(txtEmployeeUsername.getText())))
+                message = "Please enter an alphanumeric username";
+            else if(!(util.isNotNullAndEmpty(txtEmployeeEmail.getText()) && util.isValidEmail(txtEmployeeEmail.getText())))
+                message="Please enter valid email";
+            if(!"".equals(message)){
+                JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             
             for(User user :this.userDaoImplementation.getUsers()){
             
                 if(user.getUsername().equalsIgnoreCase(txtEmployeeUsername.getText())){
-                JOptionPane.showMessageDialog(this, "UserName is already taken!!");
+                JOptionPane.showMessageDialog(this, "Username is already taken","Error", JOptionPane.ERROR_MESSAGE);
                 return;
                 }
             }

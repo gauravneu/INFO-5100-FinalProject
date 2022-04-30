@@ -229,9 +229,21 @@ public class NetworkMngt extends javax.swing.JPanel {
         try {
             String message = "";
             int newId = -1;
+            
             if (!(util.isNotNullAndEmpty(txtNetworkName.getText().trim()) && util.isAlphabetic(txtNetworkName.getText().trim()))) {
                 message = "Please enter a valid Network Name.";
+            }else{
+                List<Network> nl = this.networkDaoImplementation.getNetworks();
+                if (!nl.isEmpty()) {
+                    for (Network network : nl) {
+                        String net=network.getNetworkName().trim().toLowerCase();
+                        if (net.equals(txtNetworkName.getText().trim().toLowerCase())) {
+                            message = "Network already exist";
+                        }
+                    }
+                }
             }
+
             if (!"".equals(message)) {
                 JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -240,7 +252,7 @@ public class NetworkMngt extends javax.swing.JPanel {
             List<Network> nl = this.networkDaoImplementation.getNetworks();
             if (!nl.isEmpty()) {
                 for (Network network : nl) {
-                    if (network.getNetworkName().equalsIgnoreCase(txtNetworkName.getText().trim())) {
+                    if (network.getNetworkName().trim().equalsIgnoreCase(txtNetworkName.getText().trim())) {
                         JOptionPane.showMessageDialog(this, "Network already exist!");
                         return;
                     }
@@ -250,7 +262,7 @@ public class NetworkMngt extends javax.swing.JPanel {
 
             // TODO add your handling code here:
             newId = SimpleTools.getUnusedId("networks", 1000, 9999);
-            Network network = new Network(newId, txtNetworkName.getText().trim());
+            Network network = new Network(newId, txtNetworkName.getText());
             this.networkDaoImplementation.add(network);
             populateNetworksTable(this.networkDaoImplementation.getNetworks());
             JOptionPane.showMessageDialog(this, "Network Added Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);

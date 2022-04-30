@@ -4,12 +4,16 @@
  */
 package info.pkg5100.finalproject.ui;
 
+import info.pkg5100.finalproject.daos.LabRequestDaoImplementation;
 import info.pkg5100.finalproject.daos.PatientDaoImplementation;
+import info.pkg5100.finalproject.daos.PharmacyRequestDaoImplementation;
 import info.pkg5100.finalproject.daos.VitalSignsDaoImplementation;
+import info.pkg5100.finalproject.models.LabRequest;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.Patient;
+import info.pkg5100.finalproject.models.PharmacyRequest;
 import info.pkg5100.finalproject.models.User;
-
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -30,6 +34,9 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
     User currentUser;
     Organization currentOrganization;
     VitalSignsDaoImplementation vitalSignsDaoImplementation;
+    LabRequestDaoImplementation labRequestDaoImplementation;
+    PharmacyRequestDaoImplementation pharmacyRequestDaoImplementation;
+
     PatientDaoImplementation patientDaoImplementation;
 
     public HospitalDoctorPortal() {
@@ -44,6 +51,9 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         this.currentOrganization = currentOrganization;
         this.vitalSignsDaoImplementation = new VitalSignsDaoImplementation();
         this.patientDaoImplementation = new PatientDaoImplementation();
+        labRequestDaoImplementation = new LabRequestDaoImplementation();
+        pharmacyRequestDaoImplementation = new PharmacyRequestDaoImplementation();
+
         populateAvailablePatientsTable();
         populateAcceptedPatientsTable();
     }
@@ -258,10 +268,16 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
             
             if(vitalSignsDaoImplementation.getVitalSignsByPatientId(patient.getId()).isEmpty()){
-                JOptionPane.showConfirmDialog(this, "Can't Send patient for Investigation Without Checking Vitals");
+                JOptionPane.showMessageDialog(this, "Can't Send patient for Investigation Without Checking Vitals");
                 return;
             }
             
+            
+              if(checkIfLabRequestsOrPharmacyRequestsAreOpen(patient.getId()) == false){
+                JOptionPane.showMessageDialog(this, "Can't Send patient for Investigation Without getting all Lab And Pharmacy Results");
+                return;
+            }
+
             
             patient.setIsConvicted("investigation-requested");
 
@@ -334,6 +350,35 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
         }
     }
+    
+      private boolean checkIfLabRequestsOrPharmacyRequestsAreOpen(int patientId){
+        
+        boolean status = true;
+        
+        
+         try {
+             List<LabRequest> labl = this.labRequestDaoImplementation.getLabRequestsByPatientId(patientId);
+             List<PharmacyRequest> prl = this.pharmacyRequestDaoImplementation.getPharmacyRequestsByPatientId(patientId);
+             
+            
+                     
+             for(LabRequest l : labl){
+                 if(!(l.getRequestStatus().equals("test-done")))
+                     status = false;
+             }
+             
+             for(PharmacyRequest p : prl){
+                 if(!(p.getStatus().equals("request-done")))
+                     status = false;
+             }
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return status;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;

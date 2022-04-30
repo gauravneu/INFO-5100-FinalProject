@@ -87,7 +87,7 @@ public class EnterpriseMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "name", "location", "Type"
+                "Id", "Name", "Location", "Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -98,7 +98,6 @@ public class EnterpriseMngt extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblEnterpriseList.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblEnterpriseList);
 
         jLabel5.setText("Type");
@@ -190,19 +189,19 @@ public class EnterpriseMngt extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEnterpriseView)
-                .addGap(74, 74, 74)
+                .addGap(67, 67, 67)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtEnterpriseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(cmbBoxEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCreateEnterprise)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -218,21 +217,23 @@ public class EnterpriseMngt extends javax.swing.JPanel {
                 message = "Please enter a valid Enterprise Name";	
             } else if (!util.isNotNullAndEmpty(cmbBoxEnterpriseType.getSelectedItem().toString())) {	
                 message = "Please enter a Enterprise Type";	
+            }else{
+                 List<Enterprise> el = this.enterpriseDaoImplementation.getEnterprises();	
+                if (!el.isEmpty()) {	
+                    for (Enterprise enterprise : el) {	
+                        if (enterprise.getLocation().equals(this.currentNetwork.getNetworkName())	
+                                && enterprise.getType().equals(cmbBoxEnterpriseType.getSelectedItem().toString())) {	
+                            message =  "Enterprise already exists in Selected Network";	
+                        }	
+                    }	
+                }
+                
             }	
+
             if (!"".equals(message)) {	
                 JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);	
                 return;	
             }	
-            List<Enterprise> el = this.enterpriseDaoImplementation.getEnterprises();	
-            if (!el.isEmpty()) {	
-                for (Enterprise enterprise : el) {	
-                    if (enterprise.getLocation().equals(this.currentNetwork.getNetworkName())	
-                            && enterprise.getType().equals(cmbBoxEnterpriseType.getSelectedItem().toString())) {	
-                        JOptionPane.showMessageDialog(this, "Enterprise already exists in Selected Network!!");	
-                        return;	
-                    }	
-                }	
-            }
             int newId=SimpleTools.getUnusedId("enterprises", 1000, 9999);
             
             Enterprise enterprise = new Enterprise(newId, txtEnterpriseName.getText().trim(),this.currentNetwork.getNetworkName(), cmbBoxEnterpriseType.getSelectedItem().toString());

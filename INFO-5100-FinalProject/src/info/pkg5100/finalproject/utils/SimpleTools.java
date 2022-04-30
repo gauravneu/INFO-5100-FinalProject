@@ -1,6 +1,5 @@
 package info.pkg5100.finalproject.utils;
 
-import info.pkg5100.finalproject.models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

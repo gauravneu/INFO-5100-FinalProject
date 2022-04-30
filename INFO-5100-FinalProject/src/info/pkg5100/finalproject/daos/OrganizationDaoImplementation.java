@@ -1,6 +1,5 @@
 package info.pkg5100.finalproject.daos;
 
-import info.pkg5100.finalproject.models.Enterprise;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.utils.DatabaseConnection;
 

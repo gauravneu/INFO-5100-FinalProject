@@ -5,7 +5,6 @@
 package info.pkg5100.finalproject.daos;
 
 import static info.pkg5100.finalproject.daos.LabRequestDaoImplementation.con;
-import info.pkg5100.finalproject.models.LabRequest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

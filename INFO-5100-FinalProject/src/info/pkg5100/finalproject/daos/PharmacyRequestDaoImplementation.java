@@ -1,6 +1,5 @@
 package info.pkg5100.finalproject.daos;
 
-import info.pkg5100.finalproject.models.LabRequest;
 import info.pkg5100.finalproject.models.PharmacyRequest;
 import info.pkg5100.finalproject.utils.DatabaseConnection;
 

@@ -6,11 +6,9 @@ package info.pkg5100.finalproject.ui;
 
 import info.pkg5100.finalproject.daos.PatientDaoImplementation;
 import info.pkg5100.finalproject.daos.VitalSignsDaoImplementation;
-import info.pkg5100.finalproject.models.IncidentCase;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.Patient;
 import info.pkg5100.finalproject.models.User;
-import info.pkg5100.finalproject.models.VitalSigns;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

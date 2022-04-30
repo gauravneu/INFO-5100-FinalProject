@@ -414,7 +414,7 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
 
             for (User user : this.userDaoImplementation.getUsers()) {
 
-                if (user.getUsername().equalsIgnoreCase(txtEmployeeUsername.getText())) {
+                if (user.getUsername().equalsIgnoreCase(txtEmployeeUsername1.getText())) {
                     JOptionPane.showMessageDialog(this, "UserName is already taken!!");
                     return;
                 }

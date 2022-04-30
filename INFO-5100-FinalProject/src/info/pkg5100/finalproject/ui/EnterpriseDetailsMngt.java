@@ -222,22 +222,22 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
                                 .addGap(151, 151, 151)
                                 .addComponent(btnViewOrgDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblOrganizationType)
-                                    .addComponent(jLabel4))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(lblOrganizationType, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(69, 69, 69)
-                                .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtOrgName, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                    .addComponent(cmbOrganizationType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(btnBack))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(cmbOrganizationType, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(207, 207, 207)
-                            .addComponent(btnCreateOrg, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(126, 126, 126))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(btnCreateOrg, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel3, jLabel5, lblEnterpriseId, lblEnterpriseLocation, lblEnterpriseName});
@@ -277,13 +277,13 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrganizationType)
                     .addComponent(cmbOrganizationType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCreateOrg)
-                .addGap(24, 24, 24))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -313,21 +313,22 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
             String message = "";	
             if (!util.isNotNullAndEmpty(txtOrgName.getText().trim())) {	
                 message = "Please enter a valid Organization Name";	
+            }else{
+                 List<Organization> ol = this.organizationDaoImplementation.getOrganizationByEnterpriseTypeAndLocation(	
+                    this.currentEnterprise.getType().trim(), this.currentEnterprise.getLocation().trim());	
+            	
+            for (Organization organization : ol) {	
+                if(organization.getType().equals(cmbOrganizationType.getSelectedItem().toString())){	
+                    message="Organization already Exist in selected Enterprise";	
+                }	
+            }
             }	
             if (!"".equals(message)) {	
                 JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);	
                 return;	
             }	
             	
-            List<Organization> ol = this.organizationDaoImplementation.getOrganizationByEnterpriseTypeAndLocation(	
-                    this.currentEnterprise.getType().trim(), this.currentEnterprise.getLocation().trim());	
-            	
-            for (Organization organization : ol) {	
-                if(organization.getType().equals(cmbOrganizationType.getSelectedItem().toString())){	
-                    JOptionPane.showMessageDialog(this, "Organization already Exist!!");	
-                    return;	
-                }	
-            }
+           
             int newId = SimpleTools.getUnusedId("organizations", 1000, 9999);
             Organization organization = new Organization(newId,
                     txtOrgName.getText(),

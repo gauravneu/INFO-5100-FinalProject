@@ -140,7 +140,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblOrganizationList);
 
-        jLabel4.setText("Organization Name");
+        jLabel4.setText("Organization Name :");
 
         jLabel6.setBackground(new java.awt.Color(31, 75, 124));
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
@@ -185,7 +185,7 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
             }
         });
 
-        lblOrganizationType.setText("Organization Type:");
+        lblOrganizationType.setText("Organization Type :");
 
         cmbOrganizationType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -223,11 +223,11 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
                                 .addComponent(btnViewOrgDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
-                                        .addComponent(lblOrganizationType, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(69, 69, 69)
+                                        .addComponent(lblOrganizationType, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(37, 37, 37)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtOrgName, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                                     .addComponent(cmbOrganizationType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))

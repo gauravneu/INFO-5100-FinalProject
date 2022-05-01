@@ -336,14 +336,14 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblEmployeeList.getModel();
         model.setRowCount(0);
         for (User user : userList) {
-            if(user.getId() == this.currentUser.getId()){
+            
             Object[] row = new Object[4];
             row[0] = user;
             row[1] = user.getName();
             row[2] = user.getPhone();
             row[3] = user.getUsername();
             model.addRow(row);
-            }
+            
         }
     }
 

@@ -39,6 +39,7 @@ public class SystemReports extends javax.swing.JPanel {
         this.systemReportDaoImplementation=new SystemReportDaoImplementation();
         populateLocationBasedIncidents();
         populateLocationSpecificOrganizationEmpCount();
+        populateLocationSoecificPatientDeathCount();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,6 +54,7 @@ public class SystemReports extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         plotJPanel = new javax.swing.JPanel();
         pieplotJPanel = new javax.swing.JPanel();
+        plotJPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(858, 565));
@@ -80,11 +82,11 @@ public class SystemReports extends javax.swing.JPanel {
         plotJPanel.setLayout(plotJPanelLayout);
         plotJPanelLayout.setHorizontalGroup(
             plotJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 265, Short.MAX_VALUE)
         );
         plotJPanelLayout.setVerticalGroup(
             plotJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 224, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         pieplotJPanel.setMaximumSize(new java.awt.Dimension(1000, 900));
@@ -94,11 +96,24 @@ public class SystemReports extends javax.swing.JPanel {
         pieplotJPanel.setLayout(pieplotJPanelLayout);
         pieplotJPanelLayout.setHorizontalGroup(
             pieplotJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 724, Short.MAX_VALUE)
+            .addGap(0, 274, Short.MAX_VALUE)
         );
         pieplotJPanelLayout.setVerticalGroup(
             pieplotJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 195, Short.MAX_VALUE)
+            .addGap(0, 217, Short.MAX_VALUE)
+        );
+
+        plotJPanel2.setMaximumSize(new java.awt.Dimension(1000, 900));
+
+        javax.swing.GroupLayout plotJPanel2Layout = new javax.swing.GroupLayout(plotJPanel2);
+        plotJPanel2.setLayout(plotJPanel2Layout);
+        plotJPanel2Layout.setHorizontalGroup(
+            plotJPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 286, Short.MAX_VALUE)
+        );
+        plotJPanel2Layout.setVerticalGroup(
+            plotJPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 205, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -109,11 +124,15 @@ public class SystemReports extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(btnBack)
-                .addGap(130, 130, 130)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pieplotJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
-                    .addComponent(plotJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE))
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(plotJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addComponent(pieplotJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(plotJPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(260, 260, 260))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,11 +143,13 @@ public class SystemReports extends javax.swing.JPanel {
                         .addGap(14, 14, 14)
                         .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(pieplotJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(plotJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(698, 698, 698))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pieplotJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                            .addComponent(plotJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(plotJPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -160,7 +181,22 @@ public class SystemReports extends javax.swing.JPanel {
             for(String loc:datamap.keySet()){
                 for(String org:datamap.get(loc).keySet()){
                     dataset.addValue(datamap.get(loc).get(org),org,loc);
-                    barGraph(dataset,"Organizations","Location","Employee Count");
+                    barGraph(dataset,"Organizations","Location","Employee Count",plotJPanel);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemReports.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void populateLocationSoecificPatientDeathCount(){
+        try {
+            HashMap<String,HashMap<String,Integer>> datamap=this.systemReportDaoImplementation.getLocationSoecificPatientDeathCount();
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+            for(String loc:datamap.keySet()){
+                for(String org:datamap.get(loc).keySet()){
+                    dataset.addValue(datamap.get(loc).get(org),org,loc);
+                    barGraph(dataset,"Status","Location","Count",plotJPanel2);
                 }
             }
         } catch (SQLException ex) {
@@ -182,12 +218,13 @@ public class SystemReports extends javax.swing.JPanel {
         ChartPanel CP = new ChartPanel(chart);
         pieplotJPanel.add(CP,BorderLayout.CENTER);
         pieplotJPanel.validate();
-        pieplotJPanel.setBounds(10, 10, 200, 300);
-        
-        
+        pieplotJPanel.setBounds(10, 10, 600,400 );
+        CP.setBounds(pieplotJPanel.getVisibleRect());
+
+  
     }
     
-    private void barGraph(DefaultCategoryDataset dataset,String tHeader,String bHeader,String lHeader){
+    private void barGraph(DefaultCategoryDataset dataset,String tHeader,String bHeader,String lHeader,JPanel plotPanel){
 
         JFreeChart chart = ChartFactory.createBarChart3D(
         tHeader, // Title
@@ -199,12 +236,12 @@ public class SystemReports extends javax.swing.JPanel {
         true, // Use tooltips
         false // Configure chart to generate URLs?
      );
-        plotJPanel.removeAll();
-        plotJPanel.setLayout(new java.awt.BorderLayout());
+        plotPanel.removeAll();
+        plotPanel.setLayout(new java.awt.BorderLayout());
         ChartPanel CP = new ChartPanel(chart);
-        plotJPanel.add(CP,BorderLayout.CENTER);
-        plotJPanel.validate();
-        plotJPanel.setBounds(10, 10, 200, 300);
+        plotPanel.add(CP,BorderLayout.CENTER);
+        plotPanel.validate();
+        CP.setBounds(plotPanel.getVisibleRect());
         
     }
 
@@ -213,5 +250,6 @@ public class SystemReports extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel pieplotJPanel;
     private javax.swing.JPanel plotJPanel;
+    private javax.swing.JPanel plotJPanel2;
     // End of variables declaration//GEN-END:variables
 }

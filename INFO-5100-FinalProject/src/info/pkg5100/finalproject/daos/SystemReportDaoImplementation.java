@@ -31,18 +31,38 @@ public class SystemReportDaoImplementation implements SystemReportDao{
 
     @Override
     public HashMap<String, HashMap<String, Integer>> getEmpCountLocationSpecificOrganization() throws SQLException {
-        String query="Select o.location,o.name,count(*) as empcount from \n" +
-                    "organizations o left join users u\n" +
+        String query="Select o.enterprisetype,o.location,count(*) as empcount from \n" +
+                      "organizations o left join users u\n" +
                     " on o.id=u.orgid\n" +
-                    "group by o.name,o.location;";
+                    "group by o.enterprisetype,o.location\n" +
+                    "order by location";
+       PreparedStatement ps
+                = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        HashMap<String, HashMap<String, Integer>> map= new HashMap<>();
+        while(rs.next()){
+            map.put(rs.getString("location"), new HashMap<String, Integer>() {
+            {
+                put(rs.getString("enterprisetype"),rs.getInt("empcount"));
+            }
+        });
+        }
+        return map; 
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, Integer>> getLocationSoecificPatientDeathCount() throws SQLException {
+     String query="SELECT location, status, count(*) as count FROM patients group by status, location order by location";
         PreparedStatement ps
                 = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         HashMap<String, HashMap<String, Integer>> map= new HashMap<>();
-        HashMap<String, Integer> sub=new HashMap<>();
         while(rs.next()){
-            sub.put(rs.getString("name"),rs.getInt("empcount"));
-            map.put(rs.getString("location"), sub);
+            map.put(rs.getString("location"), new HashMap<String, Integer>() {
+            {
+                put(rs.getString("status"),rs.getInt("count"));
+            }
+        });
         }
         return map;    
     }

@@ -377,6 +377,8 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
             this.patientDaoImplementation.add(patient);
             
             populateImpactedPatientTable(this.patientDaoImplementation.getPatientsByIncidentCaseId(this.currentIncidentCase.getId()));
+            JOptionPane.showMessageDialog(this, "Patient Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+            clearFields();
         } catch (SQLException ex) {
             Logger.getLogger(IncidentDetailsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -451,4 +453,10 @@ public class IncidentDetailsMngt extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
     // End of variables declaration//GEN-END:variables
+
+    private void clearFields() {
+        txtName.setText(null);
+        txtAge.setText(null);
+        txtPhoneNumber.setText(null);
+    }
 }

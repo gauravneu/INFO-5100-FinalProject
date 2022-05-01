@@ -275,15 +275,15 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtOrgAdminName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtOrgAdminAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtOrgAdminPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtOrgAdminUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -293,7 +293,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
                     .addComponent(txtOrgAdminEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAddOrgAdim)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel10, jLabel11, jLabel7, jLabel8, jLabel9, txtOrgAdminAge, txtOrgAdminEmail, txtOrgAdminName, txtOrgAdminPhone, txtOrgAdminUsername});
@@ -313,7 +313,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
             else if(!(util.isNotNullAndEmpty(txtOrgAdminUsername.getText()) && util.isAlphanumeric(txtOrgAdminUsername.getText())))
                 message = "Please enter an alphanumeric username";
             else if(!(util.isNotNullAndEmpty(txtOrgAdminEmail.getText()) && util.isValidEmail(txtOrgAdminEmail.getText())))
-                message = "Please enter valid Email";
+                message = "Please enter valid email";
             if(!"".equals(message)){
                 JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -342,6 +342,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
             user.setEmail(txtOrgAdminEmail.getText());
             this.sendEmailUtility.sendMail(user);
             JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+            clearFields();
         } catch (SQLException ex) {
             Logger.getLogger(OrganizationDetailsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -397,4 +398,12 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
     private javax.swing.JTextField txtOrgAdminPhone;
     private javax.swing.JTextField txtOrgAdminUsername;
     // End of variables declaration//GEN-END:variables
+
+    private void clearFields() {
+        txtOrgAdminUsername.setText(null);
+        txtOrgAdminName.setText(null);
+        txtOrgAdminAge.setText(null);
+        txtOrgAdminPhone.setText(null);
+        txtOrgAdminEmail.setText(null);
+    }
 }

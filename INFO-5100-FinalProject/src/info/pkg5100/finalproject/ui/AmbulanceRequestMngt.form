@@ -72,10 +72,8 @@
                       <Component id="btnAcceptRequest" min="-2" pref="117" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="417" max="-2" attributes="0"/>
                       <Component id="btnSendRequestToHospitals" min="-2" pref="158" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                      <Component id="btnCompleteRequest" min="-2" pref="158" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="194" max="32767" attributes="0"/>
@@ -119,12 +117,9 @@
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="178" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCompleteRequest" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnSendRequestToHospitals" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnSendRequestToHospitals" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -299,17 +294,6 @@
     <Component class="javax.swing.JLabel" name="lblEmpId">
       <Properties>
         <Property name="text" type="java.lang.String" value="emp_id_placeholder"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnCompleteRequest">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="7c" green="4b" red="1f" type="rgb"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Complete request"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSendRequestToHospitals">

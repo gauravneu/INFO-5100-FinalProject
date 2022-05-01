@@ -74,7 +74,6 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         lblEmpName = new javax.swing.JLabel();
         lblEmpRole = new javax.swing.JLabel();
         lblEmpId = new javax.swing.JLabel();
-        btnCompleteRequest = new javax.swing.JButton();
         btnSendRequestToHospitals = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -130,10 +129,6 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
         lblEmpRole.setText("emp_role_placeholder");
 
         lblEmpId.setText("emp_id_placeholder");
-
-        btnCompleteRequest.setBackground(new java.awt.Color(31, 75, 124));
-        btnCompleteRequest.setForeground(new java.awt.Color(255, 255, 255));
-        btnCompleteRequest.setText("Complete request");
 
         btnSendRequestToHospitals.setBackground(new java.awt.Color(31, 75, 124));
         btnSendRequestToHospitals.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,10 +190,8 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                         .addGap(248, 248, 248)
                         .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(btnSendRequestToHospitals, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
-                        .addComponent(btnCompleteRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(417, 417, 417)
+                        .addComponent(btnSendRequestToHospitals, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(194, Short.MAX_VALUE))
         );
 
@@ -235,11 +228,9 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCompleteRequest)
-                    .addComponent(btnSendRequestToHospitals))
-                .addGap(26, 26, 26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSendRequestToHospitals)
+                .addGap(33, 33, 33))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -398,7 +389,6 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
-    private javax.swing.JButton btnCompleteRequest;
     private javax.swing.JButton btnSendRequestToHospitals;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

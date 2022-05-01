@@ -27,26 +27,28 @@ public class PharmacyRequestsMngt extends javax.swing.JPanel {
     User currentUser;
     Organization currentOrganization;
     JPanel mainWorkJPanel;
-
+    
     PatientDaoImplementation patientDaoImplementation;
     OrganizationDaoImplementation organizationDaoImplementation;
     PharmacyRequestDaoImplementation pharmacyRequestDaoImplementation;
-
+    
     public PharmacyRequestsMngt() {
         initComponents();
     }
-
+    
     public PharmacyRequestsMngt(JPanel mainWorkJPanel, User currentUser, Organization currentOrganization) {
         initComponents();
-
+        
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentUser = currentUser;
         this.currentOrganization = currentOrganization;
-
+        
         this.patientDaoImplementation = new PatientDaoImplementation();
         this.organizationDaoImplementation = new OrganizationDaoImplementation();
         this.pharmacyRequestDaoImplementation = new PharmacyRequestDaoImplementation();
-
+        lblPharmEmpId.setText(String.valueOf(currentUser.getId()));
+        lblPharmEmpName.setText(currentUser.getName());
+        lblPharmEmpPhone.setText(currentUser.getPhone());
         populateAvailablePharmacyRequests();
         populateAcceptedPharmacyRequests();
     }
@@ -76,7 +78,6 @@ public class PharmacyRequestsMngt extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         btnAcceptRequest = new javax.swing.JButton();
         btnUpdatePharmRequest = new javax.swing.JButton();
-        btnCompleteRequest = new javax.swing.JButton();
 
         lblPharmacyEmployeeName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblPharmacyEmployeeName.setText("Pharmacy Employee Name :");
@@ -150,15 +151,6 @@ public class PharmacyRequestsMngt extends javax.swing.JPanel {
             }
         });
 
-        btnCompleteRequest.setBackground(new java.awt.Color(31, 75, 124));
-        btnCompleteRequest.setForeground(new java.awt.Color(255, 255, 255));
-        btnCompleteRequest.setText("Complete Request");
-        btnCompleteRequest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCompleteRequestActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,12 +164,10 @@ public class PharmacyRequestsMngt extends javax.swing.JPanel {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
+                        .addGap(208, 208, 208)
                         .addComponent(txtPharmResult, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(btnUpdatePharmRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(btnCompleteRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(146, 146, 146)
+                        .addComponent(btnUpdatePharmRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +223,6 @@ public class PharmacyRequestsMngt extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdatePharmRequest)
-                    .addComponent(btnCompleteRequest)
                     .addComponent(txtPharmResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
@@ -244,25 +233,23 @@ public class PharmacyRequestsMngt extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPharmResultActionPerformed
 
     private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequestActionPerformed
-try {
+        try {
             // TODO add your handling code here:
             int selectedRowIndex = tblAvailablePharmRequests.getSelectedRow();
             if (selectedRowIndex < 0) {
                 JOptionPane.showMessageDialog(this, "Please select a record.");
                 return;
             }
-
+            
             DefaultTableModel model = (DefaultTableModel) tblAvailablePharmRequests.getModel();
             PharmacyRequest pharmacyRequest = (PharmacyRequest) model.getValueAt(selectedRowIndex, 0);
-
-            
             
             pharmacyRequest.setEmployeeid(this.currentUser.getId());
             pharmacyRequest.setStatus("request-in-process");
             this.pharmacyRequestDaoImplementation.update(pharmacyRequest);
             populateAvailablePharmacyRequests();
             populateAcceptedPharmacyRequests();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(PharmacyRequestsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }        
@@ -271,6 +258,11 @@ try {
     private void btnUpdatePharmRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePharmRequestActionPerformed
         // TODO add your handling code here:
         
+        if (txtPharmResult.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Please fill the Response.");
+            return;
+        }
+        
         try {
             // TODO add your handling code here:
             int selectedRowIndex = tblAcceptedPharmRequests.getSelectedRow();
@@ -278,7 +270,7 @@ try {
                 JOptionPane.showMessageDialog(this, "Please select a record.");
                 return;
             }
-
+            
             DefaultTableModel model = (DefaultTableModel) tblAcceptedPharmRequests.getModel();
             PharmacyRequest pharmacyRequest = (PharmacyRequest) model.getValueAt(selectedRowIndex, 0);
             
@@ -287,22 +279,18 @@ try {
             this.pharmacyRequestDaoImplementation.update(pharmacyRequest);
             populateAvailablePharmacyRequests();
             populateAcceptedPharmacyRequests();
-
+            txtPharmResult.setText("");
         } catch (SQLException ex) {
             Logger.getLogger(PharmacyRequestsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnUpdatePharmRequestActionPerformed
-
-    private void btnCompleteRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteRequestActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCompleteRequestActionPerformed
-
+    
     void populateAvailablePharmacyRequests() {
         DefaultTableModel model = (DefaultTableModel) tblAvailablePharmRequests.getModel();
         model.setRowCount(0);
         try {
             for (PharmacyRequest pharmacyRequest : this.pharmacyRequestDaoImplementation.getPharmacyRequestsByStatus("drug-requested")) {
-
+                
                 if (pharmacyRequest.getNetwork().equals(this.currentOrganization.getLocation())) {
                     Object[] row = new Object[5];
                     row[0] = pharmacyRequest;
@@ -310,16 +298,16 @@ try {
                     row[2] = pharmacyRequest.getPharmacyResponse();
                     row[3] = pharmacyRequest.getStatus();
                     row[4] = pharmacyRequest.getPatientId();
-
+                    
                     model.addRow(row);
                 }
-
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(PharmacyRequestsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     void populateAcceptedPharmacyRequests() {
         DefaultTableModel model = (DefaultTableModel) tblAcceptedPharmRequests.getModel();
         model.setRowCount(0);
@@ -339,12 +327,11 @@ try {
         } catch (SQLException ex) {
             Logger.getLogger(PharmacyRequestsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
-    private javax.swing.JButton btnCompleteRequest;
     private javax.swing.JButton btnUpdatePharmRequest;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

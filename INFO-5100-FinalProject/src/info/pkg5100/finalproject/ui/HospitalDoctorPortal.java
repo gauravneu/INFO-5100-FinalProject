@@ -92,7 +92,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "name", "issue", "status"
+                "id", "name", "status"
             }
         ));
         jScrollPane2.setViewportView(tblPatientRequest);
@@ -105,14 +105,14 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "name", "issue", "status"
+                "id", "name", "status"
             }
         ));
         jScrollPane3.setViewportView(tblAcceptedPatient);
 
         btnViewAcceptedPatient.setBackground(new java.awt.Color(31, 75, 124));
         btnViewAcceptedPatient.setForeground(new java.awt.Color(255, 255, 255));
-        btnViewAcceptedPatient.setText("View");
+        btnViewAcceptedPatient.setText("Requests");
         btnViewAcceptedPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewAcceptedPatientActionPerformed(evt);
@@ -137,7 +137,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
         btnSendForInvestigation.setBackground(new java.awt.Color(31, 75, 124));
         btnSendForInvestigation.setForeground(new java.awt.Color(255, 255, 255));
-        btnSendForInvestigation.setText("Send For Investigation");
+        btnSendForInvestigation.setText("Investigation");
         btnSendForInvestigation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSendForInvestigationActionPerformed(evt);
@@ -194,8 +194,8 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                                 .addGap(95, 95, 95)
                                 .addComponent(btnViewAcceptedPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(59, 59, 59)
-                                .addComponent(btnSendForInvestigation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
+                                .addComponent(btnSendForInvestigation)
+                                .addGap(47, 47, 47)
                                 .addComponent(btnAddVitalSigns, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(30, 30, 30)
                         .addComponent(btnDeclareDead, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -392,11 +392,10 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                 this.currentUser.getHospitalid(), this.currentUser.getId())) {
 
             if (("".equals(patient.getIsConvicted())) && (patient.getPatientStatus().equals("rescued"))) { //to ensure patient is not sent for investigation
-                Object[] row = new Object[4];
+                Object[] row = new Object[3];
                 row[0] = patient;
                 row[1] = patient.getName();
-                row[2] = patient.getPatientIssue();
-                row[3] = patient.getPatientStatus();
+                row[2] = patient.getPatientStatus();
 
                 model.addRow(row);
             }
@@ -408,13 +407,12 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentUser.getHospitalid())) {
-            // -1 means doctor is not assigned yet and is available for picking up by a doctor
+          
             if ((patient.getDoctorId() == -1) && (patient.getPatientStatus().equals("rescued"))) {
-                Object[] row = new Object[4];
+                Object[] row = new Object[3];
                 row[0] = patient;
                 row[1] = patient.getName();
-                row[2] = patient.getPatientIssue();
-                row[3] = patient.getPatientStatus();
+                row[2] = patient.getPatientStatus();
 
                 model.addRow(row);
             }
@@ -454,7 +452,8 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
         try {
             for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentUser.getHospitalid())) {          
-                if (patient.getDoctorId() == this.currentUser.getId() && (patient.getPatientStatus().equals("rescued"))) {
+                if (patient.getDoctorId() == this.currentUser.getId() && (patient.getPatientStatus().equals("rescued")) 
+                        && ("".equals(patient.getIsConvicted()))) {
                     count++;
                 }
             }

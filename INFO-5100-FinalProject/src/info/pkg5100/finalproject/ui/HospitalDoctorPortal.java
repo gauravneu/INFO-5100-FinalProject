@@ -78,6 +78,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         btnAcceptRequest = new javax.swing.JButton();
         btnSendForInvestigation = new javax.swing.JButton();
         btnAddVitalSigns = new javax.swing.JButton();
+        btnDeclareDead = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -150,6 +151,15 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
             }
         });
 
+        btnDeclareDead.setBackground(new java.awt.Color(31, 75, 124));
+        btnDeclareDead.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeclareDead.setText("Declare Dead");
+        btnDeclareDead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeclareDeadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,19 +173,22 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(183, 183, 183)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnViewAcceptedPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(btnSendForInvestigation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(btnAddVitalSigns, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(jLabel1))
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(btnViewAcceptedPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(btnSendForInvestigation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnAddVitalSigns, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnDeclareDead, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +208,8 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnViewAcceptedPatient)
                     .addComponent(btnSendForInvestigation)
-                    .addComponent(btnAddVitalSigns))
+                    .addComponent(btnAddVitalSigns)
+                    .addComponent(btnDeclareDead))
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -219,6 +233,12 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewAcceptedPatientActionPerformed
 
     private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequestActionPerformed
+        
+        if (numberOfPatientsAssignedToCurrentDoctor() >= 2){
+            JOptionPane.showMessageDialog(this, "Already Checking 2 Patients!!");
+            return;
+        }
+        
         try {
             // TODO add your handling code here:
             int selectedRowIndex = tblPatientRequest.getSelectedRow();
@@ -250,35 +270,27 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         try {
-            
+
             int selectedRowIndex = tblAcceptedPatient.getSelectedRow();
             if (selectedRowIndex < 0) {
                 JOptionPane.showMessageDialog(this, "Please select a patient.");
                 return;
             }
-            
-            
-            
-            
-            // TODO add your handling code here:
-            
 
+            // TODO add your handling code here:
             DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
             Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
 
-            
-            if(vitalSignsDaoImplementation.getVitalSignsByPatientId(patient.getId()).isEmpty()){
+            if (vitalSignsDaoImplementation.getVitalSignsByPatientId(patient.getId()).isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Can't Send patient for Investigation Without Checking Vitals");
                 return;
             }
-            
-            
-              if(checkIfLabRequestsOrPharmacyRequestsAreOpen(patient.getId()) == false){
+
+            if (checkIfLabRequestsOrPharmacyRequestsAreOpen(patient.getId()) == false) {
                 JOptionPane.showMessageDialog(this, "Can't Send patient for Investigation Without getting all Lab And Pharmacy Results");
                 return;
             }
 
-            
             patient.setIsConvicted("investigation-requested");
 
             try {
@@ -312,15 +324,44 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         layout.next(mainWorkJPanel);
     }//GEN-LAST:event_btnAddVitalSignsActionPerformed
 
+    private void btnDeclareDeadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclareDeadActionPerformed
+        // TODO add your handling code here:
+
+        try {
+
+            int selectedRowIndex = tblAcceptedPatient.getSelectedRow();
+            if (selectedRowIndex < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a patient.");
+                return;
+            }
+
+            // TODO add your handling code here:
+            DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
+            Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+            patient.setPatientStatus("dead");
+            patient.setDoctorId(-1);
+
+            try {
+                this.patientDaoImplementation.update(patient);
+            } catch (SQLException ex) {
+                Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            populateAvailablePatientsTable();
+            populateAcceptedPatientsTable();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDeclareDeadActionPerformed
+
     void populateAcceptedPatientsTable() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
         model.setRowCount(0);
 
         for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalIdAndDoctorId(
                 this.currentUser.getHospitalid(), this.currentUser.getId())) {
-            
 
-            if (("".equals(patient.getIsConvicted()))) { //to ensure patient is not sent for investigation
+            if (("".equals(patient.getIsConvicted())) && (patient.getPatientStatus().equals("rescued"))) { //to ensure patient is not sent for investigation
                 Object[] row = new Object[4];
                 row[0] = patient;
                 row[1] = patient.getName();
@@ -338,7 +379,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
         for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentUser.getHospitalid())) {
             // -1 means doctor is not assigned yet and is available for picking up by a doctor
-            if (patient.getDoctorId() == -1) {
+            if ((patient.getDoctorId() == -1) && (patient.getPatientStatus().equals("rescued"))) {
                 Object[] row = new Object[4];
                 row[0] = patient;
                 row[1] = patient.getName();
@@ -350,39 +391,54 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
         }
     }
-    
-      private boolean checkIfLabRequestsOrPharmacyRequestsAreOpen(int patientId){
-        
+
+    private boolean checkIfLabRequestsOrPharmacyRequestsAreOpen(int patientId) {
+
         boolean status = true;
-        
-        
-         try {
-             List<LabRequest> labl = this.labRequestDaoImplementation.getLabRequestsByPatientId(patientId);
-             List<PharmacyRequest> prl = this.pharmacyRequestDaoImplementation.getPharmacyRequestsByPatientId(patientId);
-             
-            
-                     
-             for(LabRequest l : labl){
-                 if(!(l.getRequestStatus().equals("test-done")))
-                     status = false;
-             }
-             
-             for(PharmacyRequest p : prl){
-                 if(!(p.getStatus().equals("request-done")))
-                     status = false;
-             }
-             
+
+        try {
+            List<LabRequest> labl = this.labRequestDaoImplementation.getLabRequestsByPatientId(patientId);
+            List<PharmacyRequest> prl = this.pharmacyRequestDaoImplementation.getPharmacyRequestsByPatientId(patientId);
+
+            for (LabRequest l : labl) {
+                if (!(l.getRequestStatus().equals("test-done"))) {
+                    status = false;
+                }
+            }
+
+            for (PharmacyRequest p : prl) {
+                if (!(p.getStatus().equals("request-done"))) {
+                    status = false;
+                }
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return status;
+    }
+
+    int numberOfPatientsAssignedToCurrentDoctor() {
+        int count = 0;
+
+        try {
+            for (Patient patient : this.patientDaoImplementation.getPatientsByHospitalId(this.currentUser.getHospitalid())) {          
+                if (patient.getDoctorId() == this.currentUser.getId() && (patient.getPatientStatus().equals("rescued"))) {
+                    count++;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
     private javax.swing.JButton btnAddVitalSigns;
+    private javax.swing.JButton btnDeclareDead;
     private javax.swing.JButton btnSendForInvestigation;
     private javax.swing.JButton btnViewAcceptedPatient;
     private javax.swing.JLabel jLabel1;

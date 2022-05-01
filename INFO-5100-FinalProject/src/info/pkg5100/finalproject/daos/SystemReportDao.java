@@ -6,6 +6,7 @@ package info.pkg5100.finalproject.daos;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -14,6 +15,6 @@ import java.util.HashMap;
 public interface SystemReportDao {
     public HashMap<String,Integer> getReportIncidentCountWithLocation()
             throws SQLException; 
-    public HashMap<String,HashMap<String,Integer>> getEmpCountLocationSpecificOrganization()
+    public Map<String,Map<String,Integer>> getEmpCountLocationSpecificOrganization()
             throws SQLException; 
 }

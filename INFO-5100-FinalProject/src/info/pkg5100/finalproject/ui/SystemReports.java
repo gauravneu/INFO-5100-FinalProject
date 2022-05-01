@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -155,8 +156,9 @@ public class SystemReports extends javax.swing.JPanel {
     
     private void populateLocationSpecificOrganizationEmpCount(){
         try {
-            HashMap<String,HashMap<String,Integer>> datamap=this.systemReportDaoImplementation.getEmpCountLocationSpecificOrganization();
+            Map<String,Map<String,Integer>> datamap=this.systemReportDaoImplementation.getEmpCountLocationSpecificOrganization();
             DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+            
             for(String loc:datamap.keySet()){
                 for(String org:datamap.get(loc).keySet()){
                     dataset.addValue(datamap.get(loc).get(org),org,loc);

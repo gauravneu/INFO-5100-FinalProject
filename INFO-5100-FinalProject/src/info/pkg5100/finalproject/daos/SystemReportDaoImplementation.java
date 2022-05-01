@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -30,7 +32,7 @@ public class SystemReportDaoImplementation implements SystemReportDao{
     }
 
     @Override
-    public HashMap<String, HashMap<String, Integer>> getEmpCountLocationSpecificOrganization() throws SQLException {
+    public Map<String, Map<String, Integer>> getEmpCountLocationSpecificOrganization() throws SQLException {
         String query="Select o.location,o.name,count(*) as empcount from \n" +
                     "organizations o left join users u\n" +
                     " on o.id=u.orgid\n" +
@@ -38,12 +40,21 @@ public class SystemReportDaoImplementation implements SystemReportDao{
         PreparedStatement ps
                 = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        HashMap<String, HashMap<String, Integer>> map= new HashMap<>();
-        HashMap<String, Integer> sub=new HashMap<>();
+        HashMap<String, Map<String, Integer>> map= new HashMap<>();
+        
         while(rs.next()){
-            sub.put(rs.getString("name"),rs.getInt("empcount"));
-            map.put(rs.getString("location"), sub);
+            
+            if(map.containsKey(rs.getString("location"))){
+                map.get(rs.getString("location")).put(rs.getString("name"),rs.getInt("empcount"));
+            }
+            else{
+                Map<String, Integer> sub=new TreeMap<>();
+                sub.put(rs.getString("name"),rs.getInt("empcount"));
+                map.put(rs.getString("location"), sub);
+            }
+           
         }
+ 
         return map;    
     }
     

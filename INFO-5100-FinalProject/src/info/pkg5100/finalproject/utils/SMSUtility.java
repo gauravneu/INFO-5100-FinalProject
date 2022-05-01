@@ -12,12 +12,45 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 /**
  *
  * @author hazel
  */
 public class SMSUtility {
+
+	public String sendSms() {
+		try {
+			// Construct data
+			String apiKey = "apikey=" + "NzczNTc2NzM2YzZhNDI0NDM0NTA2NjM3NTAzNDc4NWE=";
+			String message = "&message=" + "Hello";
+			String numbers = "&numbers=" + "18573619372";
+
+			// Send data
+			HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
+			String data = apiKey + numbers + message;
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
+			conn.getOutputStream().write(data.getBytes("UTF-8"));
+			final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			final StringBuffer stringBuffer = new StringBuffer();
+			String line;
+			while ((line = rd.readLine()) != null) {
+				stringBuffer.append(line);
+			}
+			rd.close();
+                        System.out.println(stringBuffer.toString());
+			return stringBuffer.toString();
+		} catch (Exception e) {
+			System.out.println("Error SMS "+e);
+			return "Error "+e;
+		}
+	}
+
 
     private void sendTextMessage() {
         String to = "16176524983";
@@ -77,6 +110,6 @@ public class SMSUtility {
         }
     
     public static void main(String[] args) {
-        new SMSUtility().sendTextMessage();
+        new SMSUtility().sendSms();
     }
 }

@@ -11,6 +11,7 @@ import info.pkg5100.finalproject.models.LabRequest;
 import info.pkg5100.finalproject.models.Patient;
 import info.pkg5100.finalproject.models.PharmacyRequest;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import info.pkg5100.finalproject.utils.Validator;
 import java.awt.CardLayout;
 
 import javax.swing.*;
@@ -33,6 +34,7 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
     PatientDaoImplementation patientDaoImplementation;
     LabRequestDaoImplementation labRequestDaoImplementationl;
     PharmacyRequestDaoImplementation pharmacyRequestDaoImplementation;
+    Validator util;
 
     public HospitalPatientPortal() {
         initComponents();
@@ -47,6 +49,8 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
         this.patientDaoImplementation = new PatientDaoImplementation();
         this.labRequestDaoImplementationl = new LabRequestDaoImplementation();
         this.pharmacyRequestDaoImplementation = new PharmacyRequestDaoImplementation();
+        this.util=new Validator();
+        populatePatientInformation(this.currentPatient);
         populateLabRequestsTable();
         populatePharmacyRequestsTable();
     }
@@ -267,6 +271,13 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
 
     private void btnCreateLabRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateLabRequestActionPerformed
         try {
+            String message = "";	
+            if (!util.isNotNullAndEmpty(txtLabRequest.getText().trim())) {	
+                message = "Please enter a valid lab request";
+                JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+                return;	
+
+            }	
             int newId = SimpleTools.getUnusedId("labrequests", 1000, 9999);
 
             LabRequest labRequest = new LabRequest(newId, currentPatient.getId(), "test-requested", txtLabRequest.getText(), "", -1, currentPatient.getLocation(), -1);
@@ -274,8 +285,8 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
             patient.setLabRequested("true");
             this.patientDaoImplementation.update(patient);
             this.labRequestDaoImplementationl.add(labRequest);
-
             populateLabRequestsTable();
+            txtLabRequest.setText(null);
         } catch (SQLException ex) {
             Logger.getLogger(HospitalPatientPortal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,6 +295,13 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
     private void btnCreatePrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatePrescriptionActionPerformed
         // TODO add your handling code here:
           try {
+            String message = "";	
+            if (!util.isNotNullAndEmpty(txtLabRequest.getText().trim())) {	
+                message = "Please enter a valid prescription";
+                JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+                return;	
+
+            }	
             int newId = SimpleTools.getUnusedId("pharmacy", 1000, 9999);
 
             PharmacyRequest pharmacyRequest = new PharmacyRequest(newId, currentPatient.getId(), txtPharmacyRequest.getText(), "drug-requested", -1, currentPatient.getLocation(), -1, "");
@@ -291,8 +309,8 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
             patient.setPharmacyRequested("true");
             this.patientDaoImplementation.update(patient);
             this.pharmacyRequestDaoImplementation.add(pharmacyRequest);
-
             populatePharmacyRequestsTable();
+            txtPharmacyRequest.setText(null);
         } catch (SQLException ex) {
             Logger.getLogger(HospitalPatientPortal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -369,4 +387,11 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
     private javax.swing.JTextField txtLabRequest;
     private javax.swing.JTextField txtPharmacyRequest;
     // End of variables declaration//GEN-END:variables
+
+    private void populatePatientInformation(Patient currentPatient) {
+        lblPatientName.setText(currentPatient.getName());
+        lblPatientAge.setText(currentPatient.getAge());
+        lblPatientPhone.setText(currentPatient.getPhoneNumber());
+        lblPatientStatus.setText(currentPatient.getPatientStatus());
+    }
 }

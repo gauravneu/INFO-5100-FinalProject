@@ -21,86 +21,92 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jLabel6" alignment="0" pref="1061" max="32767" attributes="0"/>
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblPatientStatus" min="-2" pref="160" max="-2" attributes="0"/>
-                                  <Component id="lblPatientAge" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                                  <Component id="lblPatientPhone" min="-2" pref="160" max="-2" attributes="0"/>
-                                  <Component id="lblPatientName" alignment="0" min="-2" pref="173" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblOxygenSaturation" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblBloodPressure" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblGlucoseLevel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblBodyTemp" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblRespirationRate" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPainLevel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jcbBloodPressure" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jcbOxygenSaturation" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcbPainLevel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcbRespirationRate" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcbBodyTemp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcbGlucoseLevel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="868" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="381" max="-2" attributes="0"/>
-                      <Component id="lblVitalSigns" min="-2" pref="134" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnBack" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="btnAddVital2" min="-2" pref="114" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                      <Component id="btnAddVital1" min="-2" pref="114" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="434" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-          </Group>
+          <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="btnAddVital" min="-2" pref="114" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="324" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="868" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="331" max="-2" attributes="0"/>
+                      <Component id="btnAddVital2" min="-2" pref="114" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="btnAddVital1" min="-2" pref="114" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblPatientStatus" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <Component id="lblPatientAge" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <Component id="lblPatientPhone" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <Component id="lblPatientName" alignment="0" min="-2" pref="173" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblOxygenSaturation" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblBloodPressure" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblGlucoseLevel" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblBodyTemp" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRespirationRate" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblPainLevel" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jcbBloodPressure" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jcbOxygenSaturation" linkSize="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbPainLevel" linkSize="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbRespirationRate" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbBodyTemp" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbGlucoseLevel" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="btnBack" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="378" max="-2" attributes="0"/>
+                      <Component id="lblVitalSigns" min="-2" pref="134" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -117,7 +123,7 @@
                           <Component id="jcbBloodPressure" min="-2" max="-2" attributes="0"/>
                           <Component id="lblBloodPressure" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="lblOxygenSaturation" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
@@ -125,21 +131,21 @@
                                   <Component id="jcbGlucoseLevel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblGlucoseLevel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jcbBodyTemp" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblBodyTemp" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jcbRespirationRate" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblRespirationRate" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Component id="jcbOxygenSaturation" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblPainLevel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jcbPainLevel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -170,18 +176,18 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnAddVital" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="lblVitalSigns" min="-2" pref="32" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="173" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAddVital2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAddVital1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

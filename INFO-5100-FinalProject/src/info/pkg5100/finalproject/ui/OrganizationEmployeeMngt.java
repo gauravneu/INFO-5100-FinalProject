@@ -295,7 +295,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
             
             for(User user :this.userDaoImplementation.getUsers()){
             
-                if(user.getUsername().equalsIgnoreCase(txtEmployeeUsername.getText())){
+                if((user.getUsername().trim()).equalsIgnoreCase(txtEmployeeUsername.getText().trim())){
                 JOptionPane.showMessageDialog(this, "Username is already taken","Error", JOptionPane.ERROR_MESSAGE);
                 return;
                 }
@@ -312,10 +312,10 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
                     this.currentOrganization.getId(),
             -1);
             
-            this.userDaoImplementation.add(newEmployee);
             newEmployee.setEmail(txtEmployeeEmail.getText());
-            populateEmployeeTable(this.userDaoImplementation.getEmployeesByOrgId(this.currentOrganization.getId()));
             sendEmailUtility.sendMail(newEmployee);
+            this.userDaoImplementation.add(newEmployee);
+            populateEmployeeTable(this.userDaoImplementation.getEmployeesByOrgId(this.currentOrganization.getId()));
             JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
             clearField();
         } catch (SQLException ex) {

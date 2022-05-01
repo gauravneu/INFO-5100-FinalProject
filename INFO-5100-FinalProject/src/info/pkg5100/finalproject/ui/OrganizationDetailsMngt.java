@@ -338,11 +338,13 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
             -1);
             
             user.setEmail(txtOrgAdminEmail.getText());
-            this.sendEmailUtility.sendMail(user);
-            this.userDaoImplementation.add(user);
-            populateUserTable(this.userDaoImplementation.getUsersByOrgIdAndRole(this.currentOrganization.getId(), "orgadmin"));
-            JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
-            clearFields();
+            int res= this.sendEmailUtility.sendMail(user);
+            if(res==1){
+                this.userDaoImplementation.add(user);
+                populateUserTable(this.userDaoImplementation.getUsersByOrgIdAndRole(this.currentOrganization.getId(), "orgadmin"));
+                JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+                clearFields();
+            }    
         } catch (SQLException ex) {
             Logger.getLogger(OrganizationDetailsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }

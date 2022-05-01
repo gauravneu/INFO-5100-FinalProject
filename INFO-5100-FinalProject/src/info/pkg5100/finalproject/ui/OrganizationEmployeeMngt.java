@@ -313,11 +313,13 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
             -1);
             
             newEmployee.setEmail(txtEmployeeEmail.getText());
-            sendEmailUtility.sendMail(newEmployee);
-            this.userDaoImplementation.add(newEmployee);
-            populateEmployeeTable(this.userDaoImplementation.getEmployeesByOrgId(this.currentOrganization.getId()));
-            JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
-            clearField();
+            int res=sendEmailUtility.sendMail(newEmployee);
+            if(res==1){
+                this.userDaoImplementation.add(newEmployee);
+                populateEmployeeTable(this.userDaoImplementation.getEmployeesByOrgId(this.currentOrganization.getId()));
+                JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+                clearField();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(OrganizationEmployeeMngt.class.getName()).log(Level.SEVERE, null, ex);
         }

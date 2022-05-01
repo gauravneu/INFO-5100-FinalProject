@@ -46,7 +46,12 @@ public class LabRequestsMngt extends javax.swing.JPanel {
         this.patientDaoImplementation = new PatientDaoImplementation();
         this.organizationDaoImplementation = new OrganizationDaoImplementation();
         this.labRequestDaoImplementation = new LabRequestDaoImplementation();
-
+        lblLabTechId.setText(String.valueOf(currentUser.getId()));
+        lblLabTechName.setText(currentUser.getName());
+        lblLabTechPhone.setText(currentUser.getPhone());
+        
+        
+        
         populateAvailableLabRequests();
         populateAcceptedLabRequests();
     }
@@ -74,7 +79,6 @@ public class LabRequestsMngt extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         btnAcceptLabRequest = new javax.swing.JButton();
         btnUpdateTestResult = new javax.swing.JButton();
-        btnCompleteRequest = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtTestResult = new javax.swing.JTextField();
 
@@ -135,8 +139,6 @@ public class LabRequestsMngt extends javax.swing.JPanel {
             }
         });
 
-        btnCompleteRequest.setText("Complete request");
-
         jLabel6.setBackground(new java.awt.Color(31, 75, 124));
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,26 +146,18 @@ public class LabRequestsMngt extends javax.swing.JPanel {
         jLabel6.setText("Lab Request Management");
         jLabel6.setOpaque(true);
 
-        txtTestResult.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTestResultActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(104, 104, 104)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtTestResult, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
+                        .addGap(95, 95, 95)
                         .addComponent(btnUpdateTestResult)
-                        .addGap(45, 45, 45)
-                        .addComponent(btnCompleteRequest)
-                        .addGap(112, 112, 112))
+                        .addGap(115, 115, 115))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -220,7 +214,6 @@ public class LabRequestsMngt extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateTestResult)
-                    .addComponent(btnCompleteRequest)
                     .addComponent(txtTestResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
@@ -259,7 +252,12 @@ public class LabRequestsMngt extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         try {
-            // TODO add your handling code here:
+            
+            if(txtTestResult.getText().trim().length() == 0){
+                JOptionPane.showMessageDialog(this, "Please fill Test Result.");
+                return;
+            }
+            
             int selectedRowIndex = tblAcceptedLabRequests.getSelectedRow();
             if (selectedRowIndex < 0) {
                 JOptionPane.showMessageDialog(this, "Please select a record.");
@@ -274,17 +272,14 @@ public class LabRequestsMngt extends javax.swing.JPanel {
             this.labRequestDaoImplementation.update(labRequest);
             populateAvailableLabRequests();
             populateAcceptedLabRequests();
-
+            
+            txtTestResult.setText("");
         } catch (SQLException ex) {
             Logger.getLogger(LabRequestsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
     }//GEN-LAST:event_btnUpdateTestResultActionPerformed
-
-    private void txtTestResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTestResultActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTestResultActionPerformed
 
     void populateAvailableLabRequests() {
         DefaultTableModel model = (DefaultTableModel) tblAvailableLabRequests.getModel();
@@ -315,7 +310,7 @@ public class LabRequestsMngt extends javax.swing.JPanel {
         model.setRowCount(0);
         try {
             for (LabRequest labRequest : this.labRequestDaoImplementation.getLabRequestByEmployeeId(this.currentUser.getId())) {
-                // -1 means doctor is not assigned yet and is available for picking up by a doctor
+                
                 if ("test-in-progress".equals(labRequest.getRequestStatus())) {
                     Object[] row = new Object[5];
                     row[0] = labRequest;
@@ -336,7 +331,6 @@ public class LabRequestsMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptLabRequest;
-    private javax.swing.JButton btnCompleteRequest;
     private javax.swing.JButton btnUpdateTestResult;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

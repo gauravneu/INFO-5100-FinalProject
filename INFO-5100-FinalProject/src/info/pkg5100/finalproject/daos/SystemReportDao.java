@@ -17,4 +17,6 @@ public interface SystemReportDao {
             throws SQLException; 
     public Map<String,Map<String,Integer>> getEmpCountLocationSpecificOrganization()
             throws SQLException; 
+    public HashMap<String,HashMap<String,Integer>> getLocationSoecificPatientDeathCount()
+             throws SQLException; 
 }

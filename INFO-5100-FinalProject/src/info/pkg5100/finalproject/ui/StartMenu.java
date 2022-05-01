@@ -54,7 +54,7 @@ public class StartMenu extends javax.swing.JFrame {
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info/pkg5100/finalproject/resources/logo.png"))); // NOI18N
         lblLogo.setLabelFor(lblLogo);
-        lblLogo.setText("DISASTER RELIEF");
+        lblLogo.setText("STAR - Save Treat & Rehabilitate");
         lblLogo.setPreferredSize(new java.awt.Dimension(286, 350));
         RightPanel.add(lblLogo, "card3");
 
@@ -71,7 +71,6 @@ public class StartMenu extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Proceed to Login");
-        btnLogin.setOpaque(false);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -82,7 +81,6 @@ public class StartMenu extends javax.swing.JFrame {
         btnReport.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnReport.setForeground(new java.awt.Color(255, 255, 255));
         btnReport.setText("Report Incident");
-        btnReport.setOpaque(false);
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReportActionPerformed(evt);
@@ -124,7 +122,7 @@ public class StartMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
+            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

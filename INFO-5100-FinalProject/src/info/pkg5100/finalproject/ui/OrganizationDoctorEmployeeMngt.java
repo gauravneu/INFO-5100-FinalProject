@@ -268,12 +268,14 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
                             Integer.valueOf(cmbBoxHospitalManager.getSelectedItem().toString()):-1);
 
             newEmployee.setEmail(txtEmployeeEmail.getText());
-            this.sendEmailUtility.sendMail(newEmployee);
-            this.userDaoImplementation.add(newEmployee);
-            populateEmployeeTable();
-            populateComboBoxHospitalManager();
-            JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
-            clearField();
+            int res=this.sendEmailUtility.sendMail(newEmployee);
+            if(res==1){
+                this.userDaoImplementation.add(newEmployee);
+                populateEmployeeTable();
+                populateComboBoxHospitalManager();
+                JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+                clearField();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(OrganizationDoctorEmployeeMngt.class.getName()).log(Level.SEVERE, null, ex);
         }

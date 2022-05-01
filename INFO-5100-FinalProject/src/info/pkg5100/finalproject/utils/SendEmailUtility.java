@@ -24,11 +24,11 @@ public class SendEmailUtility {
     
     UserDaoImplementation userDaoImplementation;
 
-    public void sendMail(User user) {
+    public int sendMail(User user) {
         // Setting the sender's and reciever's email address
             userDaoImplementation = new UserDaoImplementation();
         //User emailSender = userDaoImplementation.getUserById(1000);
-           
+           int res=1;
             String senderEmailAddress = "1809Hazel@gmail.com";
             String senderEmailPass = "123@Hazel";
             
@@ -65,7 +65,8 @@ public class SendEmailUtility {
 
             } catch (MessagingException ex) {
                 JOptionPane.showMessageDialog(null, "Please enter valid email");
-                return;
+                res=0;
             }
+            return res;
     }
 }

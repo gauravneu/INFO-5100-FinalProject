@@ -79,6 +79,8 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
         btnSendForInvestigation = new javax.swing.JButton();
         btnAddVitalSigns = new javax.swing.JButton();
         btnDeclareDead = new javax.swing.JButton();
+        txtUpdateIssue = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -160,6 +162,8 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setText("Final Comments :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,15 +184,22 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(btnViewAcceptedPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(btnSendForInvestigation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(btnAddVitalSigns, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(227, 227, 227)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtUpdateIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(95, 95, 95)
+                                .addComponent(btnViewAcceptedPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(btnSendForInvestigation, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
+                                .addComponent(btnAddVitalSigns, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(30, 30, 30)
                         .addComponent(btnDeclareDead, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,11 +211,15 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAcceptRequest)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUpdateIssue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnViewAcceptedPatient)
                     .addComponent(btnSendForInvestigation)
@@ -235,7 +250,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
     private void btnAcceptRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptRequestActionPerformed
         
         if (numberOfPatientsAssignedToCurrentDoctor() >= 2){
-            JOptionPane.showMessageDialog(this, "Already Checking 2 Patients!!");
+            JOptionPane.showMessageDialog(this, "Already Checking 2 Patients");
             return;
         }
         
@@ -290,7 +305,13 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Can't Send patient for Investigation Without getting all Lab And Pharmacy Results");
                 return;
             }
-
+            
+            
+            if (txtUpdateIssue.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Update Final Comments before Sending for Investigation.");
+                return;
+            }
+            patient.setPatientIssue(txtUpdateIssue.getText());
             patient.setIsConvicted("investigation-requested");
 
             try {
@@ -300,6 +321,8 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
             }
             populateAvailablePatientsTable();
             populateAcceptedPatientsTable();
+            
+            txtUpdateIssue.setText("");
 
         } catch (SQLException ex) {
             Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
@@ -334,13 +357,19 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please select a patient.");
                 return;
             }
+            
+            if (txtUpdateIssue.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(this, "Update Reason Of Death.");
+                return;
+            }
+            
 
             // TODO add your handling code here:
             DefaultTableModel model = (DefaultTableModel) tblAcceptedPatient.getModel();
             Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
             patient.setPatientStatus("dead");
             patient.setDoctorId(-1);
-
+            patient.setPatientIssue(txtUpdateIssue.getText());
             try {
                 this.patientDaoImplementation.update(patient);
             } catch (SQLException ex) {
@@ -348,6 +377,7 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
             }
             populateAvailablePatientsTable();
             populateAcceptedPatientsTable();
+            txtUpdateIssue.setText("");
 
         } catch (SQLException ex) {
             Logger.getLogger(HospitalDoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
@@ -443,10 +473,12 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
     private javax.swing.JButton btnViewAcceptedPatient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblAcceptedPatient;
     private javax.swing.JTable tblPatientRequest;
+    private javax.swing.JTextField txtUpdateIssue;
     // End of variables declaration//GEN-END:variables
 }

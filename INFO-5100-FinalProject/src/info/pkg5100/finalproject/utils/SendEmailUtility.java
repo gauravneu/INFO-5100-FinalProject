@@ -64,7 +64,8 @@ public class SendEmailUtility {
                 transport.close();
 
             } catch (MessagingException ex) {
-                JOptionPane.showMessageDialog(null, "Invalid Email Address!");
+                JOptionPane.showMessageDialog(null, "Please enter valid email");
+                return;
             }
     }
 }

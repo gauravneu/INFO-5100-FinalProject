@@ -22,101 +22,44 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLabel12" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="716" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel7" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel21" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cmbBoxHospitalManager" linkSize="2" min="-2" pref="157" max="-2" attributes="0"/>
                                   <Component id="txtEmployeeAge" linkSize="2" min="-2" pref="157" max="-2" attributes="0"/>
                                   <Component id="txtEmployeeName" linkSize="2" min="-2" pref="157" max="-2" attributes="0"/>
                                   <Component id="txtEmployeePhone" linkSize="2" min="-2" pref="157" max="-2" attributes="0"/>
                                   <Component id="txtEmployeeUsername" linkSize="2" min="-2" pref="157" max="-2" attributes="0"/>
                                   <Component id="cmbBoxRole" linkSize="2" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
-                                  <Component id="txtEmployeePassword" linkSize="2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtEmployeeEmail" linkSize="2" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                              <Component id="btnAddOrgAdim" min="-2" pref="130" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="cmbBoxHospitalManager" min="-2" pref="157" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblOrgLocationPlaceholder" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblOrgNamePlaceholder" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblOrgIdPlaceholder" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                              <Component id="btnAddDocInHospital" min="-2" pref="130" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtEmployeeAge1" alignment="0" pref="157" max="32767" attributes="0"/>
-                                  <Component id="txtEmployeeName1" alignment="0" pref="157" max="32767" attributes="0"/>
-                                  <Component id="txtEmployeePhone1" alignment="0" pref="157" max="32767" attributes="0"/>
-                                  <Component id="txtEmployeeUsername1" alignment="0" pref="157" max="32767" attributes="0"/>
-                                  <Component id="cmbDocEmp" alignment="0" pref="157" max="32767" attributes="0"/>
-                                  <Component id="txtEmployeePassword1" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
+                      <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+                      <Component id="btnAddOrgAdim" min="-2" pref="130" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="122" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -124,118 +67,50 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel12" min="-2" pref="87" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblOrgIdPlaceholder" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblOrgNamePlaceholder" min="-2" pref="14" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="jScrollPane1" min="-2" pref="88" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblOrgLocationPlaceholder" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="42" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbBoxHospitalManager" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="107" max="-2" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeeName" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel7" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeeAge" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel8" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeePhone" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel9" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeeUsername" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel10" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeePassword" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel11" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbBoxRole" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnAddOrgAdim" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeeName1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeeAge1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeePhone1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeeUsername1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmployeePassword1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbDocEmp" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnAddDocInHospital" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel6" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtEmployeeName" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel7" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtEmployeeAge" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel8" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtEmployeePhone" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel9" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtEmployeeUsername" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel10" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtEmployeeEmail" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel11" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbBoxRole" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbBoxHospitalManager" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnAddOrgAdim" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -289,51 +164,19 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Organization Information"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Id:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Name:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Location:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Employee name:"/>
+        <Property name="text" type="java.lang.String" value="Name"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Employee age:"/>
+        <Property name="text" type="java.lang.String" value="Age"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Employee phone:"/>
+        <Property name="text" type="java.lang.String" value="Phone"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmployeeName">
@@ -344,41 +187,24 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Employee Username"/>
+        <Property name="text" type="java.lang.String" value="Username"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Employee password"/>
+        <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmployeeUsername">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtEmployeePassword">
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="View"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="txtEmployeeEmail">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmployeeEmailActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Employee role"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblOrgIdPlaceholder">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="org_id_placeholder"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblOrgNamePlaceholder">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="org_name_placeholder"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblOrgLocationPlaceholder">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="org_location_placeholder"/>
+        <Property name="text" type="java.lang.String" value="Role"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbBoxRole">
@@ -403,7 +229,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Organization Employee Management"/>
+        <Property name="text" type="java.lang.String" value="Hospitals Employee Management"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
@@ -420,7 +246,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Add Hospital Manager"/>
+        <Property name="text" type="java.lang.String" value="Add Hospital Employees"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnAddOrgAdim">
@@ -435,70 +261,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddOrgAdimActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel13">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Employee name:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEmployeeName1">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel16">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Employee age:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEmployeeAge1">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel17">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Employee phone:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEmployeePhone1">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel18">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Employee Username"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEmployeeUsername1">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel19">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Employee password"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEmployeePassword1">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel20">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Employee role"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmbDocEmp">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnAddDocInHospital">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="7c" green="4b" red="1f" type="rgb"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Add Employee"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddDocInHospitalActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel21">

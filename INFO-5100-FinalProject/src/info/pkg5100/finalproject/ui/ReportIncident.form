@@ -51,7 +51,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblPhoto" max="32767" attributes="0"/>
-                  <Component id="jLabel8" alignment="0" pref="108" max="32767" attributes="0"/>
+                  <Component id="jLabel8" alignment="0" pref="133" max="32767" attributes="0"/>
                   <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabel6" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
@@ -59,7 +59,7 @@
                       <Component id="jLabel5" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="cmbBoxNetworkName" linkSize="5" pref="170" max="32767" attributes="0"/>
                   <Component id="txtReporterName" linkSize="5" max="32767" attributes="0"/>
@@ -68,13 +68,11 @@
                   <Component id="txtReporterMobile" linkSize="5" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnUpload" min="-2" pref="89" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="lblImage" min="-2" pref="232" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnUpload" min="-2" pref="89" max="-2" attributes="0"/>
+                  <Component id="lblImage" min="-2" pref="232" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="364" max="-2" attributes="0"/>
@@ -92,27 +90,31 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="203" max="-2" attributes="0"/>
-                      <EmptySpace min="86" pref="86" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtReporterName" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtReporterMobile" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel7" linkSize="4" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbBoxNetworkName" linkSize="4" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel8" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIncidentDescription" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel5" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtReporterName" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel6" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtReporterMobile" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel7" linkSize="4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cmbBoxNetworkName" linkSize="4" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel8" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtIncidentDescription" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="lblImage" min="-2" pref="170" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -124,9 +126,7 @@
                       <Component id="btnSubmitReport" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="lblImage" min="-2" pref="170" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="806" max="-2" attributes="0"/>
+              <EmptySpace pref="463" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

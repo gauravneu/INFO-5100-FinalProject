@@ -7,7 +7,9 @@ package info.pkg5100.finalproject.ui;
 import info.pkg5100.finalproject.daos.UserDaoImplementation;
 import info.pkg5100.finalproject.models.Organization;
 import info.pkg5100.finalproject.models.User;
+import info.pkg5100.finalproject.utils.SendEmailUtility;
 import info.pkg5100.finalproject.utils.SimpleTools;
+import info.pkg5100.finalproject.utils.Validator;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +30,8 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
     JPanel mainWorkJPanel;
     Organization currentOrganization;
     UserDaoImplementation userDaoImplementation;
+    Validator util;
+    SendEmailUtility sendEmailUtility;
 
     public OrganizationDoctorEmployeeMngt() {
         initComponents();
@@ -38,18 +42,15 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
         this.mainWorkJPanel = mainWorkJPanel;
         this.currentOrganization = currentOrganization;
         this.userDaoImplementation = new UserDaoImplementation();
-
-        lblOrgIdPlaceholder.setText(Integer.toString(this.currentOrganization.getId()));
-        lblOrgNamePlaceholder.setText(this.currentOrganization.getName());
-        lblOrgLocationPlaceholder.setText(this.currentOrganization.getLocation());
-
-        populateEmployeeTable();
-        populateComboBoxHospitalManager();
-
-        cmbDocEmp.addItem("doctor");
+        this.util=new Validator();
+        this.sendEmailUtility=new SendEmailUtility();
+        
+        cmbBoxRole.addItem("doctor");
         for (String roles : SimpleTools.getPossibleRoles(this.currentOrganization.getType())) {
             cmbBoxRole.addItem(roles);
         }
+        populateEmployeeTable();
+        populateComboBoxHospitalManager();
     }
 
     /**
@@ -63,10 +64,6 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployeeList = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -76,30 +73,13 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtEmployeeUsername = new javax.swing.JTextField();
-        txtEmployeePassword = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        txtEmployeeEmail = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        lblOrgIdPlaceholder = new javax.swing.JLabel();
-        lblOrgNamePlaceholder = new javax.swing.JLabel();
-        lblOrgLocationPlaceholder = new javax.swing.JLabel();
         cmbBoxRole = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         btnAddOrgAdim = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        txtEmployeeName1 = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        txtEmployeeAge1 = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        txtEmployeePhone1 = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        txtEmployeeUsername1 = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        txtEmployeePassword1 = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        cmbDocEmp = new javax.swing.JComboBox<>();
-        btnAddDocInHospital = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         cmbBoxHospitalManager = new javax.swing.JComboBox<>();
 
@@ -115,50 +95,36 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblEmployeeList);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Organization Information");
+        jLabel6.setText("Name");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("Id:");
+        jLabel7.setText("Age");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Name:");
+        jLabel8.setText("Phone");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Location:");
+        jLabel9.setText("Username");
 
-        jLabel6.setText("Employee name:");
+        jLabel10.setText("Email");
 
-        jLabel7.setText("Employee age:");
+        txtEmployeeEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmployeeEmailActionPerformed(evt);
+            }
+        });
 
-        jLabel8.setText("Employee phone:");
-
-        jLabel9.setText("Employee Username");
-
-        jLabel10.setText("Employee password");
-
-        jButton2.setText("View");
-
-        jLabel11.setText("Employee role");
-
-        lblOrgIdPlaceholder.setText("org_id_placeholder");
-
-        lblOrgNamePlaceholder.setText("org_name_placeholder");
-
-        lblOrgLocationPlaceholder.setText("org_location_placeholder");
+        jLabel11.setText("Role");
 
         jLabel12.setBackground(new java.awt.Color(31, 75, 124));
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Organization Employee Management");
+        jLabel12.setText("Hospitals Employee Management");
         jLabel12.setOpaque(true);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel14.setText("Employee List");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel15.setText("Add Hospital Manager");
+        jLabel15.setText("Add Hospital Employees");
 
         btnAddOrgAdim.setBackground(new java.awt.Color(31, 75, 124));
         btnAddOrgAdim.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,27 +132,6 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
         btnAddOrgAdim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddOrgAdimActionPerformed(evt);
-            }
-        });
-
-        jLabel13.setText("Employee name:");
-
-        jLabel16.setText("Employee age:");
-
-        jLabel17.setText("Employee phone:");
-
-        jLabel18.setText("Employee Username");
-
-        jLabel19.setText("Employee password");
-
-        jLabel20.setText("Employee role");
-
-        btnAddDocInHospital.setBackground(new java.awt.Color(31, 75, 124));
-        btnAddDocInHospital.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddDocInHospital.setText("Add Employee");
-        btnAddDocInHospital.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddDocInHospitalActionPerformed(evt);
             }
         });
 
@@ -198,249 +143,146 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
+                        .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel10)
-                                    .addComponent(jLabel11))
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel21))
                                 .addGap(43, 43, 43)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbBoxHospitalManager, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtEmployeeAge, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtEmployeePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtEmployeeUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEmployeePassword)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addComponent(btnAddOrgAdim, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEmployeeEmail)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel21)
-                        .addGap(43, 43, 43)
-                        .addComponent(cmbBoxHospitalManager, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(124, 124, 124)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblOrgLocationPlaceholder)
-                                    .addComponent(lblOrgNamePlaceholder)
-                                    .addComponent(lblOrgIdPlaceholder)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(83, 83, 83)
-                                .addComponent(jLabel1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addComponent(btnAddDocInHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel19))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEmployeeAge1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                                    .addComponent(txtEmployeeName1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                                    .addComponent(txtEmployeePhone1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                                    .addComponent(txtEmployeeUsername1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                                    .addComponent(cmbDocEmp, 0, 157, Short.MAX_VALUE)
-                                    .addComponent(txtEmployeePassword1))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(123, 123, 123)
+                        .addComponent(btnAddOrgAdim, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbBoxRole, txtEmployeeAge, txtEmployeeName, txtEmployeePassword, txtEmployeePhone, txtEmployeeUsername});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbBoxHospitalManager, cmbBoxRole, txtEmployeeAge, txtEmployeeEmail, txtEmployeeName, txtEmployeePhone, txtEmployeeUsername});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel11, jLabel21, jLabel6, jLabel7, jLabel8, jLabel9});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(lblOrgIdPlaceholder))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(lblOrgNamePlaceholder, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(lblOrgLocationPlaceholder, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(cmbBoxHospitalManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtEmployeeAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(txtEmployeePhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtEmployeeUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(txtEmployeePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(cmbBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAddOrgAdim)
-                            .addComponent(jButton2))
-                        .addGap(50, 50, 50))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(txtEmployeeName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(txtEmployeeAge1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(txtEmployeePhone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel18)
-                            .addComponent(txtEmployeeUsername1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel19)
-                            .addComponent(txtEmployeePassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel20)
-                            .addComponent(cmbDocEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAddDocInHospital)
-                        .addGap(69, 69, 69))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtEmployeeAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtEmployeePhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtEmployeeUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtEmployeeEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(cmbBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(cmbBoxHospitalManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnAddOrgAdim)
+                .addGap(31, 31, 31))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbBoxRole, jLabel10, jLabel11, jLabel6, jLabel7, jLabel8, jLabel9, txtEmployeeAge, txtEmployeeName, txtEmployeePassword, txtEmployeePhone, txtEmployeeUsername});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbBoxRole, jLabel10, jLabel11, jLabel6, jLabel7, jLabel8, jLabel9, txtEmployeeAge, txtEmployeeEmail, txtEmployeeName, txtEmployeePhone, txtEmployeeUsername});
 
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddOrgAdimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrgAdimActionPerformed
         try {
-
+            String message="";
+            if(!(util.isNotNullAndEmpty(txtEmployeeName.getText()) && util.isAlphabetic(txtEmployeeName.getText())))
+                message = "Please enter a valid name";
+            else if(!(util.isNotNullAndEmpty(txtEmployeeAge.getText()) && util.isNumeric(txtEmployeeAge.getText())))
+                message = "Please enter valid age";
+            else if(!(util.isNotNullAndEmpty(txtEmployeePhone.getText()) && util.isNumeric(txtEmployeePhone.getText()) && txtEmployeePhone.getText().length()==10 ))
+                message = "Please enter valid phone";
+            else if(!(util.isNotNullAndEmpty(txtEmployeeUsername.getText()) && util.isAlphanumeric(txtEmployeeUsername.getText())))
+                message = "Please enter an alphanumeric username";
+            else if(!(util.isNotNullAndEmpty(txtEmployeeEmail.getText()) && util.isValidEmail(txtEmployeeEmail.getText())))
+                message="Please enter valid email";
+            if(!"".equals(message)){
+                JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             for (User user : this.userDaoImplementation.getUsers()) {
-
-                if (user.getUsername().equalsIgnoreCase(txtEmployeeUsername.getText())) {
-                    JOptionPane.showMessageDialog(this, "UserName is already taken!!");
+                if (user.getUsername().trim().equalsIgnoreCase(txtEmployeeUsername.getText().trim())) {
+                    JOptionPane.showMessageDialog(this, "Username is already taken","Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+            }
+            
+            if (cmbBoxRole.getSelectedItem().toString().equalsIgnoreCase("doctor") && cmbBoxHospitalManager.getSelectedItem().toString().equals("Select")) {
+                JOptionPane.showMessageDialog(this, "Select Hospital","Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             int newId = SimpleTools.getUnusedId("users", 1000, 9999);
 
             User newEmployee = new User(newId,
                     txtEmployeeUsername.getText(),
-                    txtEmployeePassword.getText(),
+                    "123@Test",
                     txtEmployeeName.getText(),
                     txtEmployeeAge.getText(),
                     txtEmployeePhone.getText(),
                     cmbBoxRole.getSelectedItem().toString(),
                     this.currentOrganization.getId(),
-                    -1);
+                    cmbBoxRole.getSelectedItem().toString().equalsIgnoreCase("doctor")?
+                            Integer.valueOf(cmbBoxHospitalManager.getSelectedItem().toString()):-1);
 
+            newEmployee.setEmail(txtEmployeeEmail.getText());
+            this.sendEmailUtility.sendMail(newEmployee);
             this.userDaoImplementation.add(newEmployee);
             populateEmployeeTable();
             populateComboBoxHospitalManager();
+            JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+            clearField();
         } catch (SQLException ex) {
             Logger.getLogger(OrganizationDoctorEmployeeMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnAddOrgAdimActionPerformed
 
-    private void btnAddDocInHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDocInHospitalActionPerformed
+    private void txtEmployeeEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeEmailActionPerformed
         // TODO add your handling code here:
-        try {
-            if (cmbBoxHospitalManager.getSelectedItem().toString().equals("Select")) {
-                JOptionPane.showMessageDialog(this, "Select Hospital");
-                return;
-            }
-
-            for (User user : this.userDaoImplementation.getUsers()) {
-
-                if (user.getUsername().equalsIgnoreCase(txtEmployeeUsername1.getText())) {
-                    JOptionPane.showMessageDialog(this, "UserName is already taken!!");
-                    return;
-                }
-            }
-
-            int newId = SimpleTools.getUnusedId("users", 1000, 9999);
-
-            User newEmployee = new User(newId,
-                    txtEmployeeUsername1.getText(),
-                    txtEmployeePassword1.getText(),
-                    txtEmployeeName1.getText(),
-                    txtEmployeeAge1.getText(),
-                    txtEmployeePhone1.getText(),
-                    cmbDocEmp.getSelectedItem().toString(),
-                    this.currentOrganization.getId(),
-                    Integer.valueOf(cmbBoxHospitalManager.getSelectedItem().toString()));
-
-            this.userDaoImplementation.add(newEmployee);
-            populateEmployeeTable();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(OrganizationDoctorEmployeeMngt.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-    }//GEN-LAST:event_btnAddDocInHospitalActionPerformed
+    }//GEN-LAST:event_txtEmployeeEmailActionPerformed
 
     public void populateEmployeeTable() {
         try {
@@ -463,7 +305,7 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
         }
     }
 
-    void populateComboBoxHospitalManager() {
+    public void populateComboBoxHospitalManager() {
         cmbBoxHospitalManager.removeAllItems();
         cmbBoxHospitalManager.addItem("Select");
         try {
@@ -480,46 +322,35 @@ public class OrganizationDoctorEmployeeMngt extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddDocInHospital;
     private javax.swing.JButton btnAddOrgAdim;
     private javax.swing.JComboBox<String> cmbBoxHospitalManager;
     private javax.swing.JComboBox<String> cmbBoxRole;
-    private javax.swing.JComboBox<String> cmbDocEmp;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblOrgIdPlaceholder;
-    private javax.swing.JLabel lblOrgLocationPlaceholder;
-    private javax.swing.JLabel lblOrgNamePlaceholder;
     private javax.swing.JTable tblEmployeeList;
     private javax.swing.JTextField txtEmployeeAge;
-    private javax.swing.JTextField txtEmployeeAge1;
+    private javax.swing.JTextField txtEmployeeEmail;
     private javax.swing.JTextField txtEmployeeName;
-    private javax.swing.JTextField txtEmployeeName1;
-    private javax.swing.JTextField txtEmployeePassword;
-    private javax.swing.JTextField txtEmployeePassword1;
     private javax.swing.JTextField txtEmployeePhone;
-    private javax.swing.JTextField txtEmployeePhone1;
     private javax.swing.JTextField txtEmployeeUsername;
-    private javax.swing.JTextField txtEmployeeUsername1;
     // End of variables declaration//GEN-END:variables
+
+    private void clearField() {
+            txtEmployeeUsername.setText(null);
+            txtEmployeeName.setText(null);
+            txtEmployeeAge.setText(null);
+            txtEmployeePhone.setText(null);
+            txtEmployeeEmail.setText(null);
+            cmbBoxRole.setSelectedIndex(0);
+            cmbBoxHospitalManager.setSelectedIndex(0);
+    }
 }

@@ -81,6 +81,7 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
         jcbHousindDays = new javax.swing.JComboBox<>();
         lblHousingDays = new javax.swing.JLabel();
         btnRemoveFromHousing = new javax.swing.JButton();
+        btnDoctorsComment = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -139,6 +140,15 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
             }
         });
 
+        btnDoctorsComment.setBackground(new java.awt.Color(31, 75, 124));
+        btnDoctorsComment.setForeground(new java.awt.Color(255, 255, 255));
+        btnDoctorsComment.setText("Doctor's Comment");
+        btnDoctorsComment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoctorsCommentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,14 +165,16 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblHousingDays)
-                                .addGap(55, 55, 55)
-                                .addComponent(jcbHousindDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55)
-                                .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2))))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnDoctorsComment, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(lblHousingDays)
+                        .addGap(28, 28, 28)
+                        .addComponent(jcbHousindDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 279, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -177,7 +189,8 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHousingDays)
                     .addComponent(jcbHousindDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAcceptRequest))
+                    .addComponent(btnAcceptRequest)
+                    .addComponent(btnDoctorsComment))
                 .addGap(23, 23, 23)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,7 +206,7 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
             // TODO add your handling code here:
             int selectedRowIndex = tblAvailablePatient.getSelectedRow();
             if (selectedRowIndex < 0) {
-                JOptionPane.showMessageDialog(this, "Please select an incident.");
+                JOptionPane.showMessageDialog(this, "Please select a Patient.");
                 return;
             }
 
@@ -218,7 +231,7 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
     private void btnRemoveFromHousingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromHousingActionPerformed
         // TODO add your handling code here:
         try {
-            // TODO add your handling code here:
+            
             int selectedRowIndex = tblAcceptedPatients.getSelectedRow();
             if (selectedRowIndex < 0) {
                 JOptionPane.showMessageDialog(this, "Please select a Patient.");
@@ -241,6 +254,35 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
             Logger.getLogger(PatientHousingRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRemoveFromHousingActionPerformed
+
+    private void btnDoctorsCommentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorsCommentActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            // TODO add your handling code here:
+            int selectedRowIndex = tblAvailablePatient.getSelectedRow();
+            if (selectedRowIndex < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a Patient.");
+                return;
+            }
+
+            DefaultTableModel model = (DefaultTableModel) tblAvailablePatient.getModel();
+            Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+
+            
+            
+            String doctorComment = this.patientDaoImplementation.getPatientById(patient.getId()).getPatientIssue();
+            JOptionPane.showMessageDialog(this, doctorComment);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientHousingRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnDoctorsCommentActionPerformed
 
     void populateAcceptedCaseTable() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblAcceptedPatients.getModel();
@@ -280,6 +322,7 @@ public class PatientHousingRequestMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
+    private javax.swing.JButton btnDoctorsComment;
     private javax.swing.JButton btnRemoveFromHousing;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -81,6 +81,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
         jcbDetentionDays = new javax.swing.JComboBox<>();
         lblDetentionDays = new javax.swing.JLabel();
         btnRemoveFromDetention = new javax.swing.JButton();
+        btnDoctorsComment = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -139,6 +140,15 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
             }
         });
 
+        btnDoctorsComment.setBackground(new java.awt.Color(31, 75, 124));
+        btnDoctorsComment.setForeground(new java.awt.Color(255, 255, 255));
+        btnDoctorsComment.setText("Doctor's Comment");
+        btnDoctorsComment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoctorsCommentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,20 +159,24 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
                 .addComponent(btnRemoveFromDetention, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(245, 245, 245)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(245, 245, 245)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
                         .addComponent(lblDetentionDays)
-                        .addGap(68, 68, 68)
+                        .addGap(57, 57, 57)
                         .addComponent(jcbDetentionDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
-                        .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(0, 268, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDoctorsComment, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 287, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,9 +189,10 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDetentionDays)
+                    .addComponent(btnAcceptRequest)
                     .addComponent(jcbDetentionDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAcceptRequest))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                    .addComponent(btnDoctorsComment))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,6 +257,30 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRemoveFromDetentionActionPerformed
 
+    private void btnDoctorsCommentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorsCommentActionPerformed
+        // TODO add your handling code here:
+        
+         try {
+            // TODO add your handling code here:
+            int selectedRowIndex = tblAvailablePatient.getSelectedRow();
+            if (selectedRowIndex < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a Patient.");
+                return;
+            }
+
+            DefaultTableModel model = (DefaultTableModel) tblAvailablePatient.getModel();
+            Patient patient = (Patient) model.getValueAt(selectedRowIndex, 0);
+
+            
+            
+            String doctorComment = this.patientDaoImplementation.getPatientById(patient.getId()).getPatientIssue();
+            JOptionPane.showMessageDialog(this, doctorComment);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientHousingRequestMngt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDoctorsCommentActionPerformed
+
     void populateAcceptedCaseTable() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tblAcceptedPatients.getModel();
         model.setRowCount(0);
@@ -280,6 +319,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptRequest;
+    private javax.swing.JButton btnDoctorsComment;
     private javax.swing.JButton btnRemoveFromDetention;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -342,6 +342,8 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
             
             populateOrganizationTable();
             JOptionPane.showMessageDialog(this, "Organization Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+            txtOrgName.setText(null);
+            cmbOrganizationType.setSelectedIndex(0);
         } catch (SQLException ex) {
             Logger.getLogger(EnterpriseDetailsMngt.class.getName()).log(Level.SEVERE, null, ex);
         }

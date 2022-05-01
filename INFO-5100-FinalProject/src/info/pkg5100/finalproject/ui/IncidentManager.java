@@ -49,7 +49,7 @@ public class IncidentManager extends javax.swing.JPanel {
         this.organizationDaoImplementation = new OrganizationDaoImplementation();
         this.userDaoImplementation = new UserDaoImplementation();
         this.patientDaoImplementation = new PatientDaoImplementation();
-
+        populateCurrentLoggedInUser(incidentHandlingPolice);
         populateIncidentsTable();
 
     }
@@ -206,7 +206,7 @@ public class IncidentManager extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDetailedView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSendAmbulanceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAssignSelf))
+                    .addComponent(btnAssignSelf, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(245, 245, 245))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -352,4 +352,9 @@ public class IncidentManager extends javax.swing.JPanel {
     private javax.swing.JLabel lblReportIncident1;
     private javax.swing.JTable tblReportedIncidents;
     // End of variables declaration//GEN-END:variables
+
+    private void populateCurrentLoggedInUser(User incidentHandlingPolice) {
+        lblCurrentLoggedInIncidentPolice.setText(incidentHandlingPolice.getName());
+        lblCurrentLoggedInIncidentPoliceRole.setText(incidentHandlingPolice.getRole());
+    }
 }

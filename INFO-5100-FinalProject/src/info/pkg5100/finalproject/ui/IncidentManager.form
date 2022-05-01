@@ -82,7 +82,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnDetailedView" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="btnSendAmbulanceRequest" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="btnAssignSelf" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAssignSelf" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="245" max="-2" attributes="0"/>
           </Group>

@@ -240,6 +240,7 @@ public class EnterpriseMngt extends javax.swing.JPanel {
             this.enterpriseDaoImplementation.add(enterprise);
             populateEnterpriseTable(this.enterpriseDaoImplementation.getEnterpriseByLocation(this.currentNetwork.getNetworkName()));
             JOptionPane.showMessageDialog(this, "Enterprise Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+            clearField();
         } catch (SQLException ex) {
             Logger.getLogger(EnterpriseMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -299,4 +300,10 @@ public class EnterpriseMngt extends javax.swing.JPanel {
     private javax.swing.JTable tblEnterpriseList;
     private javax.swing.JTextField txtEnterpriseName;
     // End of variables declaration//GEN-END:variables
+
+    private void clearField() {
+        txtEnterpriseName.setText(null);
+        cmbBoxEnterpriseType.setSelectedIndex(0);
+
+    }
 }

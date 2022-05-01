@@ -266,6 +266,7 @@ public class NetworkMngt extends javax.swing.JPanel {
             this.networkDaoImplementation.add(network);
             populateNetworksTable(this.networkDaoImplementation.getNetworks());
             JOptionPane.showMessageDialog(this, "Network Added Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            txtNetworkName.setText(null);
         } catch (SQLException ex) {
             Logger.getLogger(NetworkMngt.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:

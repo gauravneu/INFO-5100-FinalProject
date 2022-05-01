@@ -134,6 +134,12 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
 
         lblOrgLocationPlaceholder.setText("org_location_placeholder");
 
+        cmbBoxRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxRoleActionPerformed(evt);
+            }
+        });
+
         jLabel12.setBackground(new java.awt.Color(31, 75, 124));
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -311,6 +317,7 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
             populateEmployeeTable(this.userDaoImplementation.getEmployeesByOrgId(this.currentOrganization.getId()));
             sendEmailUtility.sendMail(newEmployee);
             JOptionPane.showMessageDialog(this, "User Added Successfully","Success", JOptionPane.INFORMATION_MESSAGE);
+            clearField();
         } catch (SQLException ex) {
             Logger.getLogger(OrganizationEmployeeMngt.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -320,6 +327,10 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
     private void txtEmployeeEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmployeeEmailActionPerformed
+
+    private void cmbBoxRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxRoleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBoxRoleActionPerformed
 
     public void populateEmployeeTable(List<User> userList) {
         DefaultTableModel model = (DefaultTableModel) tblEmployeeList.getModel();
@@ -363,4 +374,13 @@ public class OrganizationEmployeeMngt extends javax.swing.JPanel {
     private javax.swing.JTextField txtEmployeePhone;
     private javax.swing.JTextField txtEmployeeUsername;
     // End of variables declaration//GEN-END:variables
+
+    private void clearField() {
+            txtEmployeeUsername.setText(null);
+            txtEmployeeName.setText(null);
+            txtEmployeeAge.setText(null);
+            txtEmployeePhone.setText(null);
+            txtEmployeeEmail.setText(null);
+            cmbBoxRole.setSelectedItem(0);
+    }
 }

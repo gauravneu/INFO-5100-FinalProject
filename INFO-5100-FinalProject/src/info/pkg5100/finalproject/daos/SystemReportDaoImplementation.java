@@ -40,7 +40,8 @@ public class SystemReportDaoImplementation implements SystemReportDao{
                 = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
          HashMap<String, HashMap<String, Integer>> map= new HashMap<>();
-         if(map.containsKey(rs.getString("location"))){
+         while(rs.next()){
+         if(!map.isEmpty() && map.containsKey(rs.getString("location"))){
                 map.get(rs.getString("location")).put(rs.getString("enterprisetype"),rs.getInt("empcount"));
             }
          else{
@@ -48,6 +49,7 @@ public class SystemReportDaoImplementation implements SystemReportDao{
                 sub.put(rs.getString("enterprisetype"),rs.getInt("empcount"));
                 map.put(rs.getString("location"), sub);
             }
+         }
         return map; 
     }
 
@@ -58,7 +60,8 @@ public class SystemReportDaoImplementation implements SystemReportDao{
                 = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         HashMap<String, HashMap<String, Integer>> map= new HashMap<>();
-         if(map.containsKey(rs.getString("location"))){
+        while(rs.next()){
+         if(!map.isEmpty() && map.containsKey(rs.getString("location"))){
                 map.get(rs.getString("location")).put(rs.getString("status"),rs.getInt("count"));
             }
          else{
@@ -66,6 +69,7 @@ public class SystemReportDaoImplementation implements SystemReportDao{
                 sub.put(rs.getString("status"),rs.getInt("count"));
                 map.put(rs.getString("location"), sub);
             }
+        }
         return map;    
     }
     

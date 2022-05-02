@@ -127,11 +127,11 @@ public class EnterpriseDetailsMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Name", "Location", "Type"
+                "Id", "Name", "Location", "Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

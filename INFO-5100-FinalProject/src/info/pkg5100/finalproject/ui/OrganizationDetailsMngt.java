@@ -97,7 +97,7 @@ public class OrganizationDetailsMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "name", "phone", "username"
+                "Id", "Name", "Phone", "Username"
             }
         ) {
             boolean[] canEdit = new boolean [] {

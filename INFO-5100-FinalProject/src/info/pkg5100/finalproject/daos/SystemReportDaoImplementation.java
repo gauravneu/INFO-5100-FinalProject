@@ -39,14 +39,15 @@ public class SystemReportDaoImplementation implements SystemReportDao{
        PreparedStatement ps
                 = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        HashMap<String, HashMap<String, Integer>> map= new HashMap<>();
-        while(rs.next()){
-            map.put(rs.getString("location"), new HashMap<String, Integer>() {
-            {
-                put(rs.getString("enterprisetype"),rs.getInt("empcount"));
+         HashMap<String, HashMap<String, Integer>> map= new HashMap<>();
+         if(map.containsKey(rs.getString("location"))){
+                map.get(rs.getString("location")).put(rs.getString("enterprisetype"),rs.getInt("empcount"));
             }
-        });
-        }
+         else{
+                HashMap<String, Integer> sub=new HashMap<>();
+                sub.put(rs.getString("enterprisetype"),rs.getInt("empcount"));
+                map.put(rs.getString("location"), sub);
+            }
         return map; 
     }
 
@@ -57,13 +58,14 @@ public class SystemReportDaoImplementation implements SystemReportDao{
                 = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         HashMap<String, HashMap<String, Integer>> map= new HashMap<>();
-        while(rs.next()){
-            map.put(rs.getString("location"), new HashMap<String, Integer>() {
-            {
-                put(rs.getString("status"),rs.getInt("count"));
+         if(map.containsKey(rs.getString("location"))){
+                map.get(rs.getString("location")).put(rs.getString("status"),rs.getInt("count"));
             }
-        });
-        }
+         else{
+                HashMap<String, Integer> sub=new HashMap<>();
+                sub.put(rs.getString("status"),rs.getInt("count"));
+                map.put(rs.getString("location"), sub);
+            }
         return map;    
     }
     

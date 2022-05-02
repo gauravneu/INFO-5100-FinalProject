@@ -90,7 +90,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Name", "Detention For Days", "Status"
+                "Id", "Name", "Detention For Days", "Status"
             }
         ));
         jScrollPane1.setViewportView(tblAcceptedPatients);
@@ -106,7 +106,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Name", "Police Report", "Incident Case"
+                "Id", "Name", "Police Report", "Incident Case"
             }
         ));
         jScrollPane3.setViewportView(tblAvailablePatient);
@@ -129,11 +129,12 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
 
         jcbDetentionDays.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lblDetentionDays.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblDetentionDays.setText("Detention For Days :");
 
         btnRemoveFromDetention.setBackground(new java.awt.Color(31, 75, 124));
         btnRemoveFromDetention.setForeground(new java.awt.Color(255, 255, 255));
-        btnRemoveFromDetention.setText("Remove");
+        btnRemoveFromDetention.setText("Remove Detention");
         btnRemoveFromDetention.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveFromDetentionActionPerformed(evt);
@@ -155,28 +156,26 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(405, 405, 405)
-                .addComponent(btnRemoveFromDetention, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(245, 245, 245)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2)))
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDetentionDays)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcbDetentionDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDoctorsComment))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(lblDetentionDays)
-                        .addGap(57, 57, 57)
-                        .addComponent(jcbDetentionDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDoctorsComment, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 287, Short.MAX_VALUE))
+                        .addGap(405, 405, 405)
+                        .addComponent(btnRemoveFromDetention, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 275, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,11 +191,11 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
                     .addComponent(btnAcceptRequest)
                     .addComponent(jcbDetentionDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDoctorsComment))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemoveFromDetention)
                 .addGap(24, 24, 24))
         );
@@ -207,7 +206,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
             // TODO add your handling code here:
             int selectedRowIndex = tblAvailablePatient.getSelectedRow();
             if (selectedRowIndex < 0) {
-                JOptionPane.showMessageDialog(this, "Please select an incident.");
+                JOptionPane.showMessageDialog(this, "Please select a record.");
                 return;
             }
 
@@ -236,7 +235,7 @@ public class PatientDetentionRequestMngt extends javax.swing.JPanel {
             // TODO add your handling code here:
             int selectedRowIndex = tblAcceptedPatients.getSelectedRow();
             if (selectedRowIndex < 0) {
-                JOptionPane.showMessageDialog(this, "Please select an incident.");
+                JOptionPane.showMessageDialog(this, "Please select a record.");
                 return;
             }
 

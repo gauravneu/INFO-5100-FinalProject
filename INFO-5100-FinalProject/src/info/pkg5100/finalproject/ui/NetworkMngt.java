@@ -75,7 +75,7 @@ public class NetworkMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "name"
+                "Id", "Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {

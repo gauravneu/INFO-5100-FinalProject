@@ -101,9 +101,17 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "description", "location", "status"
+                "Id", "Description", "Location", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblPendingAmbulanceRequests);
 
         btnAcceptRequest.setBackground(new java.awt.Color(31, 75, 124));
@@ -190,7 +198,7 @@ public class AmbulanceRequestMngt extends javax.swing.JPanel {
                         .addGap(248, 248, 248)
                         .addComponent(btnAcceptRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(417, 417, 417)
+                        .addGap(394, 394, 394)
                         .addComponent(btnSendRequestToHospitals, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(194, Short.MAX_VALUE))
         );

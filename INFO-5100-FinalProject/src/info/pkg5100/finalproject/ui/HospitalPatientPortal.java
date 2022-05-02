@@ -115,7 +115,15 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
             new String [] {
                 "Id", "Prescription name", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblPharmacyRequest);
 
         tblLabRequest.setModel(new javax.swing.table.DefaultTableModel(
@@ -125,7 +133,15 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
             new String [] {
                 "Id", "Lab request", "Result", "Request status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblLabRequest.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(tblLabRequest);
 
@@ -296,7 +312,7 @@ public class HospitalPatientPortal extends javax.swing.JPanel {
         // TODO add your handling code here:
           try {
             String message = "";	
-            if (!util.isNotNullAndEmpty(txtLabRequest.getText().trim())) {	
+            if (!util.isNotNullAndEmpty(txtPharmacyRequest.getText().trim())) {	
                 message = "Please enter a valid prescription";
                 JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
                 return;	

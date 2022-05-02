@@ -92,9 +92,17 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "name", "status"
+                "Id", "Name", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblPatientRequest);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -105,9 +113,17 @@ public class HospitalDoctorPortal extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "name", "status"
+                "Id", "Name", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tblAcceptedPatient);
 
         btnViewAcceptedPatient.setBackground(new java.awt.Color(31, 75, 124));
